@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "69wcJjteWeE=",
+  "dgSpecHash": "y/u784VFr1o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
+  "projectFilePath": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.8\\microsoft.aspnetcore.openapi.8.0.8.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
