@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hp\\programacionII\\backend\\EcoTrackBackend\\EcoTrackBackend.csproj": {}
+    "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hp\\programacionII\\backend\\EcoTrackBackend\\EcoTrackBackend.csproj": {
+    "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hp\\programacionII\\backend\\EcoTrackBackend\\EcoTrackBackend.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
         "projectName": "EcoTrackBackend",
-        "projectPath": "C:\\Users\\hp\\programacionII\\backend\\EcoTrackBackend\\EcoTrackBackend.csproj",
+        "projectPath": "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hp\\programacionII\\backend\\EcoTrackBackend\\obj\\",
+        "outputPath": "C:\\Users\\hp\\programacionII\\EcoTrackBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",

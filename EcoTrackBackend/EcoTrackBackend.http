@@ -1,4 +1,4 @@
-@EcoTrackBackend_HostAddress = http://localhost:5101
+@EcoTrackBackend_HostAddress = http://localhost:5277
 
 GET {{EcoTrackBackend_HostAddress}}/weatherforecast/
 Accept: application/json
