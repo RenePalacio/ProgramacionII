@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Y0rEJM05MrzzODxJNxetZ2qgDTubH6GwPGkG05cUYNg=",
+  "Source": "EcoTrackBackend",
+  "BasePath": "_content/EcoTrackBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
