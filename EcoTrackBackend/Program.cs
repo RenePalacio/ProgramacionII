@@ -9,6 +9,8 @@ builder.Services.AddDbContext<EcoTrackDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers(); // Para agregar controladores
+//Servicio de notificaciones 
+builder.Services.AddScoped<INotificacionService, NotificacionService>();
 
 // Swagger para la documentación
 builder.Services.AddEndpointsApiExplorer();
