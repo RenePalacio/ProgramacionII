@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using EcoTrack.Models;
 using EcoTrack.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,22 +17,15 @@ namespace EcoTrack.Controllers
             _notificacionService = notificacionService;
         }
 
-        // POST: api/notificaciones
-        [HttpPost]
-        public async Task<IActionResult> CrearNotificacion([FromBody] Notificacion notificacion)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Notificacion>>> GetNotificaciones()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var nuevaNotificacion = await _notificacionService.CrearNotificacion(notificacion);
-            return CreatedAtAction(nameof(GetNotificacion), new { id = nuevaNotificacion.IdNotificacion }, nuevaNotificacion);
+            var notificaciones = await _notificacionService.ObtenerTodasNotificaciones();
+            return Ok(notificaciones);
         }
 
-        // GET: api/notificaciones/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetNotificacion(int id)
+        public async Task<ActionResult<Notificacion>> GetNotificacion(int id)
         {
             var notificacion = await _notificacionService.ObtenerNotificacionPorId(id);
             if (notificacion == null)
@@ -43,12 +36,11 @@ namespace EcoTrack.Controllers
             return Ok(notificacion);
         }
 
-        // GET: api/notificaciones
-        [HttpGet]
-        public async Task<IActionResult> GetTodasNotificaciones()
+        [HttpPost]
+        public async Task<ActionResult<Notificacion>> PostNotificacion(Notificacion notificacion)
         {
-            var notificaciones = await _notificacionService.ObtenerTodasNotificaciones();
-            return Ok(notificaciones);
+            var createdNotificacion = await _notificacionService.CrearNotificacion(notificacion);
+            return CreatedAtAction(nameof(GetNotificacion), new { id = createdNotificacion.IdNotificacion }, createdNotificacion);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using EcoTrack.Models;
-using EcoTrack.Data;
+using EcoTrack.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,77 +10,79 @@ namespace EcoTrack.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly DbContext _context;
+        private readonly UsuarioService _usuarioService;
 
-        public UsuarioController(DbContext context)
+        public UsuarioController(UsuarioService usuarioService)
         {
-            _context = context;
+            _usuarioService = usuarioService;
         }
 
-        // GET: api/usuario
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-            return await _context.Usuarios.ToListAsync(); // Devuelve la lista de usuarios
+            var usuarios = await _usuarioService.ObtenerTodosLosUsuarios();
+            return Ok(usuarios);
         }
 
-        // GET: api/usuario/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id); // Busca el usuario por ID
+            var usuario = await _usuarioService.ObtenerUsuarioPorId(id);
             if (usuario == null)
             {
-                return NotFound(); // Si no se encuentra, devuelve un error 404
+                return NotFound("Usuario no encontrado.");
             }
-
-            return usuario; // Devuelve el usuario encontrado
+            return Ok(usuario);
         }
 
-        // POST: api/usuario
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario([FromBody] Usuario usuario)
         {
-            if (!ModelState.IsValid) // Verifica si el modelo es válido
+            if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); // Devuelve un error 400 si no es válido
+                return BadRequest(ModelState);
             }
-
-            _context.Usuarios.Add(usuario); // Añade el usuario al contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.IdUsuario }, usuario); // Devuelve la acción creada
+            try
+            {
+                var nuevoUsuario = await _usuarioService.CrearUsuario(usuario);
+                return CreatedAtAction(nameof(GetUsuario), new { id = nuevoUsuario.IdUsuario }, nuevoUsuario);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
         }
 
-        // PUT: api/usuario/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, [FromBody] Usuario usuario)
         {
             if (id != usuario.IdUsuario)
             {
-                return BadRequest(); // Devuelve un error 400 si los IDs no coinciden
+                return BadRequest();
             }
-
-            _context.Entry(usuario).State = EntityState.Modified; // Marca el usuario como modificado
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return NoContent(); // Devuelve un código 204 sin contenido
+            try
+            {
+                await _usuarioService.ActualizarUsuario(usuario);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // DELETE: api/usuario/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id); // Busca el usuario por ID
-            if (usuario == null)
+            try
             {
-                return NotFound(); // Devuelve un error 404 si no se encuentra
+                await _usuarioService.EliminarUsuario(id);
+                return NoContent();
             }
-
-            _context.Usuarios.Remove(usuario); // Elimina el usuario del contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return NoContent(); // Devuelve un código 204 sin contenido
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
