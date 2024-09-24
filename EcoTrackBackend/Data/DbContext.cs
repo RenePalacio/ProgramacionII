@@ -15,12 +15,10 @@ namespace EcoTrack
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuración de relaciones
-
             modelBuilder.Entity<DatosClima>()
                 .HasOne(d => d.Actividad)
-                .WithOne(a => a.Clima)
-                .HasForeignKey<DatosClima>(d => d.IdActividad)
+                .WithMany(a => a.DatosClima)
+                .HasForeignKey(d => d.IdActividad)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Actividad>()

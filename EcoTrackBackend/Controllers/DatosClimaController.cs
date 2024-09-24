@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using EcoTrack.Models;
-using EcoTrack.Data;
+using EcoTrack.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,77 +10,62 @@ namespace EcoTrack.Controllers
     [ApiController]
     public class DatosClimaController : ControllerBase
     {
-        private readonly DbContext _context;
+        private readonly DatosClimaService _datosClimaService;
 
-        public DatosClimaController(DbContext context)
+        public DatosClimaController(DatosClimaService datosClimaService)
         {
-            _context = context;
+            _datosClimaService = datosClimaService;
         }
 
-        // GET: api/datosclima
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DatosClima>>> GetDatosClima()
         {
-            return await _context.DatosClima.ToListAsync(); // Devuelve la lista de datos climáticos
+            var datosClima = await _datosClimaService.ObtenerTodosLosDatosClima();
+            return Ok(datosClima);
         }
 
-        // GET: api/datosclima/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<DatosClima>> GetDatosClima(int id)
         {
-            var datosClima = await _context.DatosClima.FindAsync(id); // Busca los datos climáticos por ID
+            var datosClima = await _datosClimaService.ObtenerDatosClimaPorId(id);
             if (datosClima == null)
             {
-                return NotFound(); // Devuelve un error 404 si no se encuentra
+                return NotFound();
             }
 
-            return datosClima; // Devuelve los datos climáticos encontrados
+            return Ok(datosClima);
         }
 
-        // POST: api/datosclima
         [HttpPost]
-        public async Task<ActionResult<DatosClima>> PostDatosClima([FromBody] DatosClima datosClima)
+        public async Task<ActionResult<DatosClima>> PostDatosClima(int idActividad)
         {
-            if (!ModelState.IsValid) // Verifica si el modelo es válido
-            {
-                return BadRequest(ModelState); // Devuelve un error 400 si no es válido
-            }
-
-            _context.DatosClima.Add(datosClima); // Añade los datos climáticos al contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return CreatedAtAction(nameof(GetDatosClima), new { id = datosClima.IdDatosClima }, datosClima); // Devuelve la acción creada
+            var datosClima = await _datosClimaService.ObtenerDatosClimaDesdeApis(idActividad);
+            return CreatedAtAction(nameof(GetDatosClima), new { id = datosClima.IdDatosClima }, datosClima);
         }
 
-        // PUT: api/datosclima/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDatosClima(int id, [FromBody] DatosClima datosClima)
         {
             if (id != datosClima.IdDatosClima)
             {
-                return BadRequest(); // Devuelve un error 400 si los IDs no coinciden
+                return BadRequest();
             }
 
-            _context.Entry(datosClima).State = EntityState.Modified; // Marca los datos climáticos como modificados
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return NoContent(); // Devuelve un código 204 sin contenido
+            await _datosClimaService.ActualizarDatosClima(datosClima);
+            return NoContent();
         }
 
-        // DELETE: api/datosclima/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDatosClima(int id)
         {
-            var datosClima = await _context.DatosClima.FindAsync(id); // Busca los datos climáticos por ID
+            var datosClima = await _datosClimaService.ObtenerDatosClimaPorId(id);
             if (datosClima == null)
             {
-                return NotFound(); // Devuelve un error 404 si no se encuentra
+                return NotFound();
             }
 
-            _context.DatosClima.Remove(datosClima); // Elimina los datos climáticos del contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return NoContent(); // Devuelve un código 204 sin contenido
+            await _datosClimaService.EliminarDatosClima(id);
+            return NoContent();
         }
     }
 }

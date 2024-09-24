@@ -1,0 +1,28 @@
+Los cambios que se hicieron en esta actualizacion fue la implementacion de servicios a los controladores para tener un menor manejo de las request CRUDS y asi tener un poco mas ordenado el proyecto, ya que si se quisiera agregar otro request se podra hacer directamente desde los servicios
+
+Los servicios de DatosClima tienen un apartado para las APIS que se utilizaran por si esto se utilizara cuando se llege a la implementacion de APIS, si esto no es viable y hay otra alternativas se descarta esto
+
+Se modifico un poco los controladores hecho para que pudieran usar los servicios respectivos y que no hubiera ningun conflicto aparente
+
+Se modifico un poco los modelos,Controladores,DBcontext y el program.cs debido a una relacion entre Actividades y DatosClima
+
+Se realizo las pruebas para probar que las operaciones CRUD funcionaran correctamente, esto se hizo en swagger y todas fueron exitosas 
+
+La logistica detras de los servicios de cada uno
+
+Ejemplo:
+
+(se usara actividad)
+ public async Task<List<Actividad>> ObtenerTodasLasActividades()
+        {
+            return await _dbContext.Actividades
+                .Include(a => a.Usuario)
+                .Include(a => a.TipoActividad)
+                .ToListAsync();
+        }
+
+se crea un task que hace llamar a todos los datos que tenemos recolectados (o hacer otra tarea) en la base de datos y aqui incluyimos los datos con relacion con llaves foraneas
+
+Se creo una carpeta de migraciones debido a que realice migraciones para este proceso 
+
+Se creo la Carpeta de Actualizaciones donde subiremos los datos mas importantes de cuando actualizemos el proyecto para que haya una mejor guia y mejor manejo de versiones

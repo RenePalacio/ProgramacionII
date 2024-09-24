@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcoTrackBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40405e0ef14bd291b4a4fdeeb1bf1f38832664ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2f68fad29e54e33ab313183ae182eee4d4333a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcoTrackBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcoTrackBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EcoTrack.Models;
-using EcoTrack.Data;
+using EcoTrack; 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,11 +11,11 @@ namespace EcoTrack.Controllers
     [ApiController]
     public class TipoActividadController : ControllerBase
     {
-        private readonly DbContext _context;
+        private readonly EcoTrackDbContext _context; // Cambiado a EcoTrackDbContext
 
-        public TipoActividadController(DbContext context)
+        public TipoActividadController(EcoTrackDbContext context)
         {
-            _context = context;
+            _context = context; // Asigna el contexto correcto
         }
 
         // GET: api/tipoactividad
@@ -42,15 +42,15 @@ namespace EcoTrack.Controllers
         [HttpPost]
         public async Task<ActionResult<TipoActividad>> PostTipoActividad([FromBody] TipoActividad tipoActividad)
         {
-            if (!ModelState.IsValid) // Verifica si el modelo es válido
+            if (!ModelState.IsValid) // Verifica si el modelo es vÃ¡lido
             {
-                return BadRequest(ModelState); // Devuelve un error 400 si no es válido
+                return BadRequest(ModelState); // Devuelve un error 400 si no es vÃ¡lido
             }
 
-            _context.TipoActividades.Add(tipoActividad); // Añade el tipo de actividad al contexto
+            _context.TipoActividades.Add(tipoActividad); // AÃ±ade el tipo de actividad al contexto
             await _context.SaveChangesAsync(); // Guarda los cambios
 
-            return CreatedAtAction(nameof(GetTipoActividad), new { id = tipoActividad.IdTipoActividad }, tipoActividad); // Devuelve la acción creada
+            return CreatedAtAction(nameof(GetTipoActividad), new { id = tipoActividad.IdTipoActividad }, tipoActividad); // Devuelve la acciÃ³n creada
         }
 
         // PUT: api/tipoactividad/{id}
@@ -65,7 +65,7 @@ namespace EcoTrack.Controllers
             _context.Entry(tipoActividad).State = EntityState.Modified; // Marca el tipo de actividad como modificado
             await _context.SaveChangesAsync(); // Guarda los cambios
 
-            return NoContent(); // Devuelve un código 204 sin contenido
+            return NoContent(); // Devuelve un cÃ³digo 204 sin contenido
         }
 
         // DELETE: api/tipoactividad/{id}
@@ -81,7 +81,7 @@ namespace EcoTrack.Controllers
             _context.TipoActividades.Remove(tipoActividad); // Elimina el tipo de actividad del contexto
             await _context.SaveChangesAsync(); // Guarda los cambios
 
-            return NoContent(); // Devuelve un código 204 sin contenido
+            return NoContent(); // Devuelve un cÃ³digo 204 sin contenido
         }
     }
 }

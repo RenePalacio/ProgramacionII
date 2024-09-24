@@ -8,30 +8,19 @@ namespace EcoTrack.Models
         [Key]
         public int IdDatosClima { get; set; }
 
-        [Required]
-        public int IdActividad { get; set; }
-        [ForeignKey("IdActividad")]
-        public required Actividad Actividad { get; set; }
+        public int IdActividad { get; set; } // Llave foránea
 
-        [Required]
         public float Temperatura { get; set; }
-
-        [Required]
         public float RayosUV { get; set; }
-
-        [Required]
         public float ProbabilidadLluvia { get; set; }
 
+        // Hacer estas propiedades requeridas
         [Required]
-        public string CalidadAire { get; set; }
-
+        public string CalidadAire { get; set; } = string.Empty; // Asignar un valor por defecto
         [Required]
-        public string Polvo { get; set; }
+        public string Polvo { get; set; } = string.Empty; // Asignar un valor por defecto
 
-        public DatosClima()
-        {
-            CalidadAire=string.Empty;
-            Polvo=string.Empty;
-        }
+        // Propiedad de navegación hacia Actividad
+        public required virtual Actividad Actividad { get; set; }
     }
 }
