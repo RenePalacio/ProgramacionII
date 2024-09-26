@@ -1,28 +1,39 @@
 import React from 'react';
 import './styles.css';
 
+const link = document.createElement('link');
+link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap';
+link.rel = 'stylesheet';
+document.head.appendChild(link);
+
 function App() {
   return (
     <div className="login-container">
-      {/* Logo y Título */}
       <div className="header">
         <img 
-          src="/Imagen de WhatsApp 2024-09-15 a las 22.10.41_9a257935.jpg"  // Cambiar por la URL de la imagen del reloj
+          src="https://i.ibb.co/mGbtJxR/ECOTRACK.png" 
           alt="Logo"
           className="logo"
         />
+        
         <h1 className="title">Iniciar Sesión</h1>
       </div>
 
-      {/* Formulario de Inicio de Sesión */}
       <form className="login-form">
-        <input type="email" placeholder="Correo Electronico" className="input-field" required />
-        <input type="password" placeholder="Contraseña" className="input-field" required />
-        <button type="submit" className="login-button">Iniciar Sesion</button>
+        <div className="input-container">
+          <input type="email" placeholder="Correo Electrónico" className="input-field" required />
+        </div>
+        <div className="input-container">
+          <input type="password" placeholder="Contraseña" className="input-field" required />
+        </div>
+        <button type="submit" className="login-button">Iniciar Sesión</button>
       </form>
 
-      
-        
+      <div className="cloud cloud1"></div>
+      <div className="cloud cloud2"></div>
+      <div className="cloud cloud3"></div>
+      <div className="cloud cloud4"></div>
+
     </div>
   );
 }
