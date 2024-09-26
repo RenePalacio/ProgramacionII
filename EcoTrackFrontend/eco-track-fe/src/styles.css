@@ -1,142 +1,167 @@
-/* General */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #e3f0e0e0;
-  }
-  
-  .container {
-    width: 375px;
-    height: 667px;
-    background-color: #2e8a5e;
-    border-radius: 20px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Sección del título */
-  .header .title {
-    font-size: 36px;
-    margin-top: 20px;
-    color: #000707;
-  }
-  
-  /* Imagen */
-  .image-container {
-    margin: 40px 0;
-  }
-  
-  .logo {
-    width: 150px;
-    height: 150px;
-  }
-  
-  /* Texto de bienvenida */
-  .welcome-section h2 {
-    font-size: 24px;
-    color: #080808;
-  }
-  
-  .welcome-section p {
-    font-size: 16px;
-    color: #080000;
-    margin: 10px 0;
-  }
-  
-  /* Botón de inicio de sesión */
-  .button-container {
-    margin-top: 20px;
-  }
-  
-  .sign-in-button {
-    background-color: #2f4f4f;
-    color: rgb(243, 240, 240);
-    border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .sign-in-button:hover {
-    background-color: #465f5f;
-  }
-  
-  /* Enlace de registro */
-  .sign-up {
-    margin-top: 20px;
-  }
-  
-  .sign-up p {
-    color: #080101;
-  }
-  
-  .sign-up a {
-    color: #010707;
-    text-decoration: none;
-  }
-  
-  .sign-up a:hover {
-    text-decoration: underline;
-  }
-  
-
-  /* Estilos generales */
-body, html {
+body {
   margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #015b52, #adb69f); /* Degradado dinámico */
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  position: relative;
 }
 
-/* Contenedor principal */
-.container, .login-container {
-  width: 375px;
-  height: 667px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+.login-container {
+  z-index: 2;
   text-align: center;
-  padding: 20px;
 }
 
-/* Estilos del formulario de inicio de sesión */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.header {
+  margin-bottom: 0px;
+}
+
+.logo {
+  width: 100%; 
+  max-width: 200px; 
+  height: auto; 
+  margin-bottom: 20px; 
+}
+
+.title {
+  color: #000000;
+  font-size: 2.5rem;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
 .login-form {
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: justify;
+}
+
+.input-container {
+  width: 80%;
+  margin: 10px 0;
 }
 
 .input-field {
-  width: 90%; /* Cambiar a 90% */
-  padding: 15px;
-  margin: 10px auto; /* Cambia el margen a auto para centrar */
+  padding: 15px 25px;
+  width: 100%;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px; /* Bordes redondeados más grandes */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+}
+
+.input-field:focus {
+  border-color: #2e7d32; /* Cambiar el color del borde al enfocar */
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.5); /* Efecto de sombra al enfocar */
 }
 
 .login-button {
-  width: 100%;
-  background-color: #2f4f4f;
-  color: white;
-  padding: 15px;
+  padding: 15px 25px;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px;
+  background-color: #000000;
+  color: white;
+  font-size: 1.2rem;
   cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s; /* Efecto de transformacion */
 }
 
 .login-button:hover {
-  background-color: #3c5858;
+  background-color: #3ebd53;
+  transform: scale(1.05); /* Efecto Buton */
+}
+
+.cloud {
+  position: absolute;
+  background-size: cover;
+  opacity: 0.9;
+  animation: float 10s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(15px, -15px); }
+  100% { transform: translate(0, 0); }
+}
+
+.cloud1 {
+  width: 300px;
+  height: 250px;
+  top: 10%;
+  left: 5%;
+  background-image: url('https://i.ibb.co/SsB90qS/nube.png');
+}
+
+.cloud2 {
+  width: 190px;
+  height: 150px;
+  top: 20%;
+  right: 13%;
+  background-image: url('https://i.ibb.co/N9N1htY/nube2.png');
+}
+
+.cloud3 {
+  width: 250px;
+  height: 225px;
+  top: 72%;
+  right: 20%;
+  background-image: url('https://i.ibb.co/VgWQVBg/nube3.png');
+}
+
+.cloud4 {
+  width: 190px;
+  height: 150px;
+  top: 60%;
+  left: 1%;
+  background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png');
 }
 
 
+@media (max-width: 768px) {
+  .title {
+      font-size: 2rem;
+  }
+
+  .input-field {
+      width: 90%;
+      padding: 12px; /* Ajustar el padding */
+  }
+
+  .cloud1 {
+      width: 200px; /* Tamaño responsivo */
+      height: 185px; /* Tamaño responsivo */
+  }
+
+  .cloud2 {
+      width: 120px; /* Tamaño responsivo */
+      height: 90px; /* Tamaño responsivo */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+      font-size: 2rem;
+  }
+
+  .input-field {
+      width: 95%;
+      padding: 20px 25px; /* Ajustar el padding */
+  }
+
+  .cloud1 {
+      width: 150px; /* Tamaño responsivo */
+      height: 150px; /* Tamaño responsivo */
+  }
+
+  .cloud2 {
+      width: 100px; /* Tamaño responsivo */
+      height: 95px; /* Tamaño responsivo */
+  }
+}
