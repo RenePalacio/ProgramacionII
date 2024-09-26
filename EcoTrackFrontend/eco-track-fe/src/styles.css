@@ -1,0 +1,142 @@
+/* General */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e3f0e0e0;
+  }
+  
+  .container {
+    width: 375px;
+    height: 667px;
+    background-color: #2e8a5e;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Sección del título */
+  .header .title {
+    font-size: 36px;
+    margin-top: 20px;
+    color: #000707;
+  }
+  
+  /* Imagen */
+  .image-container {
+    margin: 40px 0;
+  }
+  
+  .logo {
+    width: 150px;
+    height: 150px;
+  }
+  
+  /* Texto de bienvenida */
+  .welcome-section h2 {
+    font-size: 24px;
+    color: #080808;
+  }
+  
+  .welcome-section p {
+    font-size: 16px;
+    color: #080000;
+    margin: 10px 0;
+  }
+  
+  /* Botón de inicio de sesión */
+  .button-container {
+    margin-top: 20px;
+  }
+  
+  .sign-in-button {
+    background-color: #2f4f4f;
+    color: rgb(243, 240, 240);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .sign-in-button:hover {
+    background-color: #465f5f;
+  }
+  
+  /* Enlace de registro */
+  .sign-up {
+    margin-top: 20px;
+  }
+  
+  .sign-up p {
+    color: #080101;
+  }
+  
+  .sign-up a {
+    color: #010707;
+    text-decoration: none;
+  }
+  
+  .sign-up a:hover {
+    text-decoration: underline;
+  }
+  
+
+  /* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+/* Contenedor principal */
+.container, .login-container {
+  width: 375px;
+  height: 667px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos del formulario de inicio de sesión */
+.login-form {
+  margin-top: 40px;
+}
+
+.input-field {
+  width: 90%; /* Cambiar a 90% */
+  padding: 15px;
+  margin: 10px auto; /* Cambia el margen a auto para centrar */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #2f4f4f;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #3c5858;
+}
+
+
