@@ -27,9 +27,9 @@ body {
   width: 100%; 
   max-width: 200px; 
   height: auto; 
-  margin-bottom: 20px; 
+  margin: -100px auto 10px auto; /* Ajusta el margen superior negativo y el inferior */
+  display: block; /* Asegúrate de que se comporte como un bloque para centrarlo */
 }
-
 .title {
   color: #000000;
   font-size: 2.5rem;
@@ -164,4 +164,19 @@ body {
       width: 100px; /* Tamaño responsivo */
       height: 95px; /* Tamaño responsivo */
   }
+
+  @media (max-width: 768px) {
+  .logo {
+      margin: -15px auto 10px auto; /* Reduce el margen superior negativo para pantallas pequeñas */
+  }
 }
+
+@media (max-width: 480px) {
+  .logo {
+      margin: -150px auto 5px auto; /* Reduce el margen superior negativo aún más para pantallas muy pequeñas */
+  }
+}
+}
+
+/*ESTE CODIGO DE ABAJO ES DE HOME*/
+
