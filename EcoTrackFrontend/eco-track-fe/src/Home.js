@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles.css';
+import './Home.css';
 
 function Home() {
   const navigate = useNavigate(); // Hook para redirigir
@@ -9,35 +9,27 @@ function Home() {
     navigate('/dashboard'); // Redirige al dashboard
   };
 
+  const handleRegister = () => {
+    navigate('/register'); // Redirige a la página de registro
+  };
+
   return (
-    <div className="container">
-      <header className="header">
-        <h1 className="title">ECO TRACK</h1>
-      </header>
-
-      <div className="image-container">
-        <img 
-          src="https://i.ibb.co/mGbtJxR/ECOTRACK.png" // Ruta de tu imagen
-          alt="Eco Track logo"
-          className="logo"
-        />
-      </div>
-
+    <div className="home-container">
       <div className="welcome-section">
-        <h2>Bienvenido</h2>
-        <p>Hola que gusto tenerte por aquí. Esta es tu app favorita para ser más amigable con el medio ambiente.</p>
+        <h1 className="welcome-title">¡BIENVENIDO!</h1>
+        <p className="welcome-message">Hola, qué gusto tenerte por aquí en EcoTrack. Da el salto a tener un horario interactivo y amigable </p>
       </div>
 
       <div className="button-container">
         <button className="sign-in-button" onClick={handleLogin}>Inicia Sesión</button>
+        <button className="register-button" onClick={handleRegister}>Regístrate aquí</button>
       </div>
 
-      <div className="sign-up">
-        <p>No tienes cuenta? <a href="/sign-up">Regístrate aquí</a></p>
-      </div>
+      {/* Elementos decorativos */}
+      <div className="ground"></div>
+      <div className="ocean"></div>
     </div>
   );
 }
 
 export default Home;
-

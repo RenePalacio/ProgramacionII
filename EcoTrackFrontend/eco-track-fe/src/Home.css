@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #015b52, #adb69f);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.home-container {
+  z-index: 2;
+  text-align: center;
+}
+
+.welcome-section {
+  
+  animation: fadeIn 1s;
+}
+
+.welcome-title {
+  color: #000000;
+  font-size: 3rem;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.welcome-message {
+  font-size: 1.5rem;
+  color: #181717;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-in-button,
+.register-button {
+  padding: 15px 30px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.sign-in-button:hover,
+.register-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.image-space {
+  margin-top: 40px; /* Espacio para imágenes */
+  height: 200px; /* Ajusta según necesites */
+  background: url('https://via.placeholder.com/600x200') no-repeat center center; /* Imagen de ejemplo */
+  background-size: cover;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
