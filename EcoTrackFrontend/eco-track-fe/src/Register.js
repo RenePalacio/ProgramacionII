@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Importa ambos para la navegación
 import './styles.css';
 
 const link = document.createElement('link');
@@ -8,14 +7,6 @@ link.rel = 'stylesheet';
 document.head.appendChild(link);
 
 function App() {
-  const navigate = useNavigate(); // Hook para redirigir
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); 
-    // Lógica de autenticación
-    navigate('/Pantalla3');
-  };
-
   return (
     <div className="login-container">
       <div className="header">
@@ -24,23 +15,31 @@ function App() {
           alt="Logo"
           className="logo"
         />
-        <h1 className="title">Iniciar Sesión</h1>
+        
+        <h1 className="title">Registrar Cuenta</h1>
       </div>
 
-      {/* Formulario de Inicio de Sesión */}
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form">
+        <div className="input-container">
+          <input type="text" placeholder="Nombre Completo" className="input-field" required />
+        </div>
         <div className="input-container">
           <input type="email" placeholder="Correo Electrónico" className="input-field" required />
         </div>
         <div className="input-container">
           <input type="password" placeholder="Contraseña" className="input-field" required />
         </div>
-        <button type="submit" className="login-button">Iniciar Sesión</button>
+        <div className="input-container">
+          <input type="password" placeholder="Confirmar Contraseña" className="input-field" required />
+        </div>
+        <button 
+            type="submit" 
+            className="login-button" 
+            style={{ width: '95%' }}
+          >
+            Registrar
+          </button>
       </form>
-
-      <div className="register-prompt">
-        <p>No tienes cuenta? <Link to="/register" className="register-link">Regístrate</Link></p>
-      </div>
 
       <div className="cloud cloud1"></div>
       <div className="cloud cloud2"></div>
