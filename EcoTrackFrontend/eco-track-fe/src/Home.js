@@ -5,7 +5,7 @@ import './styles.css';
 function Home() {
   const navigate = useNavigate(); // Hook para redirigir
 
-  const handleLogin = () => {
+  const handleLogin = () => { 
     navigate('/dashboard'); // Redirige al dashboard
   };
 
@@ -40,4 +40,3 @@ function Home() {
 }
 
 export default Home;
-
