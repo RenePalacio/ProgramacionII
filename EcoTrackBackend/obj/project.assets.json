@@ -4556,19 +4556,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\erazo\\.nuget\\packages\\": {}
+    "C:\\Users\\hp\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\APP\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
+      "projectUniqueName": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
       "projectName": "EcoTrackBackend",
-      "projectPath": "C:\\APP\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
-      "packagesPath": "C:\\Users\\erazo\\.nuget\\packages\\",
-      "outputPath": "C:\\APP\\ProgramacionII\\EcoTrackBackend\\obj\\",
+      "projectPath": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
+      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\erazo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4576,6 +4576,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4588,6 +4589,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4642,7 +4648,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
