@@ -9,27 +9,19 @@ body {
   position: relative;
 }
 
-.login-container {
+.container {
   z-index: 2;
   text-align: center;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.header {
-  margin-bottom: 0px;
 }
 
 .logo {
   width: 100%; 
   max-width: 200px; 
   height: auto; 
-  margin: -100px auto 10px auto; /* Ajusta el margen superior negativo y el inferior */
+  margin: -100px auto 10px auto; /* Ajusta el margen superior negativo */
   display: block; /* Asegúrate de que se comporte como un bloque para centrarlo */
 }
+
 .title {
   color: #000000;
   font-size: 2.5rem;
@@ -40,7 +32,9 @@ body {
 .login-form {
   display: flex;
   flex-direction: column;
-  align-items: justify;
+  align-items: center;
+  width: 100%; 
+  max-width: 400px; 
 }
 
 .input-container {
@@ -64,18 +58,19 @@ body {
 
 .login-button {
   padding: 15px 25px;
+  width: 100%;
   border: none;
   border-radius: 8px;
   background-color: #000000;
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: transform 0.3s, background-color 0.3s; /* Efecto de transformacion */
+  transition: transform 0.3s, background-color 0.3s; /* Efecto de transformación */
 }
 
 .login-button:hover {
   background-color: #3ebd53;
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); /* Efecto botón */
 }
 
 .cloud {
@@ -91,93 +86,52 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-.cloud1 {
-  width: 300px;
-  height: 250px;
-  top: 10%;
-  left: 5%;
-  background-image: url('https://i.ibb.co/SsB90qS/nube.png');
-}
-
-.cloud2 {
-  width: 190px;
-  height: 150px;
-  top: 20%;
-  right: 13%;
-  background-image: url('https://i.ibb.co/N9N1htY/nube2.png');
-}
-
-.cloud3 {
-  width: 250px;
-  height: 225px;
-  top: 72%;
-  right: 20%;
-  background-image: url('https://i.ibb.co/VgWQVBg/nube3.png');
-}
-
-.cloud4 {
-  width: 190px;
-  height: 150px;
-  top: 60%;
-  left: 1%;
-  background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png');
-}
-
+/* Estilos para las nubes */
+.cloud1 { width: 300px; height: 250px; top: 10%; left: 5%; background-image: url('https://i.ibb.co/SsB90qS/nube.png'); }
+.cloud2 { width: 190px; height: 150px; top: 20%; right: 13%; background-image: url('https://i.ibb.co/N9N1htY/nube2.png'); }
+.cloud3 { width: 250px; height: 225px; top: 72%; right: 20%; background-image: url('https://i.ibb.co/VgWQVBg/nube3.png'); }
+.cloud4 { width: 190px; height: 150px; top: 60%; left: 1%; background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png'); }
 
 @media (max-width: 768px) {
-  .title {
-      font-size: 2rem;
-  }
-
-  .input-field {
-      width: 90%;
-      padding: 12px; /* Ajustar el padding */
-  }
-
-  .cloud1 {
-      width: 200px; /* Tamaño responsivo */
-      height: 185px; /* Tamaño responsivo */
-  }
-
-  .cloud2 {
-      width: 120px; /* Tamaño responsivo */
-      height: 90px; /* Tamaño responsivo */
-  }
+  .title { font-size: 2rem; }
+  .input-field { width: 90%; padding: 12px; }
 }
 
 @media (max-width: 480px) {
-  .title {
-      font-size: 2rem;
-  }
-
-  .input-field {
-      width: 95%;
-      padding: 20px 25px; /* Ajustar el padding */
-  }
-
-  .cloud1 {
-      width: 150px; /* Tamaño responsivo */
-      height: 150px; /* Tamaño responsivo */
-  }
-
-  .cloud2 {
-      width: 100px; /* Tamaño responsivo */
-      height: 95px; /* Tamaño responsivo */
-  }
-
-  @media (max-width: 768px) {
-  .logo {
-      margin: -15px auto 10px auto; /* Reduce el margen superior negativo para pantallas pequeñas */
-  }
+  .title { font-size: 2rem; }
+  .input-field { width: 95%; padding: 20px 25px; }
+  .logo { margin: -150px auto 5px auto; } /* Ajuste para pantallas muy pequeñas */
 }
 
-@media (max-width: 480px) {
-  .logo {
-      margin: -150px auto 5px auto; /* Reduce el margen superior negativo aún más para pantallas muy pequeñas */
-  }
+/* Estilos para inputs */
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-/*ESTE CODIGO DE ABAJO ES DE HOME*/
+input[type="text"], input[type="date"], input[type="time"], textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s; 
+}
 
+textarea {
+  height: 100px;
+  resize: vertical;
+}
 
+input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus {
+  border-color: #007bff; 
+  outline: none; 
+}
