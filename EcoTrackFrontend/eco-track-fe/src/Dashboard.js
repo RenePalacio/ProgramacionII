@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importa Link para la navegación
 import './styles.css';
 
 const link = document.createElement('link');
@@ -29,11 +30,14 @@ function App() {
         <button type="submit" className="login-button">Iniciar Sesión</button>
       </form>
 
+      <div className="register-prompt">
+        <p>No tienes cuenta? <Link to="/register" className="register-link">Regístrate</Link></p>
+      </div>
+
       <div className="cloud cloud1"></div>
       <div className="cloud cloud2"></div>
       <div className="cloud cloud3"></div>
       <div className="cloud cloud4"></div>
-
     </div>
   );
 }
