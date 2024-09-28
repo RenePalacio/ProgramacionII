@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Importa ambos para la navegación
+import { Link } from 'react-router-dom'; // Importa Link para la navegación
 import './styles.css';
 
 const link = document.createElement('link');
@@ -8,14 +8,6 @@ link.rel = 'stylesheet';
 document.head.appendChild(link);
 
 function App() {
-  const navigate = useNavigate(); // Hook para redirigir
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); 
-    // Lógica de autenticación
-    navigate('/Pantalla3');
-  };
-
   return (
     <div className="login-container">
       <div className="header">
@@ -24,11 +16,11 @@ function App() {
           alt="Logo"
           className="logo"
         />
+        
         <h1 className="title">Iniciar Sesión</h1>
       </div>
 
-      {/* Formulario de Inicio de Sesión */}
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form">
         <div className="input-container">
           <input type="email" placeholder="Correo Electrónico" className="input-field" required />
         </div>
