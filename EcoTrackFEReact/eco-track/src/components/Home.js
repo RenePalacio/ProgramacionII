@@ -19,7 +19,7 @@ function Home() {
         <img 
           src="/Imagen de WhatsApp 2024-09-15 a las 22.10.41_9a257935.jpg" // Ruta de tu imagen
           alt="Eco Track logo"
-          className="logo"
+          className="home-logo"
         />
       </div>
 
