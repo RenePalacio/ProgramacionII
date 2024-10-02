@@ -18,7 +18,7 @@ function App() {
         <img 
           src="/Imagen de WhatsApp 2024-09-15 a las 22.10.41_9a257935.jpg" // Cambiar por la URL de la imagen del reloj
           alt="Logo"
-          className="logo"
+          className="home-logo"
         />
         <h1 className="title">Iniciar Sesión</h1>
       </div>
