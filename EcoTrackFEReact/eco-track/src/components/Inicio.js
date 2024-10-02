@@ -5,7 +5,7 @@ import { faCalendarAlt, faClipboardList, faBell, faSearch } from '@fortawesome/f
 import './styles.css';
 import MenuDesplegable from './MenuDesplegable'; // Importa el componente del menú
 
-const Pantalla6 = () => {
+const Inicio = () => {
     const navigate = useNavigate();
 
     // Función para navegar a la pantalla para agregar una nueva dirección
@@ -98,4 +98,4 @@ const Pantalla6 = () => {
     );
 };
 
-export default Pantalla6;
+export default Inicio;

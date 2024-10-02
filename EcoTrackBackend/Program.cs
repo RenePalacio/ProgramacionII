@@ -6,8 +6,22 @@ using EcoTrack.Services;
 using Microsoft.OpenApi.Models;
 using EcoTrack;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
+// Configuración de Entity Framework y servicios
 builder.Services.AddDbContext<EcoTrackDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -32,6 +46,9 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+
+app.UseCors("AllowAllOrigins");
+
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcoTrack API v1"));
 
@@ -40,3 +57,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
