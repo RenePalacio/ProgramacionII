@@ -6,7 +6,10 @@ import Register from './components/Register'; // Componente de la segunda pantal
 import EditarDireccion from './components/CambioDireccion';
 import AgregarDireccion from './components/AgregaDireccion';
 import CrearActividad from './components/CrearActividad';
-
+import Inicio from './components/Inicio';
+import EditarActividad from './components/EditarActividad';
+import MapaUbicacion from './components/MapaUbicacion';
+import Perfilusuario from './components/Perfilusuario'
 
 function App() {
   return (
@@ -19,9 +22,12 @@ function App() {
         <Route path="/" element={<Dashboard />} />
 
         <Route path="/register" element={<Register />} />
-        <Route path="/cambiardireccion" element={<EditarDireccion />}/>
-        <Route path="/agregardireccion" element={<AgregarDireccion />}/>
+        <Route path="/inicio" element={<Inicio/>} /> 
         <Route path="/crearAct" element={<CrearActividad />}/>
+        <Route path="/editarAct" element={<EditarActividad />}/>
+        <Route path="/ubicacion" element={<MapaUbicacion />}/>
+        <Route path="/perfil" element={<Perfilusuario />} /> 
+        
         
       </Routes>
     </Router>

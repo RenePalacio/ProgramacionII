@@ -5,7 +5,7 @@ import { faCalendarAlt, faClipboardList, faBell, faCog, faStar, faSearch, faClou
 import './styles.css'; // Asegúrate de que los estilos estén en este archivo
 import MenuDesplegable from './MenuDesplegable'; // Importa el componente del menú
 
-const Pantalla6 = () => {
+const Inicio = () => {
     const navigate = useNavigate(); // Definir el hook useNavigate para la navegación
 
     // Función que navega a la pantalla de creación de actividad
@@ -27,9 +27,9 @@ const Pantalla6 = () => {
         navigate('/Pantalla3'); // Navega a la ruta de Pantalla3
     };
 
-    // Función para navegar al perfil de usuario
+    // Función para navegar al Perfilusuario de usuario
     const handleGoToProfile = () => {
-        navigate('/InformacionUsuario'); // Cambia a la ruta de tu perfil de usuario
+        navigate('/Perfilusuario'); // Cambia a la ruta de tu Perfilusuario de usuario
     };
 
     // Función para navegar a la pantalla de clima
@@ -41,7 +41,7 @@ const Pantalla6 = () => {
         <div className="container">
             <header className="header">
                 <div className="header-content">
-                    <img src="public/pantalla6.PNG" alt="User" className="header-image" />
+                    <img src="public/Inicio.PNG" alt="User" className="header-image" />
                     <div className="header-text">
                         <p>Buenas Tardes, Usuario</p>
                         <p>No te Olvides de Llevar Tu Paraguas Hoy</p>
@@ -61,10 +61,10 @@ const Pantalla6 = () => {
                 </button>
             </div>
 
-            {/* Botón para ir al perfil de usuario */}
+            {/* Botón para ir al Perfilusuario de usuario */}
             <div className="profile-button-container">
                 <button className="action-button" onClick={handleGoToProfile}>
-                    Ir a Mi Perfil
+                    Ir a Mi Perfilusuario
                 </button>
             </div>
 
@@ -117,4 +117,4 @@ const Pantalla6 = () => {
     );
 }
 
-export default Pantalla6;
+export default Inicio;

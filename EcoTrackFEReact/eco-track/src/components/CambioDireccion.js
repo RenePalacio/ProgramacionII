@@ -10,7 +10,7 @@ const EditarDireccion = () => {
     e.preventDefault();
     alert('Dirección editada: ' + direccion);
     // Aquí podrías agregar lógica para guardar la dirección editada en una base de datos.
-    navigate('/Pantalla6'); // Redirigir a la pantalla 6 después de editar
+    navigate('/Inicio'); // Redirigir a la pantalla 6 después de editar
   };
 
   return (
