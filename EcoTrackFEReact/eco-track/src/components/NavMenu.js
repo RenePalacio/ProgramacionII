@@ -32,13 +32,13 @@ const NavMenu = () => {
         </li>
       </ul>
 
-      {/* Estilos CSS internos */}
+      {/* Estilos CSS internos */}  
       <style jsx>{`
         :root {
           --white: #ffffff;
           --light-grey: #edf0f1;
-          --violet: #655be1;
-          --dark-violet: #5146e1;
+          --violet: #32563a;
+          --dark-violet: #1f3624;
           --black: #21232a;
         }
 
@@ -59,30 +59,21 @@ const NavMenu = () => {
 
         body {
           font-family: "Inter", sans-serif;
-          text-align: center;
-          padding: 0 20px;
           background: var(--light-grey);
           color: var(--white);
         }
 
-        .notification {
-          position: absolute;
-          top: 0;
-          right: 0;
-          padding: 10px;
-          background: var(--violet);
-        }
-
         /* MAIN STYLES */
         .nav {
-          position: relative;
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
           display: flex;
           justify-content: center;
-          max-width: 400px;
-          padding-bottom: 20px;
-          border-radius: 5px 5px 25px 25px;
-          margin: 300px auto 0;
+          align-items: center;
           background: var(--white);
+          padding: 10px;
+          border-radius: 50%;
           box-shadow: rgb(50 50 93 / 10%) 0 30px 60px -12px, rgb(0 0 0 / 15%) 0 18px 36px -18px;
         }
 
@@ -92,18 +83,15 @@ const NavMenu = () => {
         }
 
         .nav [type="checkbox"] + label {
-          position: relative;
-          width: 75px;
-          height: 75px;
+          width: 55px; /* Botón de menú más pequeño */
+          height: 55px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 16px;
+          font-size: 14px;
           cursor: pointer;
-          z-index: 1;
           background: var(--violet);
           border-radius: 50%;
-          transform: translateY(-50%);
           transition: all 0.2s;
         }
 
@@ -111,28 +99,24 @@ const NavMenu = () => {
           background: var(--dark-violet);
         }
 
-        .menu li {
+        .menu {
+          display: flex;
+          flex-direction: row;
           position: absolute;
-          top: -25px;
-          left: 50%;
-          transform: translateX(-50%);
-          transition: all 0.4s;
+          bottom: 0;
+          left: calc(100% + 10px); /* Se despliegan a la derecha */
         }
 
-        .menu li:nth-child(1) {
-          transition-delay: 0.2s;
+        .menu li {
+          opacity: 0;
+          transition: opacity 0.4s, transform 0.4s;
+          transform: translateX(-30px); /* Animación de aparición */
+          margin-left: 15px; /* Espaciado adicional entre botones */
         }
 
-        .menu li:nth-child(2) {
-          transition-delay: 0.15s;
-        }
-
-        .menu li:nth-child(3) {
-          transition-delay: 0.1s;
-        }
-
-        .menu li:nth-child(4) {
-          transition-delay: 0.05s;
+        .nav input:checked ~ .menu li {
+          opacity: 1;
+          transform: translateX(0); /* Los elementos aparecen desde la izquierda */
         }
 
         .menu li a {
@@ -145,51 +129,10 @@ const NavMenu = () => {
           background: var(--violet);
         }
 
-        .menu li a span {
-          position: absolute;
-          top: 0;
-          left: 0;
-          transform: translateY(calc(-100% - 5px));
-          width: 100%;
-          font-size: 13px;
-          white-space: nowrap;
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.3s;
-          color: var(--black);
-          font-weight: bold;
-        }
-
-        .nav input:checked + label {
-          background: var(--black);
-          transform: translateY(calc(-50% + 4px));
-        }
-
-        .nav input:checked ~ .menu li:nth-child(1) {
-          top: -210px;
-          transition-delay: 0.1s;
-        }
-
-        .nav input:checked ~ .menu li:nth-child(2) {
-          top: -160px;
-          left: calc(50% - 75px);
-          transition-delay: 0.2s;
-        }
-
-        .nav input:checked ~ .menu li:nth-child(3) {
-          top: -160px;
-          left: calc(50% + 75px);
-          transition-delay: 0.3s;
-        }
-
-        .nav input:checked ~ .menu li:nth-child(4) {
-          top: -110px;
-          transition-delay: 0.4s;
-        }
-
-        .nav input:checked ~ .menu li a span {
-          opacity: 1;
-          transition-delay: 0.9s;
+        @media (min-width: 769px) {
+          .nav {
+            display: none; /* Ocultar en pantallas grandes */
+          }
         }
       `}</style>
     </nav>

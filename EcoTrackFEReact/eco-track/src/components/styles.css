@@ -1,4 +1,6 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap');
+
+.estilo1 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom right, #015b52, #adb69f); /* Degradado dinámico */
@@ -191,5 +193,619 @@ body {
 
   
   
-  /*ESTE CODIGO DE ABAJO ES DE HOME*/
+  /*ESTE CODIGO DE ABAJO ES DE mapa*/
+  .estilo2 {
+    background:linear-gradient(to bottom right,#d3ce91, #8d687f ); 
+    font-family: 'Poppins';
+}
+
+.map-container-small {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.background-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 30%;
+    background-image: url('https://i.ibb.co/XCjN3N2/valtozasmenedzsment-gps-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+}
+
+
+
+
+.Ubiheader {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+    color: white;
+    font-weight: bold;
+    z-index: 4;
+    margin-left: 20px;
+}
+
+.map-title {
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+    margin-top: 60px;
+    z-index: 2;
+    
+    
+}
+
+.map-subtitle {
+    font-size: 1.rem;
+    color: rgb(0, 0, 0);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+.input-mapa-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+.map-input {
+    padding: 10px;
+    width: 250px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.map-button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #474f69;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.map-button:hover {
+    background-color: #0796d7;
+}
+
+.map-container {
+    position: relative;
+    z-index: 1;
+    
+    
+}
+
+.map {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.mancha {
+  position: fixed; 
+  top: 0;          
+  left: 0;         
+  width: 400px;   
+  height: 1006px;  
+  background-image: url('https://i.ibb.co/S0XyR3S/sarl-herve-bruneau-hb-paysage-paysagiste-mauges-sur-loire-element-4.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
   
+ 
+}
+
+/*Estilo Responsive De Ubicacion*/
+
+@media (max-width: 768px) {
+  .background-image {
+      display: none;
+  }
+  .logo-text {
+    font-size: 0.9rem;
+  }
+
+  .map-title {
+      font-size: 1.5rem;
+      margin-top: 30px;
+  }
+
+  .map-subtitle {
+      font-size: 0.9rem;font-size: 0.9rem;
+  }
+
+  .map-input {
+      width: 200px;
+  }
+  .mancha {
+    width: 50%;  
+    max-width: 300px;
+    
+ }
+ /*Actividad css*/
+}
+
+body.estilo3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right,#6aa39b,#ecdde7);
+  height: 100vh;
+  overflow: hidden; /* Asegúrate de que no se desborde */
+}
+
+body.estilo3::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, white 1px, transparent 1px) repeat;
+  background-size: 10px 10px; /* Tamaño de las "estrellas" */
+  opacity: 0.5; /* Ajusta la opacidad para que se vean más sutiles */
+  animation: twinkle 1.5s infinite alternate; /* Animación para simular parpadeo */
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.contenido {
+  z-index: 1; /* Asegúrate de que el contenido esté por encima del fondo */
+  color: white; /* Color del texto */
+  text-align: center; /* Centrar el texto */
+}
+
+
+.container-act {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px; 
+}
+
+.image-container-act {
+  width: 50%; 
+  height: 100vh; 
+  background-image: url('https://i.ibb.co/kxHWG7w/939fa3ee-d7e3-4085-9b98-8bc8c7ffe849-removebg-preview.png'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+
+ 
+}
+
+.form-container-act {
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px; 
+  border-radius: 12px;
+  width: 500px; /* Ancho inicial para pantallas grandes */
+  max-width: 90%; /* Máximo 90% del ancho para pantallas pequeñas */
+  margin: 0 auto; /* Centra el formulario en su contenedor */
+  display: flex; 
+  flex-direction: column; 
+  align-items: stretch; /* Asegúrate de que los elementos se estiren */
+  z-index: 10;
+}
+
+.activity-form-act {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
+
+.label-act {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #000000; /* Color más oscuro para un mejor contraste */
+}
+
+.input-container-act {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #030303;
+  justify-content: center; /* Esto centra el contenido horizontalmente */
+}
+
+.input-act {
+  border: 3px solid #ccc; /* Bordes más sutiles */
+  border-radius: 25px; 
+  padding: 10px; 
+  font-size: 16px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Hace que el input use el espacio restante */
+}
+.input-name-act {
+  padding: 10px; 
+  font-size: 24px; 
+  background-color: transparent;
+  border: transparent;
+  border-radius: 25px; 
+  display: block; 
+  width: 100%; 
+  max-width: 300px; 
+  text-align: center; 
+  margin: 0 auto; 
+  
+}
+.input-name-act::placeholder{
+  color: #000000;
+}
+
+
+.calendar-icon-act {
+  margin-left: 10px; 
+  cursor: pointer; 
+  color: #007bff; /* Color del icono */
+}
+
+.form-textarea-act {
+  resize: none;
+  height: 100px; 
+  width: 100%;
+  border-radius: 25px; 
+  padding: 20px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.notas-label-act {
+  margin-bottom: 10px;
+}
+
+.form-button-act {
+  background-color: #007bff; 
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border: none; 
+  border-radius: 25px; 
+  padding: 10px;
+  width: 100%; 
+  transition: background-color 0.3s; 
+}
+
+.form-button-act:hover {
+  background-color: #0056b3; 
+}
+
+.heart-selector-act {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px; 
+  position: relative;
+  left: 80px;
+  top: 400px; /* Para posicionar los corazones correctamente */
+}
+
+.heart-act {
+  font-size: 50px; /* Tamaño del corazón */
+  margin: 0 10px; 
+  cursor: pointer; 
+  transition: transform 0.2s; 
+  z-index: 10;
+}
+
+.heart-act:hover {
+  transform: scale(1.1); 
+}
+
+.image-container-act {
+  position: absolute; /* Superpone la imagen sobre los corazones */
+  top: 16%;
+  left: 0;
+  right: 0;
+  height:50%; /* Ajusta la altura de la imagen */
+  z-index: 1;
+}
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .estilo3 {
+    background-color: #ffffff; /* Cambiar fondo en móviles */
+    color: #000; 
+    overflow: hidden
+    ;/* Cambiar color de texto en móviles */
+}
+body.estilo3::before{
+  display: none;
+}
+.heart-selector-act {
+
+  position:absolute;
+  margin-top: 275px; /* Espacio entre el formulario y los corazones */
+  margin-bottom: 20px; /* Espacio entre los corazones y el footer */
+  margin-left: -60px; /* Alinear a la izquierda automáticamente */
+  margin-right: 220px; /* Alinear a la derecha automáticamente */
+  
+  
+ 
+}
+
+.heart-act {
+  display: inline-block; /* Asegurarte de que cada corazón se muestre en línea */
+  margin: 5px; /* Espaciado entre los corazones */
+  font-size: 24px; /* Ajusta el tamaño según sea necesario */
+}
+.container-act {
+    padding: 10px; /* Ajustar padding en móviles */
+    margin: 0 auto; /* Centrar contenedor */
+    display: contents;
+}
+    
+
+    .header {
+        top: 500%; /* Centrar texto en móviles */
+    }
+
+    .image-container-act {
+      position: absolute;
+    
+      left: 100PX; /* Cambia esto a 0 si no necesitas un desplazamiento a la izquierda */
+      bottom: 100%; /* Eliminar la propiedad bottom para evitar problemas de posicionamiento */
+      top:-65px
+  }
+
+    .form-container-act {
+      
+      flex-direction: column; /* Asegurarse de que el formulario esté apilado */
+      align-items: center; /* Centrar el formulario horizontalmente */
+      margin-top: 60%; /* Agregar margen superior para mover el formulario más abajo */
+      padding: 20px
+    }
+
+    .input-container-act {
+        width: 100%; /* Inputs ocupan el ancho completo */
+        margin-bottom: 15px; /* Espacio entre inputs */
+    }
+
+    .input-act, .input-name-act, .form-textarea-act {
+        font-size: 14px; /* Tamaño de fuente más pequeño */
+        padding: 8px; /* Ajuste de padding */
+    }
+
+    .form-button-act {
+        padding: 10px; /* Ajuste de padding */
+        font-size: 16px; /* Aumentar el tamaño de fuente del botón */
+    }
+
+       
+    
+
+    .heart-act {
+        font-size: 30px; /* Tamaño de corazones */
+        cursor: pointer; /* Cambiar el cursor a pointer */
+        margin: 10px; /* Espacio entre corazones */
+    }
+}
+
+
+
+  
+
+
+
+
+
+/* ------ CSS de Perfil -----*/
+
+/* Perfil Container */
+.profile-container { 
+  background-image: url('https://i.ibb.co/ts5Xdv3/backgrounddivprofile4.png');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  padding: 30px;
+  border-radius: 10px; 
+  max-width: 650px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+/* Para centrar todo el contenido en la pantalla */
+.profile-page {
+  background: linear-gradient(to bottom right, #9dbb8d, #d8f2cf);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura completa de la pantalla */
+}
+
+/* Info del perfil */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-details {
+  flex-grow: 1;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.bio {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Acciones del perfil */
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px; /* Añadir un poco de espacio superior */
+}
+
+.profile-btn {
+  background-color: #32563a;
+  color: white;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 5px;
+  font-size: calc(14px + 0.5vw); /* Ajusta el tamaño de la fuente de manera responsiva */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 45%; /* Mantiene los botones a un 80% del contenedor */
+  max-width: 300px; /* Fija un ancho máximo */
+  min-width: 150px; /* Fija un ancho mínimo */
+  height: auto;
+  margin: 7px 0; /* Espacio entre botones */
+  text-align: center;
+  display: flex; /* Flex para centrar el contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  word-break: break-word; /* Evitar que el texto salga del botón */
+  text-overflow: ellipsis; /* Recorta el texto si es demasiado largo */
+}
+
+.profile-btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* Contenedor de editar perfil */
+.edit-profile-container {
+
+    background-image: url('https://i.ibb.co/125BhPS/backgrounddivprofile.png'); /* Imagen de fondo */
+    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    padding: 30px;
+    border-radius: 10px; /* Puedes mantener el borde redondeado si lo deseas */
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.edit-profile-container h2 {
+margin-bottom: 20px;
+}
+
+.edit-profile-container form div {
+margin-bottom: 15px;
+width: 100%;
+}
+
+.edit-profile-container label {
+display: block;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.edit-profile-container input,
+.edit-profile-container textarea {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 14px;
+}
+
+.edit-profile-container button {
+background-color: #32563a;
+color: white;
+border: none;
+padding: 12px 20px;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.edit-profile-container button:hover {
+background-color: #0056b3;
+}
+
+
+/* fin del CSS del perfil*/
+
+/* Footer*/
+.footer {
+  position: fixed; 
+  bottom: 10px; 
+  right: 10px; 
+  color: white; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  font-size: 0.9rem; 
+  z-index: 20; 
+}
+
+@media (max-width: 768px) {
+  .footer {
+      display: none; 
+  }
+}
+
+.footer1 {
+  position: fixed; 
+  bottom: 10px; 
+  right: 10px; 
+  color: rgb(0, 0, 0); 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  font-size: 0.9rem; 
+  z-index: 20; 
+}
+
+@media (max-width: 768px) {
+  .footer1 {
+      display: none; 
+  }
+}
+
+
+/*Fin de Footer*/
+/*Fin de Footer*/
