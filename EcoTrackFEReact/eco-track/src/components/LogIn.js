@@ -1,4 +1,4 @@
-import React from 'react';  // esta pagina antes se llamaba "Dashboard"
+import React, { useEffect } from 'react';  // Agregué useEffect para manipular el estilo del body
 import { Link } from 'react-router-dom'; // Importa Link para la navegación
 import './styles.css';
 
@@ -8,6 +8,16 @@ link.rel = 'stylesheet';
 document.head.appendChild(link);
 
 function App() {
+  useEffect(() => {
+    // Agregar la clase 'estilo1' al body cuando se renderiza esta página
+    document.body.classList.add('estilo1');
+
+    // Eliminar la clase 'estilo1' al desmontar el componente
+    return () => {
+      document.body.classList.remove('estilo1');
+    };
+  }, []);
+
   return (
     <div className="login-container">
       <div className="header">
