@@ -20,7 +20,7 @@ function App() {
     <div className="login-container">
       <div className="header">
         <img 
-          src="https://i.ibb.co/mGbtJxR/ECOTRACK.png" 
+          src="https://i.ibb.co/kK9WwPt/Post-instagram-quote-frase-removebg-preview.png" 
           alt="Logo"
           className="logo"
         />
@@ -30,16 +30,16 @@ function App() {
 
       <form className="login-form">
         <div className="input-container">
-          <input type="text" placeholder="Nombre Completo" className="input-field" required />
+          <input type="text" placeholder="Nombre Completo" className="input-field2" required />
         </div>
         <div className="input-container">
-          <input type="email" placeholder="Correo Electrónico" className="input-field" required />
+          <input type="email" placeholder="Correo Electrónico" className="input-field2" required />
         </div>
         <div className="input-container">
-          <input type="password" placeholder="Contraseña" className="input-field" required />
+          <input type="password" placeholder="Contraseña" className="input-field2" required />
         </div>
         <div className="input-container">
-          <input type="password" placeholder="Confirmar Contraseña" className="input-field" required />
+          <input type="password" placeholder="Confirmar Contraseña" className="input-field2" required />
         </div>
         <button 
             type="submit" 

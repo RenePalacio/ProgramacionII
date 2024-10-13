@@ -1,0 +1,32 @@
+function App() {
+  const showExternalNotification = () => {
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          const notification = new Notification('Notificación de PWA', {
+            body: 'Este es un mensaje de notificación externa.',
+            icon: 'https://i.ibb.co/SsB90qS/nube.png', // Icono opcional
+          });
+
+          notification.onclick = () => {
+            window.focus(); // Hace que la ventana se enfoque al hacer clic en la notificación
+          };
+        } else {
+          alert('Permiso de notificación denegado.');
+        }
+      });
+    } else {
+      alert('Las notificaciones no son compatibles con este navegador.');
+    }
+  };
+
+  return (
+    <Router>
+      <Layout /> 
+      {/* Puedes llamar a la función de notificación desde aquí o en otro lugar */}
+      <button className='noti-button' onClick={showExternalNotification } style={{ margin: '20px' }}>
+        Mostrar Notificación Externa
+      </button>
+    </Router>
+  );
+}
