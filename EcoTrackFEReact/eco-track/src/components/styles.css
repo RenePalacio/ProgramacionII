@@ -24,10 +24,22 @@
   .header {
     margin-bottom: 0px;
   }
+  .register-link {
+    color: #000000; 
+    text-decoration: none; 
+    transition: color 0.3s; 
+  }
   
+  .register-link:hover {
+    color: #770303; 
+    text-decoration: underline; 
+  }
+
   .logo {
     width: 100%; 
     max-width: 200px; 
+    position: relative;
+    top: 50px;
     height: auto; 
     margin: -100px auto 10px auto; /* Ajusta el margen superior negativo y el inferior */
     display: block; /* Asegúrate de que se comporte como un bloque para centrarlo */
@@ -58,6 +70,14 @@
   }
   
   .input-field {
+    padding: 15px 25px;
+    width: 125%;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Bordes redondeados más grandes */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+  }
+  .input-field2 {
     padding: 15px 25px;
     width: 100%;
     border: 1px solid #ccc;
@@ -186,7 +206,7 @@
     }
   }
   }
-/* styles.css */
+
 .leaflet-container {
   height: 100%;
 }
@@ -345,13 +365,12 @@
  }
  /*Actividad css*/
 }
-
 body.estilo3 {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(to bottom right,#6aa39b,#ecdde7);
   height: 100vh;
-  overflow: hidden; /* Asegúrate de que no se desborde */
+  overflow: hidden; 
 }
 
 body.estilo3::before {
@@ -362,9 +381,9 @@ body.estilo3::before {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle, white 1px, transparent 1px) repeat;
-  background-size: 10px 10px; /* Tamaño de las "estrellas" */
-  opacity: 0.5; /* Ajusta la opacidad para que se vean más sutiles */
-  animation: twinkle 1.5s infinite alternate; /* Animación para simular parpadeo */
+  background-size: 10px 10px;
+  opacity: 0.5;
+  animation: twinkle 1.5s infinite alternate;
 }
 
 @keyframes twinkle {
@@ -373,12 +392,12 @@ body.estilo3::before {
 }
 
 .contenido {
-  z-index: 1; /* Asegúrate de que el contenido esté por encima del fondo */
-  color: white; /* Color del texto */
-  text-align: center; /* Centrar el texto */
+  z-index: 1;
+  color: white;
+  text-align: center;
 }
 
-
+/* Contenedor principal que incluye la imagen y el formulario */
 .container-act {
   display: flex;
   justify-content: flex-start;
@@ -387,32 +406,33 @@ body.estilo3::before {
   padding: 20px; 
 }
 
+/* Contenedor de la imagen */
 .image-container-act {
-  width: 50%; 
+  width: 50%;
   height: 100vh; 
   background-image: url('https://i.ibb.co/kxHWG7w/939fa3ee-d7e3-4085-9b98-8bc8c7ffe849-removebg-preview.png'); 
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   z-index: 0;
-
- 
 }
 
+/* Contenedor del formulario */
 .form-container-act {
   background: white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 30px; 
+  padding: 30px;
   border-radius: 12px;
-  width: 500px; /* Ancho inicial para pantallas grandes */
-  max-width: 90%; /* Máximo 90% del ancho para pantallas pequeñas */
-  margin: 0 auto; /* Centra el formulario en su contenedor */
+  width: 500px;
+  max-width: 90%;
+  margin: 0 auto;
   display: flex; 
   flex-direction: column; 
-  align-items: stretch; /* Asegúrate de que los elementos se estiren */
+  align-items: stretch;
   z-index: 10;
 }
 
+/* Formulario de actividades */
 .activity-form-act {
   display: flex;
   flex-direction: column;
@@ -422,55 +442,60 @@ body.estilo3::before {
 .label-act {
   margin-bottom: 5px;
   font-weight: bold;
-  color: #000000; /* Color más oscuro para un mejor contraste */
+  color: #000000;
 }
 
+/* Contenedor de los inputs */
 .input-container-act {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   color: #030303;
-  justify-content: center; /* Esto centra el contenido horizontalmente */
+  justify-content: center;
 }
 
+/* Estilos para los inputs generales */
 .input-act {
-  border: 3px solid #ccc; /* Bordes más sutiles */
-  border-radius: 25px; 
-  padding: 10px; 
-  font-size: 16px; 
+  border: 3px solid #ccc;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex: 1; /* Hace que el input use el espacio restante */
+  flex: 1;
 }
+
+/* Input para el nombre */
 .input-name-act {
-  padding: 10px; 
-  font-size: 24px; 
+  padding: 10px;
+  font-size: 24px;
   background-color: transparent;
   border: transparent;
-  border-radius: 25px; 
-  display: block; 
-  width: 100%; 
-  max-width: 300px; 
-  text-align: center; 
-  margin: 0 auto; 
-  
+  border-radius: 25px;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  margin: 0 auto;
 }
-.input-name-act::placeholder{
+
+.input-name-act::placeholder {
   color: #000000;
 }
 
-
+/* Estilos para el icono del calendario */
 .calendar-icon-act {
-  margin-left: 10px; 
-  cursor: pointer; 
-  color: #007bff; /* Color del icono */
+  margin-left: 10px;
+  cursor: pointer;
+  color: #007bff;
 }
 
+/* Textarea del formulario */
 .form-textarea-act {
   resize: none;
-  height: 100px; 
+  height: 100px;
   width: 100%;
-  border-radius: 25px; 
-  padding: 20px; 
+  border-radius: 25px;
+  padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
@@ -479,130 +504,161 @@ body.estilo3::before {
   margin-bottom: 10px;
 }
 
+/* Botón del formulario */
 .form-button-act {
-  background-color: #007bff; 
+  background-color: #007bff;
   color: white;
   cursor: pointer;
   font-size: 16px;
-  border: none; 
-  border-radius: 25px; 
+  border: none;
+  border-radius: 25px;
   padding: 10px;
-  width: 100%; 
-  transition: background-color 0.3s; 
+  width: 100%;
+  transition: background-color 0.3s;
 }
 
 .form-button-act:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
+/* Selector de corazones */
 .heart-selector-act {
   display: flex;
-  justify-content: center; 
-  margin-top: 20px; 
+  justify-content: center;
+  margin-top: 20px;
   position: relative;
   left: 80px;
-  top: 400px; /* Para posicionar los corazones correctamente */
+  top: 400px;
 }
 
+/* styles.css */
+
+/* Estilos generales para los corazones */
 .heart-act {
-  font-size: 50px; /* Tamaño del corazón */
-  margin: 0 10px; 
-  cursor: pointer; 
-  transition: transform 0.2s; 
-  z-index: 10;
+  background: color; /* Cambia 'corazon.color' por un color válido */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 50px; /* Tamaño por defecto */
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 10px;
 }
+
+/* Media Query para dispositivos móviles */
+@media (max-width: 768px) {
+  .heart-act {
+      font-size: 30px; /* Cambia el tamaño de fuente para dispositivos móviles */
+      margin: 0 5px; /* Ajusta el margen para dispositivos móviles */
+  }
+}
+
 
 .heart-act:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
+/* Ajustes de posicionamiento de la imagen */
 .image-container-act {
-  position: absolute; /* Superpone la imagen sobre los corazones */
+  position: absolute;
   top: 16%;
   left: 0;
   right: 0;
-  height:50%; /* Ajusta la altura de la imagen */
+  height: 50%;
   z-index: 1;
 }
-/* Media query para pantallas pequeñas */
+
+/* Media queries para pantallas pequeñas */
 @media (max-width: 768px) {
   .estilo3 {
-    background-color: #ffffff; /* Cambiar fondo en móviles */
-    color: #000; 
-    overflow: hidden
-    ;/* Cambiar color de texto en móviles */
-}
-body.estilo3::before{
-  display: none;
-}
-.heart-selector-act {
-
-  position:absolute;
-  margin-top: 275px; /* Espacio entre el formulario y los corazones */
-  margin-bottom: 20px; /* Espacio entre los corazones y el footer */
-  margin-left: -60px; /* Alinear a la izquierda automáticamente */
-  margin-right: 220px; /* Alinear a la derecha automáticamente */
-  
-  
- 
-}
-
-.heart-act {
-  display: inline-block; /* Asegurarte de que cada corazón se muestre en línea */
-  margin: 5px; /* Espaciado entre los corazones */
-  font-size: 24px; /* Ajusta el tamaño según sea necesario */
-}
-.container-act {
-    padding: 10px; /* Ajustar padding en móviles */
-    margin: 0 auto; /* Centrar contenedor */
-    display: contents;
-}
-    
-
-    .header {
-        top: 500%; /* Centrar texto en móviles */
-    }
-
-    .image-container-act {
-      position: absolute;
-    
-      left: 100PX; /* Cambia esto a 0 si no necesitas un desplazamiento a la izquierda */
-      bottom: 100%; /* Eliminar la propiedad bottom para evitar problemas de posicionamiento */
-      top:-65px
+    background-color: #ffffff;
+    color: #000;
+    overflow: hidden;
   }
 
-    .form-container-act {
-      
-      flex-direction: column; /* Asegurarse de que el formulario esté apilado */
-      align-items: center; /* Centrar el formulario horizontalmente */
-      margin-top: 60%; /* Agregar margen superior para mover el formulario más abajo */
-      padding: 20px
-    }
-
-    .input-container-act {
-        width: 100%; /* Inputs ocupan el ancho completo */
-        margin-bottom: 15px; /* Espacio entre inputs */
-    }
-
-    .input-act, .input-name-act, .form-textarea-act {
-        font-size: 14px; /* Tamaño de fuente más pequeño */
-        padding: 8px; /* Ajuste de padding */
-    }
-
-    .form-button-act {
-        padding: 10px; /* Ajuste de padding */
-        font-size: 16px; /* Aumentar el tamaño de fuente del botón */
-    }
-
-       
+  body.estilo3::before {
+    display: none;
     
+  }
 
-    .heart-act {
-        font-size: 30px; /* Tamaño de corazones */
-        cursor: pointer; /* Cambiar el cursor a pointer */
-        margin: 10px; /* Espacio entre corazones */
-    }
+  .container-act {
+    width: 420px; /* Cambiar a columna para el diseño móvil */
+    height: 1000vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    padding: 0; /* Eliminar el padding para ocupar todo el espacio */
+  }
+
+  .image-container-act {
+    position: absolute; /* Posicionar la imagen en el fondo */
+    top: 10px; /* Alinea al principio de la página */
+    left: 125px; /* Alinea a la izquierda */
+    right: 0; /* Alinea a la derecha */
+    height: 15%; /* Ocupa el 16% de la pantalla */
+    background-image: url('https://i.ibb.co/kxHWG7w/939fa3ee-d7e3-4085-9b98-8bc8c7ffe849-removebg-preview.png'); 
+    background-size: contain; /* Ajusta la imagen sin cortarla */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    z-index: 11; /* Asegura que la imagen esté detrás del formulario */
 }
+
+
+  .form-container-act {
+    background: white; /* Color de fondo del formulario */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%; /* Ocupar el 100% del ancho */
+    max-width: none; /* Quitar el max-width para que no limite el tamaño */
+    height: calc(10000vh - 100%); /* Hacer que el formulario ocupe el 50% restante de la pantalla */
+    margin-top: -10%;
+    margin-bottom: 0%; /* Alinea el formulario justo debajo de la imagen */
+    z-index: 10; /* Asegura que el formulario esté en la parte superior */
+    display: flex; 
+    flex-direction: column; 
+    align-items: stretch; 
+  }
+
+  .heart-selector-act {
+    position: fixed; /* Mantener los corazones en una posición fija */
+    top: 150px; /* Ajustar la posición a la parte inferior */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Centra completamente */
+    margin: 0; /* Elimina márgenes */
+    z-index: 11;
+   
+    overflow: hidden;
+    
+  }
+  .heart-act {
+    font-size: 40px; /* Ajustar el tamaño de los corazones a un valor más pequeño */
+    margin: 2px; /* Ajustar márgenes para los corazones */
+    overflow: hidden;
+    position: relative; 
+    width: 40px;/* Agregar una transición para el efecto hover */
+}
+ 
+
+  .input-container-act {
+    width: 100%; /* Asegurar que los inputs ocupen todo el ancho */
+    margin-bottom: 15px;
+  }
+
+  .input-act, .input-name-act, .form-textarea-act {
+    position: relative;
+    top: 270px;
+    font-size: 14px; /* Ajustar el tamaño de fuente */
+    padding: 8px; /* Ajustar el padding */
+  }
+
+  .form-button-act {
+    position: relative;
+    top: 300px;
+    padding: 10px; /* Ajustar el padding del botón */
+    font-size: 16px; /* Ajustar el tamaño del texto del botón */
+  }
+}
+
+
+
 
 
 
@@ -770,6 +826,174 @@ background-color: #0056b3;
 
 
 /* fin del CSS del perfil*/
+
+/*Error Page Css*/
+
+
+.error-containerErrorPage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #80aa80; /* Verde dulce */
+  height: 100vh;
+  padding: 20px;
+}
+
+.error-messageErrorPage {
+  flex: 1;
+  padding: 20px;
+  color: white; /* Color blanco para el texto */
+}
+
+.error-messageErrorPage h1 {
+  position: relative;
+  top: 100%;
+  bottom: 30px;
+  font-size: 125px; /* Aumentar tamaño de texto */
+  text-shadow: 4px 4px 8px rgb(0, 0, 0); /* Añadir contorno negro */
+  
+}
+.error-messageErrorPage h2 {
+  position: relative;
+  top: 100%;
+  bottom: 30px;
+  left: 70px;
+  font-size: 30px; /* Aumentar tamaño de texto */
+  text-shadow: 4px 4px 8px rgb(0, 0, 0); /* Añadir contorno negro */
+}
+
+.error-messageErrorPage button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #000000;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+  position: absolute;
+  bottom: 27%;
+  left: 200px;
+  
+}
+
+    
+.error-messageErrorPage button:hover {
+  background-color: #3ebd53;
+  transform: scale(1.05);
+}
+
+
+
+.image-wrapper {
+  display: flex;
+  align-items: flex-end; /* Alinear la ranita y la planta en la parte inferior */
+  margin-right: 150px; /* Espacio entre las imágenes */
+}
+
+.main-imageErrorPage {
+  position: relative;
+  width: 300px; /* Tamaño ajustado de la ranita */
+  height: auto;
+  margin-right: 5px;
+  z-index: 3; /* Espacio entre la ranita y la planta */
+  left: 150px;
+}
+
+.side-imageErrorPage {
+  width: 300px; /* Tamaño ajustado de las plantas */
+  position: relative;
+  height: auto;
+  top: -45px;
+  left: -30px;
+  z-index: 0;
+}
+
+.error-gif-overlay {
+  position: absolute;
+  top: -30px; /* Ajusta según lo necesites */
+  left: 150px;
+  width: 75%;
+  height: 100%;
+  z-index: 3;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .error-gif-overlay {
+    width: 150px;
+    position: absolute; /* Cambiado a absolute */
+    top: -450px; /* Centrado verticalmente */
+    left: 220px; /* Centrado horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta el centro del GIF */
+    z-index: 2; /* Asegúrate de que esté por encima */
+  }
+
+  .error-containerErrorPage {
+    display: flex;
+    position: inherit;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  
+
+  .main-imageErrorPage{
+    width: 150px;
+    position: relative;
+    top: -500px; 
+    z-index: 2;
+  }
+  .side-imageErrorPage {
+    width: 150px;
+    position: relative;
+    top: -525px; /* Ajusta el tamaño de las imágenes según necesites */
+  }
+
+  .error-messageErrorPage {
+    text-align: center;
+    
+  }
+
+  .error-messageErrorPage h1 {
+    font-size: 16vw;
+    position: relative;
+    top: 50%;
+  }
+
+  .error-messageErrorPage h2 {
+    font-size: 8vw;
+    position: relative;
+    top: 50%;
+    text-align: center;
+    left:20px;
+   
+  }
+
+  .error-messageErrorPage button {
+    font-size: 4vw;
+    margin-top: 10px; /* Espacio entre h2 y el botón */
+    
+  }
+}
+/*Fin De Error Page*/
+
+/*Estilo de Notificacion*/
+.noti-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.noti-button:hover {
+  background-color: #0056b3;
+}
 
 /* Footer*/
 .footer {

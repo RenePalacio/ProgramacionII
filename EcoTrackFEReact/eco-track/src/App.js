@@ -8,6 +8,7 @@ import Inicio from './components/Inicio';
 import EditarActividad from './components/EditarActividad';
 import MapaUbicacion from './components/MapaUbicacion';
 import Perfilusuario from './components/Perfilusuario';
+import ErrorPage from './components/Error';
 
 function Layout() {
   const location = useLocation();
@@ -22,6 +23,8 @@ function Layout() {
         <Route path="/editarAct" element={<EditarActividad />} />
         <Route path="/ubicacion" element={<MapaUbicacion />} />
         <Route path="/perfil" element={<Perfilusuario />} />
+        <Route path="/Error" element={<ErrorPage />} />
+        
       </Routes>
 
       {location.pathname !== '/register' && location.pathname !== '/crearAct' && <NavMenu />}

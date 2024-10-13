@@ -22,7 +22,7 @@ function App() {
     <div className="login-container">
       <div className="header">
         <img 
-          src="https://i.ibb.co/mGbtJxR/ECOTRACK.png" 
+          src="https://i.ibb.co/kK9WwPt/Post-instagram-quote-frase-removebg-preview.png" 
           alt="Logo"
           className="logo"
         />
