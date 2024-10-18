@@ -4,11 +4,11 @@ import NavMenu from './components/NavMenu';
 import Dashboard from './components/LogIn';
 import Register from './components/Register'; 
 import CrearActividad from './components/CrearActividad';
-import Inicio from './components/Inicio';
 import EditarActividad from './components/EditarActividad';
 import MapaUbicacion from './components/MapaUbicacion';
 import Perfilusuario from './components/Perfilusuario';
 import ErrorPage from './components/Error';
+import Home from './components/Home';
 
 function Layout() {
   const location = useLocation();
@@ -18,7 +18,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/inicio" element={<Inicio />} />
+        <Route path="/home" element={<Home/>} />
         <Route path="/crearAct" element={<CrearActividad />} />
         <Route path="/editarAct" element={<EditarActividad />} />
         <Route path="/ubicacion" element={<MapaUbicacion />} />

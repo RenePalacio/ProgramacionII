@@ -1,10 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EcoTrack.Models
-{
-    public class Actividad
+public class Actividad
 {
     [Key]
     public int IdActividad { get; set; }
@@ -26,9 +20,10 @@ namespace EcoTrack.Models
 
     [Required]
     public TimeSpan Duracion { get; set; }
+    
+    [Required]
+    public DateTime Hora { get; set; } // Nueva propiedad
 
     // Relación uno a muchos con DatosClima
     public virtual required ICollection<DatosClima> DatosClima { get; set; }
-}
-
 }
