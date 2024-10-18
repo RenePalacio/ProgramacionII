@@ -1,42 +1,94 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Asegúrate de tener axios instalado
 import './styles.css';
 
-function Home() {
-  const navigate = useNavigate(); // Hook para redirigir
+const Home = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [activities, setActivities] = useState([]); // Cambiar a un estado vacío
+  const navigate = useNavigate(); // Inicializa el hook useNavigate
 
-  const handleLogin = () => { 
-    navigate('/dashboard'); // Redirige al dashboard
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        // Aquí debes usar la URL correcta de tu API
+        const response = await axios.get('http://localhost:5000/api/actividades'); // Asegúrate de tener la ruta correcta
+        setActivities(response.data); // Suponiendo que response.data es un arreglo de actividades
+      } catch (error) {
+        console.error('Error al obtener actividades', error);
+      }
+    };
+
+    fetchActivities();
+  }, []); // El efecto solo se ejecutará una vez al cargar el componente
+
+  const openPopup = (task) => {
+    setSelectedTask(task);
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setSelectedTask(null);
   };
 
   return (
-    <div className="container">
-      <header className="header">
-        <h1 className="title">ECO TRACK</h1>
-      </header>
-
-      <div className="image-container">
-        <img 
-          src="/Imagen de WhatsApp 2024-09-15 a las 22.10.41_9a257935.jpg" // Ruta de tu imagen
-          alt="Eco Track logo"
-          className="home-logo"
-        />
-      </div>
-
+    <div className="home-page">
+      {/* Sección de bienvenida */}
       <div className="welcome-section">
-        <h2>Bienvenido</h2>
-        <p>Hola que gusto tenerte por aquí. Esta es tu app favorita para ser más amigable con el medio ambiente.</p>
+        <div className="welcome-icon">
+          <img src="/path/to/mascota.png" alt="Mascota" />
+        </div>
+        <div className="welcome-text">
+          <h2>Buenas Tardes, Usuario</h2>
+          <p>No te olvides de llevar tu paraguas hoy.</p>
+        </div>
       </div>
 
-      <div className="button-container">
-        <button className="sign-in-button" onClick={handleLogin}>Inicia Sesión</button>
+      {/* Botón de agregar tarea */}
+      <div className="add-task-section">
+        <button
+          className="add-task-btn"
+          onClick={() => {
+            navigate('/crearAct'); // Redirige a la ruta
+          }}
+        >
+          Crea una Nueva Actividad
+        </button>
       </div>
 
-      <div className="sign-up">
-        <p>No tienes cuenta? <a href="/sign-up">Regístrate aquí</a></p>
+      {/* Lista de actividades */}
+      <div className="activities-section">
+        <h3>SUS ACTIVIDADES</h3>
+        <div className="activities-list">
+          {activities.length > 0 ? (
+            activities.map((task) => (
+              <div className="activity-item" key={task.id} onClick={() => openPopup(task)}>
+                <p>{task.nombre}</p> {/* Cambia 'nombre' a la propiedad correcta */}
+                <span className="arrow">→</span>
+              </div>
+            ))
+          ) : (
+            <p>No hay actividades disponibles.</p> // Mensaje si no hay actividades
+          )}
+        </div>
       </div>
+
+      {/* Popup de resumen de actividad */}
+      {showPopup && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <h4>{selectedTask.nombre}</h4> {/* Cambia 'nombre' a la propiedad correcta */}
+            <p>{selectedTask.descripcion}</p> {/* Cambia 'descripcion' a la propiedad correcta */}
+            <button className="close-btn" onClick={closePopup}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default Home;

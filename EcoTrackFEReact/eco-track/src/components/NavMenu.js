@@ -26,8 +26,8 @@ const NavMenu = () => {
         </li>
         <li>
           <a href="#0">
-            <span>Contact</span>
-            <i className="fas fa-envelope-open-text" aria-hidden="true"></i>
+          <img src="https://i.ibb.co/0fLnmwN/profile.gif" alt="" style={{ width: "30px", height: "30px" }}
+          />
           </a>
         </li>
       </ul>

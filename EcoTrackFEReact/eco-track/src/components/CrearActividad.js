@@ -8,7 +8,9 @@ const CrearActividad = () => {
         idTipoActividad: '',
         ubicacion: '',
         fecha: '',
-        duracion: '',
+        duracionHoras: '', // Duración en horas
+        duracionMinutos: '', // Duración en minutos
+        hora: '', // Hora de inicio
         notas: '',
         nombre: '',
         color: '#ffffff', 
@@ -59,7 +61,9 @@ const CrearActividad = () => {
                 idTipoActividad: '',
                 ubicacion: '',
                 fecha: '',
-                duracion: '',
+                duracionHoras: '',
+                duracionMinutos: '',
+                hora: '', // Reinicia la hora
                 notas: '',
                 nombre: '',
                 color: '#ffffff', 
@@ -139,14 +143,37 @@ const CrearActividad = () => {
                             className="input-act"
                         />
                     </div>
-    
+
                     <div className="input-container-act">
                         <input
                             type="time"
-                            value={actividad.duracion}
-                            onChange={(e) => setActividad({ ...actividad, duracion: e.target.value })}
+                            value={actividad.hora}
+                            onChange={(e) => setActividad({ ...actividad, hora: e.target.value })}
                             required
                             className="input-act"
+                        />
+                    </div>
+
+                    <div className="input-container-act" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                        <input
+                            type="number"
+                            value={actividad.duracionHoras}
+                            onChange={(e) => setActividad({ ...actividad, duracionHoras: e.target.value })}
+                            required
+                            className="input-act"
+                            placeholder="Horas"
+                            min="0" // Permite cero horas
+                            style={{ marginRight: '10px', flex: 1 }} // Añadido espacio entre inputs
+                        />
+                        <input
+                            type="number"
+                            value={actividad.duracionMinutos}
+                            onChange={(e) => setActividad({ ...actividad, duracionMinutos: e.target.value })}
+                            required
+                            className="input-act"
+                            placeholder="Minutos"
+                            min="0" // Permite cero minutos
+                            style={{ flex: 1 }} // Añadido espacio entre inputs
                         />
                     </div>
     

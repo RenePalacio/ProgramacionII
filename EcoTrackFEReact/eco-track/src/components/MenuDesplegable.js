@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NavMenu = () => {
+const NavMenuu = () => {
   return (
     <nav className="nav">
       <input id="menu" type="checkbox" />
@@ -196,4 +196,4 @@ const NavMenu = () => {
   );
 };
 
-export default NavMenu;
+export default NavMenuu;
