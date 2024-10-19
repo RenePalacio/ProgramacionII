@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\Desktop\\EcoTrack\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {}
+    "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\Desktop\\EcoTrack\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {
+    "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\EcoTrack\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
         "projectName": "EcoTrackBackend",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\EcoTrack\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\EcoTrack\\ProgramacionII\\EcoTrackBackend\\obj\\",
+        "projectPath": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\EcoTrackBackend.csproj",
+        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hp\\ProgramacionII\\EcoTrackBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

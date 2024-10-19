@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcoTrack API", Version = "v1" });
 });
-
+builder.WebHost.UseUrls("http://localhost:5000");
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
