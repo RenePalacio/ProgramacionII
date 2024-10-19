@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 import './styles.css';
 
 const CrearActividad = () => {
     const [tiposActividad, setTiposActividad] = useState([]);
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
-        ubicacion: '',
-        fecha: '',
-        duracionHoras: '', // Duración en horas
-        duracionMinutos: '', // Duración en minutos
-        hora: '', // Hora de inicio
+        ubicacion: '', 
+        fecha: '', // La fecha será ingresada en formato 'DD/MM/YYYY'
+        duracion: '', // Duración en minutos
+        hora: '',
         notas: '',
-        nombre: '',
-        color: '#ffffff', 
+        color: '#ffffff', // Manteniendo el color
     });
-
-    // Definimos los colores de los corazones
-    const corazones = [
-        { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' }, // Rojo pastel
-        { id: 2, color: 'linear-gradient(to right, #add8e6, #87cefa)' }, // Azul pastel
-        { id: 3, color: 'linear-gradient(to right, #b2f2bb, #9ae0a1)' }, // Verde pastel
-        { id: 4, color: 'linear-gradient(to right, #fff9b0, #ffec40)' }, // Amarillo pastel
-        { id: 5, color: 'linear-gradient(to right, #a1e4f5, #83d6e8)' }, // Cian pastel
-        { id: 6, color: 'linear-gradient(to right, #ffccab, #ff9a66)' }, // Naranja pastel
-        { id: 7, color: 'linear-gradient(to right, #d5b5ff, #a77bff)' }  // Morado pastel
-    ];
     
+    const navigate = useNavigate(); 
+
+    const corazones = [
+        { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' }, 
+        { id: 2, color: 'linear-gradient(to right, #add8e6, #87cefa)' }, 
+        { id: 3, color: 'linear-gradient(to right, #b2f2bb, #9ae0a1)' }, 
+        { id: 4, color: 'linear-gradient(to right, #fff9b0, #ffec40)' }, 
+        { id: 5, color: 'linear-gradient(to right, #a1e4f5, #83d6e8)' }, 
+        { id: 6, color: 'linear-gradient(to right, #ffccab, #ff9a66)' }, 
+        { id: 7, color: 'linear-gradient(to right, #d5b5ff, #a77bff)' }  
+    ];
+
     useEffect(() => {
         const obtenerTiposActividad = async () => {
             try {
@@ -40,6 +40,12 @@ const CrearActividad = () => {
         obtenerTiposActividad();
         document.body.classList.add('estilo3');
 
+        // Cargar la ubicación guardada del localStorage
+        const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+        if (storedLocation) {
+            setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
+        }
+
         return () => {
             document.body.classList.remove('estilo3');
         };
@@ -48,28 +54,51 @@ const CrearActividad = () => {
     const handleColorChange = (degradado) => {
         setActividad((prev) => ({
             ...prev,
-            color: degradado, 
+            color: degradado,
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Convertir la fecha al formato 'YYYY-MM-DD'
+        const [dia, mes, anio] = actividad.fecha.split('/'); // Suponiendo que la fecha viene en 'DD/MM/YYYY'
+        const fechaFormateada = `${anio}-${mes}-${dia}`; // Convertimos a 'YYYY-MM-DD'
+
+        const actividadData = {
+            idTipoActividad: actividad.idTipoActividad,
+            ubicacion: actividad.ubicacion,
+            fecha: fechaFormateada, // Usamos la fecha formateada
+            duracion: "01:00:00", // Asegúrate de que sea un número
+            hora: actividad.hora,
+            notas: actividad.notas,
+            idUsuario: 1 // Usar un ID de usuario ficticio para pruebas
+        };
+
         try {
-            const response = await axios.post('/api/actividad', actividad);
+            const response = await axios.post('http://localhost:5000/api/actividad', actividadData);
             console.log('Actividad creada:', response.data);
+
+            // Limpiar el formulario
             setActividad({
                 idTipoActividad: '',
                 ubicacion: '',
                 fecha: '',
-                duracionHoras: '',
-                duracionMinutos: '',
-                hora: '', // Reinicia la hora
+                duracion: '',
+                hora: '',
                 notas: '',
-                nombre: '',
-                color: '#ffffff', 
+                color: '#ffffff', // Reiniciamos el color
             });
+
+            // Redirigir a Home después de guardar la actividad
+            navigate('/home'); 
         } catch (error) {
-            console.error('Error al crear actividad', error);
+            console.error('Datos enviados:', actividadData); // Mostrar los datos que intentas enviar
+            console.error('Error al crear actividad', error.response?.data || error.message);
+            // Imprimir los errores de validación específicos
+            if (error.response?.data?.errors) {
+                console.error('Errores de validación:', error.response.data.errors);
+            }
         }
     };
 
@@ -103,17 +132,6 @@ const CrearActividad = () => {
             <div className="form-container-act" style={{ background: actividad.color }}>
                 <form onSubmit={handleSubmit} className="activity-form-act">
                     <div className="input-container-act">
-                        <input
-                            type="text"
-                            value={actividad.nombre}
-                            onChange={(e) => setActividad({ ...actividad, nombre: e.target.value })}
-                            required
-                            className="input-name-act"
-                            placeholder="Nombre de la Actividad"
-                        />
-                    </div>
-    
-                    <div className="input-container-act">
                         <select
                             name="idTipoActividad"
                             value={actividad.idTipoActividad}
@@ -136,11 +154,12 @@ const CrearActividad = () => {
     
                     <div className="input-container-act">
                         <input
-                            type="date"
-                            value={actividad.fecha}
+                            type="text"
+                            value={actividad.fecha} // Asegúrate de que sea 'DD/MM/YYYY'
                             onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
                             required
                             className="input-act"
+                            placeholder="Fecha (DD/MM/YYYY)"
                         />
                     </div>
 
@@ -154,26 +173,15 @@ const CrearActividad = () => {
                         />
                     </div>
 
-                    <div className="input-container-act" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                    <div className="input-container-act">
                         <input
                             type="number"
-                            value={actividad.duracionHoras}
-                            onChange={(e) => setActividad({ ...actividad, duracionHoras: e.target.value })}
+                            value={actividad.duracion}
+                            onChange={(e) => setActividad({ ...actividad, duracion: e.target.value })}
                             required
                             className="input-act"
-                            placeholder="Horas"
-                            min="0" // Permite cero horas
-                            style={{ marginRight: '10px', flex: 1 }} // Añadido espacio entre inputs
-                        />
-                        <input
-                            type="number"
-                            value={actividad.duracionMinutos}
-                            onChange={(e) => setActividad({ ...actividad, duracionMinutos: e.target.value })}
-                            required
-                            className="input-act"
-                            placeholder="Minutos"
-                            min="0" // Permite cero minutos
-                            style={{ flex: 1 }} // Añadido espacio entre inputs
+                            placeholder="Duración (en minutos)"
+                            min="0"
                         />
                     </div>
     
@@ -185,9 +193,20 @@ const CrearActividad = () => {
                             placeholder="Notas"
                         />
                     </div>
-                    
+
+                    <div className="input-container-act">
+                        <input
+                            type="text"
+                            value={actividad.ubicacion}
+                            readOnly
+                            className="input-act"
+                            placeholder="Ubicación seleccionada"
+                        />
+                    </div>
+
                     <button type="submit" className="form-button-act">Guardar</button>
                 </form>
+                
                 <footer className="footer1">
                     <span>© SummerTime Coders</span>
                 </footer>

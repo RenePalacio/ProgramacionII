@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles.css';
-import { useParams } from 'react-router-dom'; // Asegúrate de tener react-router-dom instalado
+import { useParams, useNavigate } from 'react-router-dom'; // Incluye useNavigate
 
-const EditarActividad = () => {
+const EditarActividad = () => { // Eliminar la prop location
     const { id } = useParams(); // Obtenemos el id de la actividad a editar
     const [tiposActividad, setTiposActividad] = useState([]);
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
-        ubicacion: '',
+        ubicacion: '', // Inicializa como vacío
         fecha: '',
-        duracionHoras: '', // Duración en horas
-        duracionMinutos: '', // Duración en minutos
-        hora: '', // Hora de inicio
+        duracionHoras: '',
+        duracionMinutos: '',
+        hora: '',
         notas: '',
         nombre: '',
         color: '#ffffff',
     });
 
-    // Definimos los colores de los corazones
+    const navigate = useNavigate(); // Inicializa useNavigate
+
     const corazones = [
-        { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' }, // Rojo pastel
-        { id: 2, color: 'linear-gradient(to right, #add8e6, #87cefa)' }, // Azul pastel
-        { id: 3, color: 'linear-gradient(to right, #b2f2bb, #9ae0a1)' }, // Verde pastel
-        { id: 4, color: 'linear-gradient(to right, #fff9b0, #ffec40)' }, // Amarillo pastel
-        { id: 5, color: 'linear-gradient(to right, #a1e4f5, #83d6e8)' }, // Cian pastel
-        { id: 6, color: 'linear-gradient(to right, #ffccab, #ff9a66)' }, // Naranja pastel
-        { id: 7, color: 'linear-gradient(to right, #d5b5ff, #a77bff)' }  // Morado pastel
+        { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' },
+        { id: 2, color: 'linear-gradient(to right, #add8e6, #87cefa)' },
+        { id: 3, color: 'linear-gradient(to right, #b2f2bb, #9ae0a1)' },
+        { id: 4, color: 'linear-gradient(to right, #fff9b0, #ffec40)' },
+        { id: 5, color: 'linear-gradient(to right, #a1e4f5, #83d6e8)' },
+        { id: 6, color: 'linear-gradient(to right, #ffccab, #ff9a66)' },
+        { id: 7, color: 'linear-gradient(to right, #d5b5ff, #a77bff)' }
     ];
 
     useEffect(() => {
@@ -52,6 +53,12 @@ const EditarActividad = () => {
         obtenerActividad();
         document.body.classList.add('estilo3');
 
+        // Cargar la ubicación guardada desde localStorage
+        const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+        if (storedLocation) {
+            setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
+        }
+
         return () => {
             document.body.classList.remove('estilo3');
         };
@@ -69,7 +76,8 @@ const EditarActividad = () => {
         try {
             const response = await axios.put(`/api/actividad/${id}`, actividad);
             console.log('Actividad editada:', response.data);
-            // Aquí puedes redirigir o mostrar un mensaje de éxito si es necesario
+            // Redirigir a Home o a la página de actividades después de editar
+            navigate('/home');
         } catch (error) {
             console.error('Error al editar actividad', error);
         }
@@ -164,8 +172,8 @@ const EditarActividad = () => {
                             required
                             className="input-act"
                             placeholder="Horas"
-                            min="0" // Permite cero horas
-                            style={{ marginRight: '10px', flex: 1 }} // Añadido espacio entre inputs
+                            min="0"
+                            style={{ marginRight: '10px', flex: 1 }}
                         />
                         <input
                             type="number"
@@ -174,8 +182,8 @@ const EditarActividad = () => {
                             required
                             className="input-act"
                             placeholder="Minutos"
-                            min="0" // Permite cero minutos
-                            style={{ flex: 1 }} // Añadido espacio entre inputs
+                            min="0"
+                            style={{ flex: 1 }}
                         />
                     </div>
     
@@ -188,6 +196,17 @@ const EditarActividad = () => {
                         />
                     </div>
                     
+                    {/* Campo para mostrar la ubicación */}
+                    <div className="input-container-act">
+                        <input
+                            type="text"
+                            value={actividad.ubicacion}
+                            readOnly // Campo de solo lectura para la ubicación
+                            className="input-act"
+                            placeholder="Ubicación seleccionada"
+                        />
+                    </div>
+
                     <button type="submit" className="form-button-act">Actualizar</button>
                 </form>
                 <footer className="footer1">

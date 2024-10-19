@@ -19,16 +19,14 @@ const markerIcon = new L.Icon({
     shadowSize: [41, 41],
 });
 
-const MapaPequeño = () => {
+const MapaUbicacion = ({ onLocationSave }) => {
     const [position, setPosition] = useState([13.68935, -89.18718]);
     const [address, setAddress] = useState("");
     const [savedLocation, setSavedLocation] = useState(null);
 
     useEffect(() => {
         document.body.classList.add('estilo2');
-        
 
-        // Cargar ubicación guardada desde localStorage (si existe)
         const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
         if (storedLocation) {
             setSavedLocation(storedLocation);
@@ -81,6 +79,7 @@ const MapaPequeño = () => {
         if (savedLocation) {
             localStorage.setItem('savedLocation', JSON.stringify(savedLocation));
             alert(`Ubicación guardada: ${savedLocation.address}`);
+            onLocationSave(savedLocation); // Llama a la función para pasar la ubicación al padre
         } else {
             alert('No hay ubicación para guardar');
         }
@@ -136,12 +135,10 @@ const MapaPequeño = () => {
             </div>
             <button className="map-button" onClick={handleSaveLocation}>Guardar Ubicación</button>
             <footer className="footer">
-        <span>© SummerTime Coders</span>
-      </footer>
-    </div>
-        
-        
+                <span>© SummerTime Coders</span>
+            </footer>
+        </div>
     );
 };
 
-export default MapaPequeño;
+export default MapaUbicacion;
