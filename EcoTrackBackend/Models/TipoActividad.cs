@@ -6,14 +6,12 @@ namespace EcoTrack.Models
     {
         [Key]
         public int IdTipoActividad { get; set; }
-        [Required]
-        public string NombreActividad { get; set; }
-        public string DescripcionActividad {get; set;}
 
-        public TipoActividad()
-        {
-            NombreActividad=string.Empty;
-            DescripcionActividad=string.Empty;
-        }
+        [Required]
+        [StringLength(50)]
+        required public string NombreActividad { get; set; } = string.Empty;
+
+        [StringLength(int.MaxValue)]
+        public string? DescripcionActividad { get; set; } // Opcional
     }
 }

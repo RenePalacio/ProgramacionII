@@ -5,37 +5,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcoTrack.Models
 {
-    public class Actividad
-    {
-        [Key]
-        public int IdActividad { get; set; }
+   public class Actividad
+{
+    public int IdActividad { get; set; }
+    required public int IdUsuario { get; set; }
+    required public int IdTipoActividad { get; set; }
+    required public string Ubicacion { get; set; }
+    public DateTime Fecha { get; set; }
+    public TimeSpan Hora { get; set; }
+    public int Duracion { get; set; }
+    public string? Notas { get; set; }
 
-        [Required]
-        public int IdUsuario { get; set; }
+    // Propiedades de navegación
+    public virtual Usuario? Usuario { get; set; }
+    public virtual TipoActividad? TipoActividad { get; set; }
+    public virtual ICollection<DatosClima>? DatosClima { get; set; } // Asegúrate de que esta línea esté presente
+}
 
-        [ForeignKey("IdUsuario")]
-        public required Usuario Usuario { get; set; }
-
-        [Required]
-        public int IdTipoActividad { get; set; }
-
-        [ForeignKey("IdTipoActividad")]
-        public required TipoActividad TipoActividad { get; set; }
-
-        [Required]
-        [StringLength(200)] // Limitar el tamaño de la ubicación
-        public string Ubicacion { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime Fecha { get; set; }
-
-        [Required]
-        public TimeSpan Duracion { get; set; }
-
-        [Required]
-        public DateTime Hora { get; set; } // Nueva propiedad
-
-        // Relación uno a muchos con DatosClima
-        public virtual required ICollection<DatosClima> DatosClima { get; set; } = new List<DatosClima>();
-    }
 }

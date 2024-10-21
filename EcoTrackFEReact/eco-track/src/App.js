@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './components/styles.css';
 import NavMenu from './components/NavMenu';
+import NavDesktop from './components/NavDesktop';
 import Dashboard from './components/LogIn';
 import Register from './components/Register'; 
 import CrearActividad from './components/CrearActividad';
@@ -26,13 +27,14 @@ function Layout() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/crearAct" element={<CrearActividad location={savedLocation} />} /> {/* Pasar ubicación */}
-                <Route path="/editarAct" element={<EditarActividad />} />
+                <Route path="/editarAct/:id" element={<EditarActividad />} /> 
                 <Route path="/ubicacion" element={<MapaUbicacion onLocationSave={handleLocationSave} />} />
                 <Route path="/perfil" element={<Perfilusuario />} />
                 <Route path="/Error" element={<ErrorPage />} />
             </Routes>
 
-            {location.pathname !== '/register' && location.pathname !== '/crearAct' && <NavMenu />}
+            {location.pathname !== '/register' && location.pathname !== '/' && location.pathname !== '' && <NavMenu />}
+            {location.pathname !== '/register' && location.pathname !== '/' && location.pathname !== '' && <NavDesktop />}
         </>
     );
 }

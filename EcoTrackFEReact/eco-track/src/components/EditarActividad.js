@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import './styles.css';
-import { useParams, useNavigate } from 'react-router-dom'; // Incluye useNavigate
 
-const EditarActividad = () => { // Eliminar la prop location
+const EditarActividad = () => {
     const { id } = useParams(); // Obtenemos el id de la actividad a editar
     const [tiposActividad, setTiposActividad] = useState([]);
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
-        ubicacion: '', // Inicializa como vacío
+        ubicacion: '', 
         fecha: '',
-        duracionHoras: '',
-        duracionMinutos: '',
+        duracion: '',
         hora: '',
         notas: '',
-        nombre: '',
         color: '#ffffff',
     });
 
-    const navigate = useNavigate(); // Inicializa useNavigate
+    const navigate = useNavigate(); 
 
     const corazones = [
         { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' },
@@ -42,8 +40,18 @@ const EditarActividad = () => { // Eliminar la prop location
 
         const obtenerActividad = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/actividad/${id}`);
-                setActividad(response.data);
+                const response = await axios.get(`http://localhost:5000/api/actividad/actividad/${id}`);
+                if (response.data) {
+                    setActividad({
+                        idTipoActividad: response.data.idTipoActividad || '',
+                        ubicacion: response.data.ubicacion || '', 
+                        fecha: response.data.fecha.split('T')[0] || '',
+                        duracion: response.data.duracion || '',
+                        hora: response.data.hora.split(':')[0] + ':' + response.data.hora.split(':')[1] || '',
+                        notas: response.data.notas || '',
+                        color: response.data.color || '#ffffff',
+                    });
+                }
             } catch (error) {
                 console.error('Error al obtener actividad', error);
             }
@@ -52,17 +60,30 @@ const EditarActividad = () => { // Eliminar la prop location
         obtenerTiposActividad();
         obtenerActividad();
         document.body.classList.add('estilo3');
-
-        // Cargar la ubicación guardada desde localStorage
-        const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
-        if (storedLocation) {
-            setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
-        }
+        crearEstrellasAct(100); // Crear estrellas al montar el componente
 
         return () => {
             document.body.classList.remove('estilo3');
+            const estrellasAct = document.querySelectorAll('.star-act');
+            estrellasAct.forEach(estrella => estrella.remove()); // Limpiar estrellas al salir
         };
     }, [id]);
+
+    const crearEstrellasAct = (cantidad) => {
+        const contenedorEstrellasAct = document.querySelector('.container-act');
+
+        for (let i = 0; i < cantidad; i++) {
+            const estrellaAct = document.createElement('div');
+            estrellaAct.className = 'star-act';
+            const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+            estrellaAct.style.width = `${size}px`;
+            estrellaAct.style.height = `${size}px`;
+            estrellaAct.style.top = `${Math.random() * 100}vh`;
+            estrellaAct.style.left = `${Math.random() * 100}vw`;
+            estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
+            contenedorEstrellasAct.appendChild(estrellaAct);
+        }
+    };
 
     const handleColorChange = (degradado) => {
         setActividad((prev) => ({
@@ -71,15 +92,49 @@ const EditarActividad = () => { // Eliminar la prop location
         }));
     };
 
+    const handleUbicacionChange = () => {
+        const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+        if (storedLocation) {
+            setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validar que todos los campos tengan valores
+        if (!actividad.idTipoActividad || !actividad.ubicacion || !actividad.fecha || !actividad.duracion || !actividad.hora) {
+            console.error('Por favor, complete todos los campos obligatorios.');
+            return;
+        }
+
+        const actividadData = {
+            idTipoActividad: Number(actividad.idTipoActividad),
+            ubicacion: actividad.ubicacion,
+            fecha: actividad.fecha,
+            duracion: Number(actividad.duracion),
+            hora: actividad.hora + ':00', // Aseguramos que tenga el formato HH:mm:ss
+            notas: actividad.notas,
+            color: actividad.color, // Asegúrate de incluir el color en los datos a enviar
+            idUsuario: 1 // ID de usuario fijo para pruebas
+        };
+
+        console.log('Datos a enviar:', actividadData); // Imprimir datos a enviar para depuración
+
         try {
-            const response = await axios.put(`/api/actividad/${id}`, actividad);
+            const response = await axios.put(`http://localhost:5000/api/Actividad/actividad/${id}`, actividadData);
             console.log('Actividad editada:', response.data);
-            // Redirigir a Home o a la página de actividades después de editar
+            
+            // Guardar el color en localStorage usando el ID de la actividad
+            localStorage.setItem(`actividadColor_${id}`, actividad.color); // Asegúrate de que el ID esté correcto
+
             navigate('/home');
         } catch (error) {
-            console.error('Error al editar actividad', error);
+            console.error('Datos enviados:', actividadData);
+            console.error('Error al editar actividad', error.response?.data || error.message);
+            if (error.response?.data?.errors) {
+                console.error('Errores de validación:', error.response.data.errors);
+            }
         }
     };
 
@@ -90,7 +145,6 @@ const EditarActividad = () => { // Eliminar la prop location
             </header>
             <div className="image-heart-container-act">
                 <div className="image-container-act"></div>
-                
                 <div className="heart-selector-act">
                     {corazones.map((corazon) => (
                         <div 
@@ -113,17 +167,6 @@ const EditarActividad = () => { // Eliminar la prop location
             <div className="form-container-act" style={{ background: actividad.color }}>
                 <form onSubmit={handleSubmit} className="activity-form-act">
                     <div className="input-container-act">
-                        <input
-                            type="text"
-                            value={actividad.nombre}
-                            onChange={(e) => setActividad({ ...actividad, nombre: e.target.value })}
-                            required
-                            className="input-name-act"
-                            placeholder="Nombre de la Actividad"
-                        />
-                    </div>
-    
-                    <div className="input-container-act">
                         <select
                             name="idTipoActividad"
                             value={actividad.idTipoActividad}
@@ -143,14 +186,15 @@ const EditarActividad = () => { // Eliminar la prop location
                             )}
                         </select>
                     </div>
-    
+
                     <div className="input-container-act">
                         <input
-                            type="date"
+                            type="text"
                             value={actividad.fecha}
                             onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
                             required
                             className="input-act"
+                            placeholder="Fecha (YYYY-MM-DD)"
                         />
                     </div>
 
@@ -164,29 +208,18 @@ const EditarActividad = () => { // Eliminar la prop location
                         />
                     </div>
 
-                    <div className="input-container-act" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                    <div className="input-container-act">
                         <input
                             type="number"
-                            value={actividad.duracionHoras}
-                            onChange={(e) => setActividad({ ...actividad, duracionHoras: e.target.value })}
+                            value={actividad.duracion}
+                            onChange={(e) => setActividad({ ...actividad, duracion: e.target.value })}
                             required
                             className="input-act"
-                            placeholder="Horas"
+                            placeholder="Duración (en minutos)"
                             min="0"
-                            style={{ marginRight: '10px', flex: 1 }}
-                        />
-                        <input
-                            type="number"
-                            value={actividad.duracionMinutos}
-                            onChange={(e) => setActividad({ ...actividad, duracionMinutos: e.target.value })}
-                            required
-                            className="input-act"
-                            placeholder="Minutos"
-                            min="0"
-                            style={{ flex: 1 }}
                         />
                     </div>
-    
+
                     <div className="input-container-act">
                         <textarea
                             value={actividad.notas}
@@ -195,21 +228,24 @@ const EditarActividad = () => { // Eliminar la prop location
                             placeholder="Notas"
                         />
                     </div>
-                    
-                    {/* Campo para mostrar la ubicación */}
+
                     <div className="input-container-act">
                         <input
                             type="text"
                             value={actividad.ubicacion}
-                            readOnly // Campo de solo lectura para la ubicación
+                            readOnly
                             className="input-act"
                             placeholder="Ubicación seleccionada"
                         />
+                        <button type="button" onClick={handleUbicacionChange} className="form-button-act2">
+                            Actualizar Ubicación
+                        </button>
                     </div>
 
                     <button type="submit" className="form-button-act">Actualizar</button>
                 </form>
-                <footer className="footer1">
+                
+                <footer className="footer">
                     <span>© SummerTime Coders</span>
                 </footer>
             </div>

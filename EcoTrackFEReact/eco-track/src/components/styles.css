@@ -71,7 +71,7 @@
   
   .input-field {
     padding: 15px 25px;
-    width: 125%;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px; /* Bordes redondeados más grandes */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -132,7 +132,7 @@
     width: 190px;
     height: 150px;
     top: 20%;
-    right: 13%;
+    right: 10%;
     background-image: url('https://i.ibb.co/N9N1htY/nube2.png');
   }
   
@@ -151,6 +151,33 @@
     left: 1%;
     background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png');
   }
+  
+
+.cloud6 {
+    width: 200px;
+    height: 160px;
+    margin-top: 45%; /* Margen superior para la separación */
+    margin-left: 75%; /* Alinear a la derecha */
+    margin-right: 5%; /* Margen derecho para la separación */
+    background-image: url('https://i.ibb.co/N9N1htY/nube2.png');
+}
+
+.cloud7 {
+    width: 250px;
+    height: 225px;
+    margin-top: 30%; /* Margen superior para la separación */
+    margin-left: 75%; /* Ajuste del margen izquierdo */
+    background-image: url('https://i.ibb.co/VgWQVBg/nube3.png');
+}
+
+.cloud8 {
+    width: 190px;
+    height: 150px;
+    margin-top: 45%; /* Margen superior para la separación */
+    margin-left: auto; /* Alinear a la derecha */
+    margin-right: 65%; /* Margen derecho para la separación */
+    background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png');
+}
   
   
   @media (max-width: 768px) {
@@ -213,36 +240,46 @@
 
 /* HomePage.css */
 
-/* Contenedor principal de la página */
-/* HomePage.css */
-
-/* Ajustamos el contenedor principal para que ocupe toda la pantalla */
 .home-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribuye las secciones a lo largo del espacio disponible */
+  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  height: 100vh; /* Para que ocupe el 100% de la altura de la pantalla */
-  background: linear-gradient(to bottom right, #015b52, #adb69f);
+  min-height: 120vh; /* Cambia a min-height */
+  background: linear-gradient(to bottom left, #283372, #1c7a71);
+  border: none;
 }
 
 /* Sección de bienvenida */
 .welcome-section {
-  background-color: #2ba749;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 30px;
   text-align: center;
   border-radius: 10px;
   width: 100%;
   margin-bottom: 30px;
+  display: flex;
+  margin:none;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 
 .welcome-icon img {
-  width: 100px;
-  height: 100px;
+  position: relative;
+  right: 700px;
+  width: 200px;
+  height: 250px;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-right: 20px; /* Espacio entre la imagen y el texto */
+}
+
+.welcome-text {
+  position: relative;
+  right: 80px;
+  text-align: left;
+  position: relative; /* Alinear el texto al centro */
+  font-size: 20px;
 }
 
 .welcome-text h2 {
@@ -254,15 +291,16 @@
 }
 
 /* Botón de agregar tarea */
+/* Botón de agregar tarea */
 .add-task-section {
   margin: 20px 0; /* Ajustamos los márgenes */
 }
 
 .add-task-btn {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: #000000;
+  color: #fdfdfd;
   padding: 12px 24px;
-  border: 2px solid #2ba749;
+  border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -270,16 +308,59 @@
 }
 
 .add-task-btn:hover {
-  background-color: #2ba749;
-  color: white;
+  background-color: #3ebd53;
+  color: #ffffff;
+}
+
+.edit-task-section,
+.delete-task-section {
+  margin: 20px 0; /* Ajustamos los márgenes */
+  display: flex; /* Habilitar flexbox */
+  justify-content: center; /* Centra horizontalmente los botones */
+}
+
+.edit-task-btn,
+.delete-task-btn {
+  background-color: #000000;
+  color: #fcfcfc;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 10px; /* Espacio entre los botones */
+}
+
+.edit-task-btn:hover,
+.delete-task-btn:hover {
+  background-color: #3ebd53;
+  color: #ffffff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px; /* Ajustado para estar en la parte superior */
+  right: 20px; /* Ajustado para estar a la derecha */
+  background: transparent; /* Sin fondo */
+  border: none; /* Sin borde */
+  color: #333; /* Color de la X */
+  font-size: 24px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+  transition: color 0.3s ease; /* Transición para el color */
+}
+
+.close-btn:hover {
+  color: #ff0000; /* Cambia el color al pasar el mouse */
 }
 
 /* Sección de actividades */
 .activities-section {
-  width: 100%;
+  width: 50%;
   text-align: center;
   margin-top: 20px;
-  flex-grow: 1; /* Permite que esta sección crezca según el tamaño de la pantalla */
+  flex-grow: 1; 
+  overflow-y: auto; /* Permite que esta sección crezca según el tamaño de la pantalla */
 }
 
 .activities-list {
@@ -287,9 +368,10 @@
 }
 
 .activity-item {
-  background-color: #a7e49a;
+  background-color: #080808;
+  color: #000;
   margin: 15px 0;
-  padding: 15px;
+  padding: 30px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
@@ -305,6 +387,7 @@
 .activity-item .arrow {
   font-size: 18px;
   font-weight: bold;
+  color: #000;
 }
 
 /* Estilos para el popup */
@@ -321,33 +404,151 @@
 }
 
 .popup-content {
-  background-color: white;
-  padding: 20px;
+  background-color: rgba(79, 179, 137, 0.712);
+  padding: 40px; /* Ajustado para más espacio */
   border-radius: 10px;
-  width: 80%;
-  max-width: 400px;
+  width: 90%; /* Ajustado para pantallas pequeñas */
+  max-width: 600px; /* Limitar ancho máximo */
   text-align: center;
+  position: relative; /* Para el botón de cerrar */
 }
 
 .popup-content h4 {
-  margin-bottom: 10px;
-}
-
-.popup-content p {
   margin-bottom: 20px;
 }
 
-.close-btn {
-  background-color: #2ba749;
-  color: white;
+.popup-table {
+  width: 100%; /* Asegura que la tabla ocupe el ancho completo */
+  margin: 20px 0; /* Espaciado entre la tabla y otros elementos */
+  display: table; /* Usar display table para mejor alineación */
+}
+
+.popup-row {
+  display: table-row; /* Usar display table-row para las filas */
+}
+
+.popup-cell {
+  display: table-cell; /* Usar display table-cell para las celdas */
+  padding: 10px; /* Espaciado interno */
+  text-align: left; /* Alinea el texto a la izquierda */
+  width: 50%; /* Ancho de las celdas */
+  border-bottom: 1px solid #ccc; /* Línea divisoria */
+}
+
+.edit-delete-buttons {
+  display: flex;
+  justify-content: center; /* Centra los botones */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.popup-content h5 {
+  margin-top: 20px; /* Espaciado superior para el subtítulo */
+}
+
+/* Estilos para el CustomAlert */
+.custom-alert-overlay,
+.success-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semi-translúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegúrate de que esté en la parte superior */
+}
+
+.custom-alert-content,
+.success-alert-content {
+  background: white; /* Fondo blanco para el popup */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.confirm-btn,
+.cancel-btn,
+.close-success-btn {
+  margin: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.close-btn:hover {
-  background-color: #218a3d;
+.confirm-btn {
+  background: #000000; /* Verde */
+  color: rgb(255, 255, 255);
+}
+
+.confirm-btn:hover {
+  background: #3ebd53;
+  color: #ffffff;
+}
+
+.cancel-btn {
+  background: #000000; /* Rojo */
+  color: rgb(252, 249, 249);
+}
+
+.cancel-btn:hover {
+  background: #3ebd53;
+  color: #ffffff;
+}
+
+/* Estilos para el SuccessAlert */
+.close-success-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff; /* Azul */
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .popup-content {
+    padding: 20px; /* Menos padding en pantallas más pequeñas */
+  }
+
+  .custom-alert-content,
+  .success-alert-content {
+    padding: 15px; /* Ajustar padding para alertas */
+  }
+
+  .confirm-btn,
+  .cancel-btn,
+  .close-success-btn {
+    padding: 8px 16px; /* Ajustar el padding de los botones */
+  }
+
+  .popup-content h4 {
+    font-size: 1.5em; /* Ajustar tamaño de fuente */
+  }
+
+  .popup-content p {
+    font-size: 1em; /* Ajustar tamaño de fuente */
+  }
+}
+
+@media (max-width: 780px) {
+  .welcome-section {
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    padding: 20px; /* Reduce el padding */
+  }
+
+  .welcome-icon img {
+    position: relative;
+    left: 0%;
+    width: 150px; /* Reduce el tamaño de la imagen */
+    height: 200px; /* Reduce la altura de la imagen */
+    margin-right: 0; /* Elimina el margen derecho */
+  }
 }
 
  /*Fin de estilos de Home*/
@@ -438,8 +639,8 @@
 .map-button {
     padding: 10px;
     font-size: 1rem;
-    background-color: #474f69;
-    color: white;
+    background-color: #000000;
+    color: rgb(250, 248, 248);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -447,7 +648,8 @@
 }
 
 .map-button:hover {
-    background-color: #0796d7;
+    background-color: #3ebd53;
+    color: #ffffff;
 }
 
 .map-container {
@@ -475,6 +677,44 @@
   
  
 }
+
+/* Estilos para el CustomAlert */
+.custom-alert-overlay-map {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semi-translúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegúrate de que esté en la parte superior */
+}
+
+.custom-alert-content-map {
+  background: white; /* Fondo blanco para el popup */
+  padding: 20px;  
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.confirm-btn-map {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #000000; /* Color del botón */
+  color: hsl(0, 0%, 100%);
+}
+
+.confirm-btn-map:hover {
+  background: #3ebd53;
+  color: #ffffff;
+}
+
 
 /*Estilo Responsive De Ubicacion*/
 
@@ -508,31 +748,28 @@
 body.estilo3 {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom right,#6aa39b,#ecdde7);
+  background: #000; /* Fondo negro para simular el espacio */
   height: 100vh;
-  overflow: hidden; 
+  overflow: hidden;
+  position: relative; /* Para el posicionamiento de las estrellas */
 }
 
-body.estilo3::before {
-  content: '';
+.star-act {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, white 1px, transparent 1px) repeat;
-  background-size: 10px 10px;
-  opacity: 0.5;
-  animation: twinkle 1.5s infinite alternate;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle-act 1.5s infinite; /* Animación de parpadeo */
+  z-index: 0; /* Asegúrate de que esté detrás de todo */
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.5; }
+/* Estilo de las estrellas */
+@keyframes twinkle-act {
+  0%, 100% { opacity: 0; }
   50% { opacity: 1; }
 }
 
 .contenido {
-  z-index: 1;
+  z-index: 1; /* Contenido debe estar sobre las estrellas */
   color: white;
   text-align: center;
 }
@@ -544,6 +781,7 @@ body.estilo3::before {
   align-items: flex-start;
   width: 100%;
   padding: 20px; 
+  position: relative; /* Para que las estrellas se posicionen correctamente */
 }
 
 /* Contenedor de la imagen */
@@ -554,7 +792,7 @@ body.estilo3::before {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 0;
+  z-index: 1; /* Asegúrate de que la imagen esté sobre las estrellas */
 }
 
 /* Contenedor del formulario */
@@ -569,7 +807,7 @@ body.estilo3::before {
   display: flex; 
   flex-direction: column; 
   align-items: stretch;
-  z-index: 10;
+  z-index: 2; /* Asegúrate de que el formulario esté sobre las estrellas */
 }
 
 /* Formulario de actividades */
@@ -646,7 +884,7 @@ body.estilo3::before {
 
 /* Botón del formulario */
 .form-button-act {
-  background-color: #007bff;
+  background-color: #000;
   color: white;
   cursor: pointer;
   font-size: 16px;
@@ -658,9 +896,23 @@ body.estilo3::before {
 }
 
 .form-button-act:hover {
-  background-color: #0056b3;
+  background-color: #3ebd53;
+}
+.form-button-act2 {
+  background-color: #000;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 100%;
+  transition: background-color 0.3s;
 }
 
+.form-button-act2:hover {
+  background-color: #3ebd53;
+}
 /* Selector de corazones */
 .heart-selector-act {
   display: flex;
@@ -685,13 +937,9 @@ body.estilo3::before {
   margin: 0 10px;
 }
 
+
 /* Media Query para dispositivos móviles */
-@media (max-width: 768px) {
-  .heart-act {
-      font-size: 30px; /* Cambia el tamaño de fuente para dispositivos móviles */
-      margin: 0 5px; /* Ajusta el margen para dispositivos móviles */
-  }
-}
+
 
 
 .heart-act:hover {
@@ -729,12 +977,12 @@ body.estilo3::before {
 
   .image-container-act {
     position: absolute; /* Posicionar la imagen en el fondo */
-    top: 10px; /* Alinea al principio de la página */
-    left: 125px; /* Alinea a la izquierda */
+    top: -330px; /* Alinea al principio de la página */
+    left: 110px; /* Alinea a la izquierda */
     right: 0; /* Alinea a la derecha */
-    height: 15%; /* Ocupa el 16% de la pantalla */
+    height: 10%; /* Ocupa el 16% de la pantalla */
     background-image: url('https://i.ibb.co/kxHWG7w/939fa3ee-d7e3-4085-9b98-8bc8c7ffe849-removebg-preview.png'); 
-    background-size: contain; /* Ajusta la imagen sin cortarla */
+    background-size: 140px;
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     z-index: 11; /* Asegura que la imagen esté detrás del formulario */
@@ -785,6 +1033,7 @@ body.estilo3::before {
   .input-act, .input-name-act, .form-textarea-act {
     position: relative;
     top: 270px;
+    left: -10px;
     font-size: 14px; /* Ajustar el tamaño de fuente */
     padding: 8px; /* Ajustar el padding */
   }
@@ -793,30 +1042,27 @@ body.estilo3::before {
     position: relative;
     top: 300px;
     padding: 10px; /* Ajustar el padding del botón */
+    font-size: 16px;
+    left: -10px; /* Ajustar el tamaño del texto del botón */
+  }
+  .form-button-act2 {
+    position: relative;
+    left: -7px;
+    top: 270px;
+    padding: 10px; /* Ajustar el padding del botón */
     font-size: 16px; /* Ajustar el tamaño del texto del botón */
   }
 }
 
 
-
-
-
-
-  
-
-
-
-
-
 /* ------ CSS de Perfil -----*/
-
 /* Perfil Container */
 .profile-container { 
   background-image: url('https://i.ibb.co/ts5Xdv3/backgrounddivprofile4.png');
-  background-size: cover; 
+  background-size: contain; 
   background-position: center; 
   background-repeat: no-repeat; 
-  padding: 30px;
+  padding: 70px;
   border-radius: 10px; 
   max-width: 650px;
   width: 100%;
@@ -843,7 +1089,7 @@ body.estilo3::before {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduce el margen inferior */
 }
 
 .profile-pic {
@@ -857,17 +1103,17 @@ body.estilo3::before {
   flex-grow: 1;
 }
 
-.username {
+.nombr {
   font-size: 24px;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
-.bio {
+.email {
   font-size: 16px;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduce el margen inferior */
 }
 
 /* Acciones del perfil */
@@ -876,7 +1122,7 @@ body.estilo3::before {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 20px; /* Añadir un poco de espacio superior */
+  margin-top: 0; /* Elimina el margen superior */
 }
 
 .profile-btn {
@@ -888,11 +1134,11 @@ body.estilo3::before {
   font-size: calc(14px + 0.5vw); /* Ajusta el tamaño de la fuente de manera responsiva */
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 45%; /* Mantiene los botones a un 80% del contenedor */
+  width: 40%; /* Mantiene los botones a un 80% del contenedor */
   max-width: 300px; /* Fija un ancho máximo */
   min-width: 150px; /* Fija un ancho mínimo */
   height: auto;
-  margin: 7px 0; /* Espacio entre botones */
+  margin: 5px 0; /* Espacio entre botones */
   text-align: center;
   display: flex; /* Flex para centrar el contenido */
   justify-content: center; /* Centrar horizontalmente */
@@ -902,67 +1148,116 @@ body.estilo3::before {
 }
 
 .profile-btn:hover {
-  background-color: #0056b3;
+  background-color: #3ebd53;
 }
-
 
 /* Contenedor de editar perfil */
 .edit-profile-container {
-
     background-image: url('https://i.ibb.co/125BhPS/backgrounddivprofile.png'); /* Imagen de fondo */
-    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+    background-size: contain; /* Asegura que la imagen cubra todo el contenedor */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     padding: 30px;
     border-radius: 10px; /* Puedes mantener el borde redondeado si lo deseas */
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .edit-profile-container h2 {
-margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .edit-profile-container form div {
-margin-bottom: 15px;
-width: 100%;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 .edit-profile-container label {
-display: block;
-font-weight: bold;
-margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .edit-profile-container input,
 .edit-profile-container textarea {
-width: 100%;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 14px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .edit-profile-container button {
-background-color: #32563a;
-color: white;
-border: none;
-padding: 12px 20px;
-border-radius: 5px;
-font-size: 16px;
-cursor: pointer;
-transition: background-color 0.3s ease;
+  background-color: #32563a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .edit-profile-container button:hover {
-background-color: #0056b3;
+  background-color: #3ebd53;
 }
+.star-profile {
+  position: absolute;
+  background-color: white; /* Cambia esto al color que desees para las estrellas */
+  border-radius: 50%;
+  animation: blink 1.5s infinite alternate; /* Efecto de parpadeo */
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.snow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Asegura que no se muestren copos fuera de la vista */
+  pointer-events: none; /* Para que los copos no interfieran con los clics en otros elementos */
+}
+
+.snowflake {
+  position: absolute;
+  background-color: white; /* Color de los copos de nieve */
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite; /* Animación de caída */
+}
+
+/* Animación de caída de la nieve */
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh); /* Caer desde la parte superior hasta la inferior */
+  }
+}
+
+/* Variar la duración de la animación de caída para diferentes copos */
+.snowflake {
+  animation-duration: calc(2s + 3s * var(--random));
+  animation-delay: calc(0s + 3s * var(--random)); /* Añadir un retraso aleatorio */
+}
+
+/* Otras clases que ya tengas en tu CSS */
+
 
 
 /* fin del CSS del perfil*/
