@@ -1,94 +1,134 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using EcoTrack.Models;
-using EcoTrack;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcoTrack.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ActividadController : ControllerBase
     {
-        private readonly EcoTrackDbContext _context; // Cambiado a EcoTrackDbContext
+        private readonly EcoTrackDbContext _context;
 
         public ActividadController(EcoTrackDbContext context)
         {
-            _context = context; // Asigna el contexto correcto
+            _context = context;
         }
 
-        // GET: api/actividad
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Actividad>>> GetActividades()
+        [HttpGet("{idUsuario}")]
+        public async Task<IActionResult> GetActividadesPorUsuario(int idUsuario)
         {
-            return await _context.Actividades
-                .Include(a => a.Usuario)
+            var actividades = await _context.Actividades
                 .Include(a => a.TipoActividad)
-                .ToListAsync(); // Devuelve la lista de actividades con datos relacionados
+                .Where(a => a.IdUsuario == idUsuario)
+                .Select(a => new 
+                {
+                    a.IdActividad,
+                    a.Hora,
+                    TipoActividad = a.TipoActividad.NombreActividad
+                })
+                .ToListAsync();
+
+            if (!actividades.Any())
+            {
+                return NotFound("No se encontraron actividades para este usuario.");
+            }
+
+            return Ok(actividades);
         }
 
-        // GET: api/actividad/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Actividad>> GetActividad(int id)
+        [HttpGet("actividad/{idActividad}")]
+        public async Task<IActionResult> GetActividadPorId(int idActividad)
         {
             var actividad = await _context.Actividades
-                .Include(a => a.Usuario)
                 .Include(a => a.TipoActividad)
-                .FirstOrDefaultAsync(a => a.IdActividad == id); // Busca la actividad por ID
+                .FirstOrDefaultAsync(a => a.IdActividad == idActividad);
 
             if (actividad == null)
             {
-                return NotFound(); // Devuelve un error 404 si no se encuentra
+                return NotFound("Actividad no encontrada.");
             }
 
-            return actividad; // Devuelve la actividad encontrada
+            return Ok(new 
+            {
+                actividad.IdActividad,
+                actividad.Hora,
+                TipoActividad = actividad.TipoActividad.NombreActividad,
+                actividad.Ubicacion,
+                actividad.Fecha,
+                actividad.Duracion,
+                actividad.Notas
+            });
         }
 
-        // POST: api/actividad
         [HttpPost]
-        public async Task<ActionResult<Actividad>> PostActividad([FromBody] Actividad actividad)
+        public async Task<IActionResult> CreateActividad([FromBody] CreateActividadDto actividadDto)
         {
-            if (!ModelState.IsValid) // Verifica si el modelo es válido
+            if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); // Devuelve un error 400 si no es válido
+                return BadRequest(ModelState);
             }
 
-            _context.Actividades.Add(actividad); // Añade la actividad al contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
+            var actividad = new Actividad
+            {
+                IdUsuario = actividadDto.IdUsuario,
+                IdTipoActividad = actividadDto.IdTipoActividad,
+                Ubicacion = actividadDto.Ubicacion,
+                Fecha = actividadDto.Fecha,
+                Duracion = actividadDto.Duracion,
+                Hora = actividadDto.Hora,
+                Notas = actividadDto.Notas
+            };
 
-            return CreatedAtAction(nameof(GetActividad), new { id = actividad.IdActividad }, actividad); // Devuelve la acción creada
+            _context.Actividades.Add(actividad);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetActividadesPorUsuario), new { idUsuario = actividadDto.IdUsuario }, actividad);
         }
 
-        // PUT: api/actividad/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutActividad(int id, [FromBody] Actividad actividad)
+        [HttpPut("actividad/{idActividad}")]
+        public async Task<IActionResult> EditarActividad(int idActividad, [FromBody] CreateActividadDto actividadDto)
         {
-            if (id != actividad.IdActividad)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(); // Devuelve un error 400 si los IDs no coinciden
+                return BadRequest(ModelState);
             }
 
-            _context.Entry(actividad).State = EntityState.Modified; // Marca la actividad como modificada
-            await _context.SaveChangesAsync(); // Guarda los cambios
-
-            return NoContent(); // Devuelve un código 204 sin contenido
-        }
-
-        // DELETE: api/actividad/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActividad(int id)
-        {
-            var actividad = await _context.Actividades.FindAsync(id); // Busca la actividad por ID
+            var actividad = await _context.Actividades.FindAsync(idActividad);
             if (actividad == null)
             {
-                return NotFound(); // Devuelve un error 404 si no se encuentra
+                return NotFound("Actividad no encontrada.");
             }
 
-            _context.Actividades.Remove(actividad); // Elimina la actividad del contexto
-            await _context.SaveChangesAsync(); // Guarda los cambios
+            // Actualiza los valores
+            actividad.IdTipoActividad = actividadDto.IdTipoActividad;
+            actividad.Ubicacion = actividadDto.Ubicacion;
+            actividad.Fecha = actividadDto.Fecha;
+            actividad.Duracion = actividadDto.Duracion;
+            actividad.Hora = actividadDto.Hora;
+            actividad.Notas = actividadDto.Notas;
 
-            return NoContent(); // Devuelve un código 204 sin contenido
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("actividad/{idActividad}")]
+        public async Task<IActionResult> EliminarActividad(int idActividad)
+        {
+            var actividad = await _context.Actividades.FindAsync(idActividad);
+            if (actividad == null)
+            {
+                return NotFound("Actividad no encontrada.");
+            }
+
+            _context.Actividades.Remove(actividad);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

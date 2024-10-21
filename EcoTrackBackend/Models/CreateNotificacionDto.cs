@@ -1,20 +1,18 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcoTrack.Models
 {
-    public class Notificacion
+    public class CreateNotificacionDto
     {
-        [Key]
-        public int IdNotificacion { get; set; }
+        [Required]
+        public int IdUsuario { get; set; }
 
         [Required]
         public int IdActividad { get; set; }
-        [ForeignKey("IdActividad")]
-        public required Actividad Actividad { get; set; }
 
         [Required]
-        public required string Mensaje { get; set; }
+        [StringLength(255)]
+        public string Mensaje { get; set; } = string.Empty;
 
         [Required]
         public DateTime FechaEnvio { get; set; }

@@ -1,18 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcoTrack.Models
 {
-    public class DatosClima
+    public class CreateDatosClimaDto
     {
-        [Key]
-        public int IdDatosClima { get; set; }
-
         [Required]
         public int IdActividad { get; set; }
-
-        [ForeignKey("IdActividad")]
-        public Actividad? Actividad { get; set; }
 
         [Required]
         public float Temperatura { get; set; }
@@ -23,10 +16,12 @@ namespace EcoTrack.Models
         [Required]
         public float ProbabilidadLluvia { get; set; }
 
+        [Required]
         [StringLength(50)]
-        public string CalidadAire { get; set; } = string.Empty;
+        public string CalidadAire { get; set; } = string.Empty; // O usa required
 
+        [Required]
         [StringLength(50)]
-        public string Polvo { get; set; } = string.Empty;
+        public string Polvo { get; set; } = string.Empty; // O usa required
     }
 }

@@ -3,19 +3,21 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import './styles.css';
 
-const CrearActividad = () => {
+const CrearActividadAct = () => {
     const [tiposActividad, setTiposActividad] = useState([]);
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
         ubicacion: '', 
-        fecha: '', // La fecha será ingresada en formato 'DD/MM/YYYY'
-        duracion: '', // Duración en minutos
+        fecha: '',
+        duracion: '',
         hora: '',
         notas: '',
-        color: '#ffffff', // Manteniendo el color
+        color: '#ffffff',
     });
     
     const navigate = useNavigate(); 
+
+    const idUsuario = localStorage.getItem('idUsuario') || '1'; // Cambia esto si es necesario
 
     const corazones = [
         { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' }, 
@@ -39,8 +41,8 @@ const CrearActividad = () => {
 
         obtenerTiposActividad();
         document.body.classList.add('estilo3');
+        crearEstrellasAct(100); // Llamar a la función para crear estrellas
 
-        // Cargar la ubicación guardada del localStorage
         const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
         if (storedLocation) {
             setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
@@ -48,8 +50,26 @@ const CrearActividad = () => {
 
         return () => {
             document.body.classList.remove('estilo3');
+            const estrellasAct = document.querySelectorAll('.star-act');
+            estrellasAct.forEach(estrella => estrella.remove()); // Limpiar estrellas al salir
         };
     }, []);
+
+    const crearEstrellasAct = (cantidad) => {
+        const contenedorEstrellasAct = document.querySelector('.container-act');
+
+        for (let i = 0; i < cantidad; i++) {
+            const estrellaAct = document.createElement('div');
+            estrellaAct.className = 'star-act';
+            const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+            estrellaAct.style.width = `${size}px`;
+            estrellaAct.style.height = `${size}px`;
+            estrellaAct.style.top = `${Math.random() * 100}vh`;
+            estrellaAct.style.left = `${Math.random() * 100}vw`;
+            estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
+            contenedorEstrellasAct.appendChild(estrellaAct);
+        }
+    };
 
     const handleColorChange = (degradado) => {
         setActividad((prev) => ({
@@ -61,25 +81,30 @@ const CrearActividad = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Convertir la fecha al formato 'YYYY-MM-DD'
-        const [dia, mes, anio] = actividad.fecha.split('/'); // Suponiendo que la fecha viene en 'DD/MM/YYYY'
-        const fechaFormateada = `${anio}-${mes}-${dia}`; // Convertimos a 'YYYY-MM-DD'
+        const [dia, mes, anio] = actividad.fecha.split('/');
+        const fechaFormateada = `${anio}-${mes}-${dia}T00:00:00Z`; // Formato ISO
+
+        const duracionMinutos = Number(actividad.duracion);
+        const horaFormateada = `${actividad.hora}:00`; // Añadir segundos al final
 
         const actividadData = {
-            idTipoActividad: actividad.idTipoActividad,
+            idTipoActividad: Number(actividad.idTipoActividad), // Asegurarse de que sea un número
             ubicacion: actividad.ubicacion,
-            fecha: fechaFormateada, // Usamos la fecha formateada
-            duracion: "01:00:00", // Asegúrate de que sea un número
-            hora: actividad.hora,
+            fecha: fechaFormateada,
+            duracion: duracionMinutos,
+            hora: horaFormateada,
             notas: actividad.notas,
-            idUsuario: 1 // Usar un ID de usuario ficticio para pruebas
+            idUsuario: Number(idUsuario),  // Asegúrate de que sea un número
         };
 
         try {
             const response = await axios.post('http://localhost:5000/api/actividad', actividadData);
             console.log('Actividad creada:', response.data);
 
-            // Limpiar el formulario
+            // Guardar el color en localStorage usando el ID de la actividad
+            localStorage.setItem(`actividadColor_${response.data.idActividad}`, actividad.color);
+
+            // Reinicia el formulario después de enviar
             setActividad({
                 idTipoActividad: '',
                 ubicacion: '',
@@ -87,15 +112,13 @@ const CrearActividad = () => {
                 duracion: '',
                 hora: '',
                 notas: '',
-                color: '#ffffff', // Reiniciamos el color
+                color: '#ffffff',
             });
 
-            // Redirigir a Home después de guardar la actividad
             navigate('/home'); 
         } catch (error) {
-            console.error('Datos enviados:', actividadData); // Mostrar los datos que intentas enviar
+            console.error('Datos enviados:', actividadData);
             console.error('Error al crear actividad', error.response?.data || error.message);
-            // Imprimir los errores de validación específicos
             if (error.response?.data?.errors) {
                 console.error('Errores de validación:', error.response.data.errors);
             }
@@ -155,7 +178,7 @@ const CrearActividad = () => {
                     <div className="input-container-act">
                         <input
                             type="text"
-                            value={actividad.fecha} // Asegúrate de que sea 'DD/MM/YYYY'
+                            value={actividad.fecha}
                             onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
                             required
                             className="input-act"
@@ -207,7 +230,7 @@ const CrearActividad = () => {
                     <button type="submit" className="form-button-act">Guardar</button>
                 </form>
                 
-                <footer className="footer1">
+                <footer className="footer">
                     <span>© SummerTime Coders</span>
                 </footer>
             </div>
@@ -215,4 +238,4 @@ const CrearActividad = () => {
     );
 };
 
-export default CrearActividad;
+export default CrearActividadAct;

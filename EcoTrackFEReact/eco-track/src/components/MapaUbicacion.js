@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import './styles.css';
+import './styles.css'; // Asegúrate de que tu CSS esté importado
 
-const link = document.createElement('link');
-link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap';
-link.rel = 'stylesheet';
-document.head.appendChild(link);
+
 
 const markerIcon = new L.Icon({
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
@@ -23,6 +20,8 @@ const MapaUbicacion = ({ onLocationSave }) => {
     const [position, setPosition] = useState([13.68935, -89.18718]);
     const [address, setAddress] = useState("");
     const [savedLocation, setSavedLocation] = useState(null);
+    const [alertMessage, setAlertMessage] = useState(""); // Estado para el mensaje de alerta
+    const [showAlert, setShowAlert] = useState(false); // Estado para mostrar/ocultar la alerta
 
     useEffect(() => {
         document.body.classList.add('estilo2');
@@ -50,7 +49,8 @@ const MapaUbicacion = ({ onLocationSave }) => {
                     setAddress(data[0].display_name);
                     setSavedLocation({ position: [lat, lon], address: data[0].display_name });
                 } else {
-                    alert('Dirección no encontrada');
+                    setAlertMessage('Dirección no encontrada');
+                    setShowAlert(true); // Muestra la alerta
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -78,10 +78,12 @@ const MapaUbicacion = ({ onLocationSave }) => {
     const handleSaveLocation = () => {
         if (savedLocation) {
             localStorage.setItem('savedLocation', JSON.stringify(savedLocation));
-            alert(`Ubicación guardada: ${savedLocation.address}`);
-            onLocationSave(savedLocation); // Llama a la función para pasar la ubicación al padre
+            setAlertMessage(`Ubicación guardada`);
+            setShowAlert(true); // Muestra la alerta
+            onLocationSave(savedLocation);
         } else {
-            alert('No hay ubicación para guardar');
+            setAlertMessage('No hay ubicación para guardar');
+            setShowAlert(true); // Muestra la alerta
         }
     };
 
@@ -89,6 +91,10 @@ const MapaUbicacion = ({ onLocationSave }) => {
         if (event.key === "Enter") {
             handleSearch();
         }
+    };
+
+    const handleCloseAlert = () => {
+        setShowAlert(false); // Cierra la alerta
     };
 
     return (
@@ -137,6 +143,16 @@ const MapaUbicacion = ({ onLocationSave }) => {
             <footer className="footer">
                 <span>© SummerTime Coders</span>
             </footer>
+
+            {/* Componente de Alerta Personalizada */}
+            {showAlert && (
+                <div className="custom-alert-overlay-map">
+                    <div className="custom-alert-content-map">
+                        <p>{alertMessage}</p>
+                        <button className="confirm-btn-map" onClick={handleCloseAlert}>Aceptar</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

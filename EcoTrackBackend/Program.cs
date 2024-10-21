@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using EcoTrack.Services;
+using EcoTrack.Models;
 using Microsoft.OpenApi.Models;
 using EcoTrack;
 
@@ -25,13 +25,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<EcoTrackDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddHttpClient<DatosClimaService>();
-builder.Services.AddScoped<DatosClimaService>();
-builder.Services.AddHttpClient<NotificacionService>();
-builder.Services.AddScoped<NotificacionService>();
-builder.Services.AddHttpClient<UsuarioService>();
-builder.Services.AddScoped<UsuarioService>();
-builder.Services.AddScoped<INotificacionService, NotificacionService>();
+
 builder.Services.AddControllers(); // Asegúrate de que esta línea está presente
 
 builder.Services.AddSwaggerGen(c =>
