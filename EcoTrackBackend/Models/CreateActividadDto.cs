@@ -9,7 +9,7 @@ namespace EcoTrack.Models
         public int IdTipoActividad { get; set; }
 
         [Required]
-        [StringLength(200)]
+       // [StringLength(200)]
         public required string Ubicacion { get; set; }
 
         [Required]

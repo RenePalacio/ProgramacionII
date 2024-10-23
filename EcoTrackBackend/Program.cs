@@ -1,8 +1,4 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using EcoTrack.Models;
 using Microsoft.OpenApi.Models;
 using EcoTrack;
 
@@ -15,15 +11,19 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            builder.WithOrigins("http://localhost:3000", "https://ecotrackprueba.vercel.app") // Permitir solo este origen
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
         });
 });
 
 // Configuración de Entity Framework y servicios
 builder.Services.AddDbContext<EcoTrackDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("EcoTrackDbContext"),
+        new MySqlServerVersion(new Version(8, 0, 25)) // Asegúrate de usar la versión correcta de MySQL
+    ));
+
 
 
 builder.Services.AddControllers(); // Asegúrate de que esta línea está presente
@@ -42,13 +42,13 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseCors("AllowAllOrigins");
-
-app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcoTrack API v1"));
-
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcoTrack API v1"));
 
+
+
+app.Run();

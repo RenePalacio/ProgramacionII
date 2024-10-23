@@ -80,13 +80,13 @@ const CrearActividadAct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const [dia, mes, anio] = actividad.fecha.split('/');
-        const fechaFormateada = `${anio}-${mes}-${dia}T00:00:00Z`; // Formato ISO
-
+    
+        // Formato la fecha usando el valor directamente del input
+        const fechaFormateada = `${actividad.fecha}T00:00:00Z`; // Usar directamente el valor del input
+    
         const duracionMinutos = Number(actividad.duracion);
         const horaFormateada = `${actividad.hora}:00`; // Añadir segundos al final
-
+    
         const actividadData = {
             idTipoActividad: Number(actividad.idTipoActividad), // Asegurarse de que sea un número
             ubicacion: actividad.ubicacion,
@@ -96,14 +96,14 @@ const CrearActividadAct = () => {
             notas: actividad.notas,
             idUsuario: Number(idUsuario),  // Asegúrate de que sea un número
         };
-
+    
         try {
             const response = await axios.post('http://localhost:5000/api/actividad', actividadData);
             console.log('Actividad creada:', response.data);
-
+    
             // Guardar el color en localStorage usando el ID de la actividad
             localStorage.setItem(`actividadColor_${response.data.idActividad}`, actividad.color);
-
+    
             // Reinicia el formulario después de enviar
             setActividad({
                 idTipoActividad: '',
@@ -114,7 +114,7 @@ const CrearActividadAct = () => {
                 notas: '',
                 color: '#ffffff',
             });
-
+    
             navigate('/home'); 
         } catch (error) {
             console.error('Datos enviados:', actividadData);
@@ -177,7 +177,7 @@ const CrearActividadAct = () => {
     
                     <div className="input-container-act">
                         <input
-                            type="text"
+                            type="date"
                             value={actividad.fecha}
                             onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
                             required

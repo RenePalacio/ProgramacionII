@@ -39,7 +39,7 @@ const NavMenu = () => {
       </ul>
 
       {/* Estilos CSS internos */}
-      <style jsx>{`
+      <style >{`
         :root {
           --white: #ffffff;
           --violet: #1b221a;

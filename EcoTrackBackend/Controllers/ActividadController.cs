@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using EcoTrack.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcoTrack.Controllers
@@ -21,47 +20,61 @@ namespace EcoTrack.Controllers
         [HttpGet("{idUsuario}")]
         public async Task<IActionResult> GetActividadesPorUsuario(int idUsuario)
         {
-            var actividades = await _context.Actividades
-                .Include(a => a.TipoActividad)
-                .Where(a => a.IdUsuario == idUsuario)
-                .Select(a => new 
-                {
-                    a.IdActividad,
-                    a.Hora,
-                    TipoActividad = a.TipoActividad.NombreActividad
-                })
-                .ToListAsync();
-
-            if (!actividades.Any())
+            try
             {
-                return NotFound("No se encontraron actividades para este usuario.");
-            }
+                var actividades = await _context.Actividades
+                    .Include(a => a.TipoActividad)
+                    .Where(a => a.IdUsuario == idUsuario)
+                    .Select(a => new 
+                    {
+                        a.IdActividad,
+                        a.Hora,
+                        TipoActividad = a.TipoActividad != null ? a.TipoActividad.NombreActividad : "Desconocido"
+                    })
+                    .ToListAsync();
 
-            return Ok(actividades);
+                if (!actividades.Any())
+                {
+                    return NotFound("No se encontraron actividades para este usuario.");
+                }
+
+                return Ok(actividades);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
         }
 
         [HttpGet("actividad/{idActividad}")]
         public async Task<IActionResult> GetActividadPorId(int idActividad)
         {
-            var actividad = await _context.Actividades
-                .Include(a => a.TipoActividad)
-                .FirstOrDefaultAsync(a => a.IdActividad == idActividad);
-
-            if (actividad == null)
+            try
             {
-                return NotFound("Actividad no encontrada.");
+                var actividad = await _context.Actividades
+                    .Include(a => a.TipoActividad)
+                    .FirstOrDefaultAsync(a => a.IdActividad == idActividad);
+
+                if (actividad == null)
+                {
+                    return NotFound("Actividad no encontrada.");
+                }
+
+                return Ok(new 
+                {
+                    actividad.IdActividad,
+                    actividad.Hora,
+                    TipoActividad = actividad.TipoActividad?.NombreActividad ?? "Desconocido",
+                    actividad.Ubicacion,
+                    actividad.Fecha,
+                    actividad.Duracion,
+                    actividad.Notas
+                });
             }
-
-            return Ok(new 
+            catch (Exception ex)
             {
-                actividad.IdActividad,
-                actividad.Hora,
-                TipoActividad = actividad.TipoActividad.NombreActividad,
-                actividad.Ubicacion,
-                actividad.Fecha,
-                actividad.Duracion,
-                actividad.Notas
-            });
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
         }
 
         [HttpPost]
@@ -72,21 +85,28 @@ namespace EcoTrack.Controllers
                 return BadRequest(ModelState);
             }
 
-            var actividad = new Actividad
+            try
             {
-                IdUsuario = actividadDto.IdUsuario,
-                IdTipoActividad = actividadDto.IdTipoActividad,
-                Ubicacion = actividadDto.Ubicacion,
-                Fecha = actividadDto.Fecha,
-                Duracion = actividadDto.Duracion,
-                Hora = actividadDto.Hora,
-                Notas = actividadDto.Notas
-            };
+                var actividad = new Actividad
+                {
+                    IdUsuario = actividadDto.IdUsuario,
+                    IdTipoActividad = actividadDto.IdTipoActividad,
+                    Ubicacion = actividadDto.Ubicacion,
+                    Fecha = actividadDto.Fecha,
+                    Duracion = actividadDto.Duracion,
+                    Hora = actividadDto.Hora,
+                    Notas = actividadDto.Notas
+                };
 
-            _context.Actividades.Add(actividad);
-            await _context.SaveChangesAsync();
+                _context.Actividades.Add(actividad);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetActividadesPorUsuario), new { idUsuario = actividadDto.IdUsuario }, actividad);
+                return CreatedAtAction(nameof(GetActividadesPorUsuario), new { idUsuario = actividadDto.IdUsuario }, actividad);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
         }
 
         [HttpPut("actividad/{idActividad}")]
@@ -97,38 +117,51 @@ namespace EcoTrack.Controllers
                 return BadRequest(ModelState);
             }
 
-            var actividad = await _context.Actividades.FindAsync(idActividad);
-            if (actividad == null)
+            try
             {
-                return NotFound("Actividad no encontrada.");
+                var actividad = await _context.Actividades.FindAsync(idActividad);
+                if (actividad == null)
+                {
+                    return NotFound("Actividad no encontrada.");
+                }
+
+                actividad.IdTipoActividad = actividadDto.IdTipoActividad;
+                actividad.Ubicacion = actividadDto.Ubicacion;
+                actividad.Fecha = actividadDto.Fecha;
+                actividad.Duracion = actividadDto.Duracion;
+                actividad.Hora = actividadDto.Hora;
+                actividad.Notas = actividadDto.Notas;
+
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-
-            // Actualiza los valores
-            actividad.IdTipoActividad = actividadDto.IdTipoActividad;
-            actividad.Ubicacion = actividadDto.Ubicacion;
-            actividad.Fecha = actividadDto.Fecha;
-            actividad.Duracion = actividadDto.Duracion;
-            actividad.Hora = actividadDto.Hora;
-            actividad.Notas = actividadDto.Notas;
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
         }
 
         [HttpDelete("actividad/{idActividad}")]
         public async Task<IActionResult> EliminarActividad(int idActividad)
         {
-            var actividad = await _context.Actividades.FindAsync(idActividad);
-            if (actividad == null)
+            try
             {
-                return NotFound("Actividad no encontrada.");
+                var actividad = await _context.Actividades.FindAsync(idActividad);
+                if (actividad == null)
+                {
+                    return NotFound("Actividad no encontrada.");
+                }
+
+                _context.Actividades.Remove(actividad);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-
-            _context.Actividades.Remove(actividad);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
         }
     }
 }

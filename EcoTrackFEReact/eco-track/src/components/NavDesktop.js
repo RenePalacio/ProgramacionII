@@ -35,7 +35,7 @@ const NavDesktop = () => {
       </ul>
 
       {/* CSS interno simplificado */}
-      <style jsx>{`
+      <style >{`
         :root {
           --border-radius: 10px;
           --spacer: 1rem;
