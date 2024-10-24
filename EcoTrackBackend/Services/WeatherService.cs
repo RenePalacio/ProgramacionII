@@ -12,18 +12,20 @@ namespace EcoTrackBackend.Services
             _apiService = apiService;
         }
 
+        // Método para obtener datos del clima
         public async Task<WeatherResponse> GetWeatherData(double latitude, double longitude)
         {
             var endpoint = $"http://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={_apiKey}&units=metric";
             return await _apiService.GetDataFromApi<WeatherResponse>(endpoint);
         }
     }
-    // Modelo para la respuesta de la API
-            public class WeatherResponse
+
+    // Modelo para la respuesta del clima
+    public class WeatherResponse
     {
-        public Main main { get; set; } = new Main(); // Inicializa con un nuevo objeto
-        public Weather[] weather { get; set; } = Array.Empty<Weather>(); // Inicializa con un arreglo vacío
-        public string name { get; set; } = string.Empty; // Inicializa con una cadena vacía
+        public Main main { get; set; } = new Main(); // Inicialización
+        public Weather[] weather { get; set; } = Array.Empty<Weather>(); // Inicialización
+        public string name { get; set; } = string.Empty; // Inicialización
     }
 
     public class Main
@@ -35,6 +37,6 @@ namespace EcoTrackBackend.Services
 
     public class Weather
     {
-        public string description { get; set; } = string.Empty; // Inicializa con una cadena vacía
+        public string description { get; set; } = string.Empty; // Inicialización
     }
 }

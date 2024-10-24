@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './styles.css'; 
+import './styles.css';
 
 const Home = () => {
     const [showPopup, setShowPopup] = useState(false);
@@ -12,11 +12,10 @@ const Home = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [greeting, setGreeting] = useState('');
     const [advice, setAdvice] = useState('');
-    const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState(null); // Estado para guardar los datos climáticos, incluyendo UV
 
     const navigate = useNavigate();
 
-    // Configurar mensaje de saludo basado en la hora del día
     useEffect(() => {
         const setGreetingMessage = () => {
             const currentHour = new Date().getHours();
@@ -34,7 +33,6 @@ const Home = () => {
 
         setGreetingMessage();
 
-        // Obtener las actividades del usuario
         const fetchActivities = async () => {
             const idUsuario = localStorage.getItem('idUsuario') || '1';
             try {
@@ -49,24 +47,43 @@ const Home = () => {
         fetchActivities();
     }, []);
 
-    // Obtener los datos del clima
-    const getWeatherData = async (latitude, longitude, idActividad) => {
-        const apiKey = '658bf0af8b7d9dd388caa996c55f7d99';
-        try {
-            const weatherResponse = await axios.get(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
-            );
+    // Obtener los datos del clima y el índice UV
+    // Obtener los datos del clima y el índice UV reales
+const getWeatherData = async (latitude, longitude, idActividad) => {
+    const apiKey = '658bf0af8b7d9dd388caa996c55f7d99';
+    try {
+        // Llamada para obtener los datos del clima
+        const weatherResponse = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
+        );
 
-            // Guardar los datos del clima y almacenarlos en el localStorage
-            const weather = weatherResponse.data;
-            setWeatherData(weather);
-            localStorage.setItem(`weatherData_${idActividad}`, JSON.stringify(weather));
+        // Llamada separada para obtener el índice UV
+        const uvResponse = await axios.get(
+            `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+        );
 
-            console.log("Datos del clima:", weather);
-        } catch (error) {
-            console.error('Error al obtener datos del clima:', error);
+        // Obtener los datos del clima y el índice UV
+        const weather = {
+            ...weatherResponse.data,  // Datos del clima
+            uvIndex: uvResponse.data.value,  // Índice UV
+        };
+
+        // Guardar los datos del clima y el índice UV en el estado y localStorage
+        setWeatherData(weather);
+        localStorage.setItem(`weatherData_${idActividad}`, JSON.stringify(weather));
+
+        console.log("Datos del clima y UV:", weather);
+    } catch (error) {
+        console.error('Error al obtener datos del clima o UV:', error);
+
+        // Si hay un error al obtener los datos, verifica si hay datos guardados en localStorage
+        const storedWeatherData = localStorage.getItem(`weatherData_${idActividad}`);
+        if (storedWeatherData) {
+            setWeatherData(JSON.parse(storedWeatherData));
+            console.log("Usando datos almacenados en localStorage:", storedWeatherData);
         }
-    };
+    }
+};
 
     // Abrir el popup de actividad seleccionada
     const openPopup = (task) => {
@@ -83,59 +100,45 @@ const Home = () => {
             color: localStorage.getItem(`actividadColor_${task.idActividad}`) || '#ffffff',
         });
 
-        // Obtener los datos del clima almacenados en el localStorage
         const storedWeatherData = localStorage.getItem(`weatherData_${task.idActividad}`);
         if (storedWeatherData) {
-            setWeatherData(JSON.parse(storedWeatherData));
+            setWeatherData(JSON.parse(storedWeatherData)); // Mostrar datos almacenados si ya existen
         } else {
-            setWeatherData(null);
+            setWeatherData(null); // Si no hay datos, establecer en null
         }
 
         setShowPopup(true);
     };
-    
+
+    // Obtener los datos climáticos y UV para la actividad seleccionada
     const fetchWeatherForSelectedTask = () => {
         const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
-    
-        // Verificación detallada del contenido de storedLocation
-        console.log("Ubicación almacenada en localStorage:", storedLocation);
-    
+
         if (storedLocation && storedLocation.position) {
-            const lat = storedLocation.position[0]; // Extraer la latitud del arreglo 'position'
-            const lon = storedLocation.position[1]; // Extraer la longitud del arreglo 'position'
+            const lat = storedLocation.position[0];
+            const lon = storedLocation.position[1];
             const address = storedLocation.address;
-    
-            // Validar que lat y lon sean números válidos
+
             if (!isNaN(lat) && !isNaN(lon)) {
                 if (selectedTask && selectedTask.idActividad) {
                     console.log("Obteniendo datos del clima para la ubicación:", address);
-    
-                    // Imprimir lo que se enviará a la API
-                    console.log(`Enviando a la API: latitud = ${lat}, longitud = ${lon}, idActividad = ${selectedTask.idActividad}`);
-    
-                    // Llamar a la API usando latitud y longitud
                     getWeatherData(lat, lon, selectedTask.idActividad);
                 } else {
-                    console.error("No hay tarea seleccionada o falta idActividad.");
                     alert("Debe seleccionar una actividad antes de obtener el clima.");
                 }
             } else {
-                console.error("Latitud o longitud inválida. Valores recibidos:", lat, lon);
                 alert("Ubicación inválida. No se puede obtener el clima.");
             }
         } else {
-            console.error("No se pudo encontrar la ubicación o las coordenadas en el localStorage.");
             alert("Ubicación no encontrada.");
         }
     };
-    
-    
-    
+
     // Cerrar el popup
     const closePopup = () => {
         setShowPopup(false);
         setSelectedTask(null);
-        setWeatherData(null); // Limpiar datos del clima al cerrar el pop-up
+        setWeatherData(null);
     };
 
     const handleEdit = () => {
@@ -157,11 +160,9 @@ const Home = () => {
                 prevActivities.filter(task => task.idActividad !== selectedTask.idActividad)
             );
             setShowAlert(false);
-            setShowSuccess(true); // Mostrar el Success Alert
+            setShowSuccess(true);
             closePopup();
         } catch (error) {
-            console.error('Error al eliminar la actividad', error);
-            setShowAlert(false);
             alert('Error al eliminar la actividad.');
         }
     };
@@ -202,8 +203,21 @@ const Home = () => {
             "haze": "neblina",
             "fog": "niebla",
         };
+        return translations[description] || description;
+    };
 
-        return translations[description] || description; 
+    const getUvRecommendation = (uvIndex) => {
+        if (uvIndex < 3) {
+            return "Índice UV bajo. No se necesita protección solar.";
+        } else if (uvIndex >= 3 && uvIndex < 6) {
+            return "Índice UV moderado. Considera usar protección solar.";
+        } else if (uvIndex >= 6 && uvIndex < 8) {
+            return "Índice UV alto. Usa bloqueador solar.";
+        } else if (uvIndex >= 8 && uvIndex < 11) {
+            return "Índice UV muy alto. Usa bloqueador solar, busca sombra.";
+        } else {
+            return "Índice UV extremadamente alto. Evita salir al sol.";
+        }
     };
     <style>
     {`
@@ -248,7 +262,6 @@ const Home = () => {
 
     return (
         <div className="home-page">
-            {/* Aquí se coloca todo el contenido del JSX */}
             <div className="welcome-section">
                 <div className="welcome-icon">
                     <img src="https://i.ibb.co/8PRP6Qd/dfca5d490a29f43b59c25d1b1acc94ee-removebg-preview.png" alt="Mascota" />
@@ -302,7 +315,6 @@ const Home = () => {
                         </button>
                         <h4>{selectedTask.nombreActividad || 'Nombre no disponible'}</h4>
 
-                        {/* Datos de la actividad */}
                         <div className="popup-table">
                             <div className="popup-row">
                                 <div className="popup-cell">Hora:</div>
@@ -310,7 +322,6 @@ const Home = () => {
                             </div>
                             <div className="popup-row">
                                 <div className="popup-cell">Ubicación:</div>
-                                {/* Mostrar la ubicación guardada */}
                                 <div className="popup-cell">
                                     {localStorage.getItem('savedLocation') 
                                         ? JSON.parse(localStorage.getItem('savedLocation')).address 
@@ -331,7 +342,6 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* Sección para los datos del clima */}
                         <h5>Datos del Clima</h5>
                         <div className="popup-table">
                             <div className="popup-row">
@@ -342,11 +352,21 @@ const Home = () => {
                                 <div className="popup-cell">Humedad:</div>
                                 <div className="popup-cell">{weatherData?.main?.humidity ? `${weatherData.main.humidity}%` : 'No disponible'}</div>
                             </div>
-                            <div className="popup-cell">Descripción:</div>
-                            <div className="popup-cell">
-                                {weatherData?.weather?.length > 0 
-                                    ? translateWeatherDescription(weatherData.weather[0].description) 
-                                    : 'No disponible'}
+                            <div className="popup-row">
+                                <div className="popup-cell">Descripción:</div>
+                                <div className="popup-cell">
+                                    {weatherData?.weather?.length > 0 
+                                        ? translateWeatherDescription(weatherData.weather[0].description) 
+                                        : 'No disponible'}
+                                </div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Índice UV:</div>
+                                <div className="popup-cell">{weatherData?.uvIndex ? weatherData.uvIndex : 'No disponible'}</div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Recomendación UV:</div>
+                                <div className="popup-cell">{weatherData?.uvIndex ? getUvRecommendation(weatherData.uvIndex) : 'No disponible'}</div>
                             </div>
                         </div>
 
