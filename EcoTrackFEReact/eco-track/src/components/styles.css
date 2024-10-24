@@ -320,7 +320,7 @@
 }
 
 .edit-task-btn,
-.delete-task-btn {
+.delete-task-btn, .api-task-btn {
   background-color: #000000;
   color: #fcfcfc;
   padding: 12px 24px;

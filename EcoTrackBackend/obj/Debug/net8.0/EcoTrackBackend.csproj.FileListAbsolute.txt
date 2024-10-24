@@ -316,6 +316,7 @@ C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dl
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\MySqlConnector.dll
+C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll

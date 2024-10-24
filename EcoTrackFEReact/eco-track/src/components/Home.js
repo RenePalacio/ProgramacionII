@@ -8,12 +8,15 @@ const Home = () => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [activities, setActivities] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false); // Para el Success Alert
+    const [showSuccess, setShowSuccess] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [greeting, setGreeting] = useState('');
     const [advice, setAdvice] = useState('');
+    const [weatherData, setWeatherData] = useState(null);
+
     const navigate = useNavigate();
 
+    // Configurar mensaje de saludo basado en la hora del día
     useEffect(() => {
         const setGreetingMessage = () => {
             const currentHour = new Date().getHours();
@@ -31,6 +34,7 @@ const Home = () => {
 
         setGreetingMessage();
 
+        // Obtener las actividades del usuario
         const fetchActivities = async () => {
             const idUsuario = localStorage.getItem('idUsuario') || '1';
             try {
@@ -45,24 +49,93 @@ const Home = () => {
         fetchActivities();
     }, []);
 
+    // Obtener los datos del clima
+    const getWeatherData = async (latitude, longitude, idActividad) => {
+        const apiKey = '658bf0af8b7d9dd388caa996c55f7d99';
+        try {
+            const weatherResponse = await axios.get(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
+            );
+
+            // Guardar los datos del clima y almacenarlos en el localStorage
+            const weather = weatherResponse.data;
+            setWeatherData(weather);
+            localStorage.setItem(`weatherData_${idActividad}`, JSON.stringify(weather));
+
+            console.log("Datos del clima:", weather);
+        } catch (error) {
+            console.error('Error al obtener datos del clima:', error);
+        }
+    };
+
+    // Abrir el popup de actividad seleccionada
     const openPopup = (task) => {
         console.log("Datos de la actividad seleccionada:", task);
         setSelectedTask({
             idActividad: task.idActividad,
             idTipoActividad: task.idTipoActividad || '',
             ubicacion: task.ubicacion || '', 
-            fecha: task.fecha ? task.fecha.split('T')[0] : '',
+            fecha: task.fecha ? task.fecha.split('T')[0] : '', // Ajusta el formato si es necesario
             duracion: task.duracion || '',
-            hora: task.hora ? task.hora.split(':')[0] + ':' + task.hora.split(':')[1] : '',
+            hora: task.hora.toString(), // Asegúrate de que sea una cadena para mostrar correctamente
+            nombreActividad: task.tipoActividad || 'Nombre no disponible', 
             notas: task.notas || '',
             color: localStorage.getItem(`actividadColor_${task.idActividad}`) || '#ffffff',
         });
+
+        // Obtener los datos del clima almacenados en el localStorage
+        const storedWeatherData = localStorage.getItem(`weatherData_${task.idActividad}`);
+        if (storedWeatherData) {
+            setWeatherData(JSON.parse(storedWeatherData));
+        } else {
+            setWeatherData(null);
+        }
+
         setShowPopup(true);
     };
-
+    
+    const fetchWeatherForSelectedTask = () => {
+        const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+    
+        // Verificación detallada del contenido de storedLocation
+        console.log("Ubicación almacenada en localStorage:", storedLocation);
+    
+        if (storedLocation && storedLocation.position) {
+            const lat = storedLocation.position[0]; // Extraer la latitud del arreglo 'position'
+            const lon = storedLocation.position[1]; // Extraer la longitud del arreglo 'position'
+            const address = storedLocation.address;
+    
+            // Validar que lat y lon sean números válidos
+            if (!isNaN(lat) && !isNaN(lon)) {
+                if (selectedTask && selectedTask.idActividad) {
+                    console.log("Obteniendo datos del clima para la ubicación:", address);
+    
+                    // Imprimir lo que se enviará a la API
+                    console.log(`Enviando a la API: latitud = ${lat}, longitud = ${lon}, idActividad = ${selectedTask.idActividad}`);
+    
+                    // Llamar a la API usando latitud y longitud
+                    getWeatherData(lat, lon, selectedTask.idActividad);
+                } else {
+                    console.error("No hay tarea seleccionada o falta idActividad.");
+                    alert("Debe seleccionar una actividad antes de obtener el clima.");
+                }
+            } else {
+                console.error("Latitud o longitud inválida. Valores recibidos:", lat, lon);
+                alert("Ubicación inválida. No se puede obtener el clima.");
+            }
+        } else {
+            console.error("No se pudo encontrar la ubicación o las coordenadas en el localStorage.");
+            alert("Ubicación no encontrada.");
+        }
+    };
+    
+    
+    
+    // Cerrar el popup
     const closePopup = () => {
         setShowPopup(false);
         setSelectedTask(null);
+        setWeatherData(null); // Limpiar datos del clima al cerrar el pop-up
     };
 
     const handleEdit = () => {
@@ -113,49 +186,69 @@ const Home = () => {
         </div>
     );
 
+    const translateWeatherDescription = (description) => {
+        const translations = {
+            "clear sky": "cielo despejado",
+            "few clouds": "pocas nubes",
+            "scattered clouds": "nubes dispersas",
+            "broken clouds": "nubes rotas",
+            "shower rain": "lluvia ligera",
+            "rain": "lluvia",
+            "thunderstorm": "tormenta eléctrica",
+            "snow": "nieve",
+            "mist": "niebla",
+            "light rain": "lluvia ligera",
+            "overcast clouds": "nublado",
+            "haze": "neblina",
+            "fog": "niebla",
+        };
+
+        return translations[description] || description; 
+    };
+    <style>
+    {`
+    .cloud3 {
+        display: none;
+    }
+    @media (max-width: 600px) {
+        .cloud1 {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .cloud2 {
+            display: none;
+        }
+
+        .cloud3 {
+            position: absolute;
+            top: 50%;
+            left: -40%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .cloud4 {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .cloud5, .cloud6, .cloud7, .cloud8 {
+            display: none;
+        }
+    }
+    `}
+</style>
+
     return (
         <div className="home-page">
-            <style>
-                {`
-                .cloud3 {
-                    display: none;
-                }
-                @media (max-width: 600px) {
-                    .cloud1 {
-                        position: absolute;
-                        top: 10%;
-                        left: 5%;
-                        z-index: 1;
-                        opacity: 0.6;
-                    }
-
-                    .cloud2 {
-                        display: none;
-                    }
-
-                    .cloud3 {
-                        position: absolute;
-                        top: 50%;
-                        left: -40%;
-                        z-index: 1;
-                        opacity: 0.4;
-                    }
-
-                    .cloud4 {
-                        position: absolute;
-                        top: 70%;
-                        left: 60%;
-                        z-index: 1;
-                        opacity: 0.3;
-                    }
-
-                    .cloud5, .cloud6, .cloud7, .cloud8 {
-                        display: none;
-                    }
-                }
-                `}
-            </style>
-
+            {/* Aquí se coloca todo el contenido del JSX */}
             <div className="welcome-section">
                 <div className="welcome-icon">
                     <img src="https://i.ibb.co/8PRP6Qd/dfca5d490a29f43b59c25d1b1acc94ee-removebg-preview.png" alt="Mascota" />
@@ -197,74 +290,74 @@ const Home = () => {
                     )}
                 </div>
                 <footer className="footer">
-        <span>© SummerTime Coders</span>
-      </footer>
+                    <span>© SummerTime Coders</span>
+                </footer>
             </div>
 
             {showPopup && selectedTask && (
-    <div className="popup-overlay" onClick={closePopup}>
-        <div className="popup-content" onClick={(e) => e.stopPropagation()} style={{ background: selectedTask.color }}>
-            <button className="close-btn" aria-label="Cerrar" onClick={closePopup}>
-                x
-            </button>
-            <h4>{selectedTask.idTipoActividad || 'Nombre no disponible'}</h4>
+                <div className="popup-overlay" onClick={closePopup}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()} style={{ background: selectedTask.color }}>
+                        <button className="close-btn" aria-label="Cerrar" onClick={closePopup}>
+                            x
+                        </button>
+                        <h4>{selectedTask.nombreActividad || 'Nombre no disponible'}</h4>
 
-            <div className="popup-table">
-                <div className="popup-row">
-                    <div className="popup-cell">Hora:</div>
-                    <div className="popup-cell">{selectedTask.hora || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Ubicación:</div>
-                    <div className="popup-cell">{selectedTask.ubicacion || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Fecha:</div>
-                    <div className="popup-cell">{selectedTask.fecha || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Duración:</div>
-                    <div className="popup-cell">{selectedTask.duracion || 'No disponible'} minutos</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Notas:</div>
-                    <div className="popup-cell">{selectedTask.notas || 'No hay notas'}</div>
-                </div>
-            </div>
+                        {/* Datos de la actividad */}
+                        <div className="popup-table">
+                            <div className="popup-row">
+                                <div className="popup-cell">Hora:</div>
+                                <div className="popup-cell">{selectedTask.hora || 'No disponible'}</div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Ubicación:</div>
+                                {/* Mostrar la ubicación guardada */}
+                                <div className="popup-cell">
+                                    {localStorage.getItem('savedLocation') 
+                                        ? JSON.parse(localStorage.getItem('savedLocation')).address 
+                                        : 'Ubicación no disponible'}
+                                </div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Fecha:</div>
+                                <div className="popup-cell">{selectedTask.fecha || 'No disponible'}</div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Duración:</div>
+                                <div className="popup-cell">{selectedTask.duracion || 'No disponible'} minutos</div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Notas:</div>
+                                <div className="popup-cell">{selectedTask.notas || 'No hay notas'}</div>
+                            </div>
+                        </div>
 
-            <h5>Datos del Clima</h5>
-            <div className="popup-table">
-                <div className="popup-row">
-                    <div className="popup-cell">Temperatura:</div>
-                    <div className="popup-cell">{selectedTask.temperatura ? `${selectedTask.temperatura} °C` : 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Rayos UV:</div>
-                    <div className="popup-cell">{selectedTask.rayosUV || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Probabilidad de Lluvia:</div>
-                    <div className="popup-cell">{selectedTask.probabilidadLluvia || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Calidad del Aire:</div>
-                    <div className="popup-cell">{selectedTask.calidadAire || 'No disponible'}</div>
-                </div>
-                <div className="popup-row">
-                    <div className="popup-cell">Polvo:</div>
-                    <div className="popup-cell">{selectedTask.polvo || 'No disponible'}</div>
-                </div>
-            </div>
+                        {/* Sección para los datos del clima */}
+                        <h5>Datos del Clima</h5>
+                        <div className="popup-table">
+                            <div className="popup-row">
+                                <div className="popup-cell">Temperatura:</div>
+                                <div className="popup-cell">{weatherData?.main?.temp ? `${weatherData.main.temp} °C` : 'No disponible'}</div>
+                            </div>
+                            <div className="popup-row">
+                                <div className="popup-cell">Humedad:</div>
+                                <div className="popup-cell">{weatherData?.main?.humidity ? `${weatherData.main.humidity}%` : 'No disponible'}</div>
+                            </div>
+                            <div className="popup-cell">Descripción:</div>
+                            <div className="popup-cell">
+                                {weatherData?.weather?.length > 0 
+                                    ? translateWeatherDescription(weatherData.weather[0].description) 
+                                    : 'No disponible'}
+                            </div>
+                        </div>
 
-            <div className="edit-delete-buttons">
-                <button className="edit-task-btn" onClick={handleEdit}>Editar</button>
-                <button className="delete-task-btn" onClick={handleDeleteConfirmation}>Eliminar</button>
-            </div>
-        </div>
-    </div>
-    
-)}
-
+                        <div className="edit-delete-buttons">
+                            <button className="edit-task-btn" onClick={handleEdit}>Editar</button>
+                            <button className="delete-task-btn" onClick={handleDeleteConfirmation}>Eliminar</button>
+                            <button className="api-task-btn" onClick={fetchWeatherForSelectedTask}>APIS</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {showAlert && selectedTask && (
                 <CustomAlert
@@ -292,10 +385,7 @@ const Home = () => {
             <div className="cloud cloud7"></div>
             <div className="cloud cloud8"></div>
         </div>
-        
     );
-    
-
 };
 
 export default Home;
