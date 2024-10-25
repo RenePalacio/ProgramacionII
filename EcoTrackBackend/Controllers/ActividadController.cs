@@ -29,6 +29,10 @@ namespace EcoTrack.Controllers
                     {
                         a.IdActividad,
                         a.Hora,
+                        a.Ubicacion,
+                        a.Fecha,
+                        a.Duracion,
+                        a.Notas,
                         TipoActividad = a.TipoActividad != null ? a.TipoActividad.NombreActividad : "Desconocido"
                     })
                     .ToListAsync();
