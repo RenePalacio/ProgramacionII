@@ -18,7 +18,6 @@ public class NotificacionController : ControllerBase
         _context = context;
     }
 
-    // Crear una nueva notificación
     [HttpPost]
     public async Task<ActionResult<Notificacion>> CrearNotificacion(CreateNotificacionDto dto)
     {
@@ -31,12 +30,12 @@ public class NotificacionController : ControllerBase
         };
 
         _context.Notificaciones.Add(notificacion);
-        await _context.SaveChangesAsync(); // Guarda la notificación en la base de datos
+        await _context.SaveChangesAsync(); 
 
         return CreatedAtAction(nameof(CrearNotificacion), new { id = notificacion.IdNotificacion }, notificacion);
     }
 
-    // Obtener todas las notificaciones
+   
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Notificacion>>> GetNotificaciones()
     {
@@ -57,7 +56,7 @@ public async Task<IActionResult> ActualizarNotificacion(int id, UpdateNotificaci
     notificacion.FechaEnvio = dto.FechaEnvio;
 
     await _context.SaveChangesAsync();
-    return NoContent(); // Indica que la operación fue exitosa
+    return NoContent();
 }
 
 }

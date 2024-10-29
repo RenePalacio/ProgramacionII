@@ -41,10 +41,9 @@ namespace EcoTrack.Controllers
                     Descripcion = weatherResponse.weather.Length > 0 
                                   ? weatherResponse.weather[0].description 
                                   : "Descripción no disponible",
-                    // Asigna valores para IndiceUV y RecomendacionUV si están disponibles,
-                    // o asigna valores predeterminados
-                    IndiceUV = 0, // Cambia esto si tienes datos para UV
-                    RecomendacionUV = "N/A" // Cambia esto si tienes lógica para recomendaciones UV
+                    
+                    IndiceUV = 6, 
+                    RecomendacionUV = "N/A" 
                 };
 
                 await _context.DatosClima.AddAsync(datosClima);

@@ -13,13 +13,13 @@ namespace EcoTrackBackend.Services
             _httpClient = httpClient;
         }
 
-        public async Task<T?> GetDataFromApi<T>(string endpoint) // Use T? if T can be nullable
+        public async Task<T?> GetDataFromApi<T>(string endpoint) 
         {
             var response = await _httpClient.GetAsync(endpoint);
             response.EnsureSuccessStatusCode();
 
-            var jsonString = await response.Content.ReadAsStringAsync(); // Read content as string
-            var data = JsonConvert.DeserializeObject<T>(jsonString); // Deserialize using JsonConvert
+            var jsonString = await response.Content.ReadAsStringAsync(); 
+            var data = JsonConvert.DeserializeObject<T>(jsonString); 
             
             return data;
         }

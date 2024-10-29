@@ -46,7 +46,7 @@ namespace EcoTrackBackend.Services
                 "overcast clouds" => "nublado",
                 "haze" => "neblina",
                 "fog" => "niebla",
-                _ => description // Si no hay traducción, devuelve el original
+                _ => description 
             };
         }
     }

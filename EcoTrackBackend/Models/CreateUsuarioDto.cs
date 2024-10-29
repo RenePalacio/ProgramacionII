@@ -33,7 +33,6 @@ namespace EcoTrack.Models
 {
     public required string Nombre { get; set; }
     public required string Email { get; set; }
-    // No incluimos el campo de contraseña aquí
 }
 
 

@@ -1,32 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap');
 
-/*Scrollbar*/
 
-/* Personalizar la barra de desplazamiento */
+
+/*Scrollbar*/
 ::-webkit-scrollbar {
-  width: 12px; /* Ancho de la barra de desplazamiento */
+  width: 12px; 
 }
 
 ::-webkit-scrollbar-track {
-  background: #283372a6; /* Color de fondo de la pista */
+  background: #283372a6; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #283372; /* Color de la barra */
-  border-radius: 10px; /* Bordes redondeados */
-  border: 3px solid #f1f1f14b; /* Espacio alrededor de la barra */
+  background-color: #283372; 
+  border-radius: 10px; 
+  border: 3px solid #f1f1f14b; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #283372a6; /* Color de la barra al pasar el ratón por encima */
+  background: #283372a6; 
 }
 
 
-/*Scrollbar*/
+/* FIN DE Scrollbar*/
+
+/*ESTILOS DE LOGIN, REGISTER*/
 .estilo1 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to bottom right, #015b52, #adb69f); /* Degradado dinámico */
+    background: linear-gradient(to bottom right, #015b52, #adb69f); 
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -64,8 +66,8 @@
     position: relative;
     top: 50px;
     height: auto; 
-    margin: -100px auto 10px auto; /* Ajusta el margen superior negativo y el inferior */
-    display: block; /* Asegúrate de que se comporte como un bloque para centrarlo */
+    margin: -100px auto 10px auto; 
+    display: block; 
   }
 
   .home-logo {
@@ -96,22 +98,22 @@
     padding: 15px 25px;
     width: 100%;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Bordes redondeados más grandes */
+    border-radius: 8px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: border 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+    transition: border 0.3s, box-shadow 0.3s; 
   }
   .input-field2 {
     padding: 15px 25px;
     width: 100%;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Bordes redondeados más grandes */
+    border-radius: 8px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: border 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+    transition: border 0.3s, box-shadow 0.3s; 
   }
   
   .input-field:focus {
-    border-color: #2e7d32; /* Cambiar el color del borde al enfocar */
-    box-shadow: 0 0 10px rgba(46, 125, 50, 0.5); /* Efecto de sombra al enfocar */
+    border-color: #2e7d32; 
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.5); 
   }
   
   .login-button {
@@ -122,14 +124,14 @@
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s; /* Efecto de transformacion */
+    transition: transform 0.3s, background-color 0.3s; 
   }
   
   .login-button:hover {
     background-color: #000000;
     color: #ffffff;
     box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-    transform: scale(1.05); /* Efecto Buton */
+    transform: scale(1.05); 
   }
   
   .cloud {
@@ -181,42 +183,42 @@
 .cloud6 {
     width: 200px;
     height: 160px;
-    margin-top: 45%; /* Margen superior para la separación */
-    margin-left: 75%; /* Alinear a la derecha */
-    margin-right: 5%; /* Margen derecho para la separación */
+    margin-top: 45%; 
+    margin-left: 75%; 
+    margin-right: 5%; 
     background-image: url('https://i.ibb.co/N9N1htY/nube2.png');
 }
 
 .cloud7 {
     width: 250px;
     height: 225px;
-    margin-top: 30%; /* Margen superior para la separación */
-    margin-left: 75%; /* Ajuste del margen izquierdo */
+    margin-top: 30%; 
+    margin-left: 75%; 
     background-image: url('https://i.ibb.co/VgWQVBg/nube3.png');
 }
 
 .cloud8 {
     width: 190px;
     height: 150px;
-    margin-top: 45%; /* Margen superior para la separación */
-    margin-left: auto; /* Alinear a la derecha */
-    margin-right: 65%; /* Margen derecho para la separación */
+    margin-top: 45%; 
+    margin-left: auto; 
+    margin-right: 65%;
     background-image: url('https://i.ibb.co/wWWjHFJ/nube2-copia.png');
 }
 .error-message-login {
-  color: rgb(0, 0, 0); /* Cambia el color del texto a rojo */
-  margin-top: 10px; /* Espaciado encima del mensaje */
-  text-align: center; /* Centra el mensaje */
-  font-size: 0.9em; /* Tamaño de fuente más pequeño */
+  color: rgb(0, 0, 0); 
+  margin-top: 10px; 
+  text-align: center; 
+  font-size: 0.9em; 
   position: fixed;
   top: 530px;
   right: 40.5%;
 }
 .error-message-register {
-  color: rgb(0, 0, 0); /* Cambia el color del texto a rojo */
-  margin-top: 10px; /* Espaciado encima del mensaje */
-  text-align: center; /* Centra el mensaje */
-  font-size: 0.9em; /* Tamaño de fuente más pequeño */
+  color: rgb(0, 0, 0); 
+  margin-top: 10px; 
+  text-align: center; 
+  font-size: 0.9em; 
   position: fixed;
   top: 590px;
   right: 490px;
@@ -231,17 +233,17 @@
   
     .input-field {
         width: 90%;
-        padding: 12px; /* Ajustar el padding */
+        padding: 12px; 
     }
   
     .cloud1 {
-        width: 200px; /* Tamaño responsivo */
-        height: 185px; /* Tamaño responsivo */
+        width: 200px; 
+        height: 185px; 
     }
   
     .cloud2 {
-        width: 120px; /* Tamaño responsivo */
-        height: 90px; /* Tamaño responsivo */
+        width: 120px; 
+        height: 90px;
     }
     .cloud4{
       left: -83px;
@@ -259,16 +261,16 @@
     }
     .error-message-login{
       
-      font-size: 0.8em; /* Reduce el tamaño de la fuente */
-      width: 53%; /* Aumenta el ancho para pantallas pequeñas */
-      top: 70%; /* Ajusta la posición vertical */
+      font-size: 0.8em; 
+      width: 53%;
+      top: 70%; 
       left: 90px;
     }
     .error-message-register {
       
-      font-size: 0.8em; /* Reduce el tamaño de la fuente */
-      width: 53%; /* Aumenta el ancho para pantallas pequeñas */
-      top: 80%; /* Ajusta la posición vertical */
+      font-size: 0.8em; 
+      width: 53%; 
+      top: 80%; 
       left: 90px;
     }
   }
@@ -302,6 +304,7 @@
     text-align: center;
   }
   
+  /*ESTILOS RESPONSIVE DE REGISTER Y LOGIN*/
   @media (max-width: 480px) {
     .title {
         font-size: 2rem;
@@ -309,28 +312,28 @@
   
     .input-field {
         width: 95%;
-        padding: 20px 25px; /* Ajustar el padding */
+        padding: 20px 25px; 
     }
   
     .cloud1 {
-        width: 150px; /* Tamaño responsivo */
-        height: 150px; /* Tamaño responsivo */
+        width: 150px; 
+        height: 150px; 
     }
   
     .cloud2 {
-        width: 100px; /* Tamaño responsivo */
-        height: 95px; /* Tamaño responsivo */
+        width: 100px; 
+        height: 95px; 
     }
   
     @media (max-width: 768px) {
     .logo {
-        margin: -15px auto 10px auto; /* Reduce el margen superior negativo para pantallas pequeñas */
+        margin: -15px auto 10px auto; 
     }
   }
   
   @media (max-width: 480px) {
     .logo {
-        margin: -150px auto 5px auto; /* Reduce el margen superior negativo aún más para pantallas muy pequeñas */
+        margin: -150px auto 5px auto; 
     }
   }
   }
@@ -338,15 +341,28 @@
 .leaflet-container {
   height: 100%;
 }
+/*FIN DE ESTILOS REGISTER Y LOGIN*/
 
-/* HomePage.css */
+
+
+
+
+
+
+
+
+
+
+
+
+/* ESTILOS PARA HOME PAGE */
 
 .home-page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 120vh; /* Cambia a min-height */
+  min-height: 120vh; 
   background: linear-gradient(to bottom left, #283372, #1c7a71);
   border: none;
 }
@@ -373,7 +389,7 @@
   width: 200px;
   height: 250px;
   border-radius: 50%;
-  margin-right: 20px; /* Espacio entre la imagen y el texto */
+  margin-right: 20px; 
 }
 
 .welcome-icon2 img {
@@ -382,7 +398,7 @@
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  margin-right: 20px; /* Espacio entre la imagen y el texto */
+  margin-right: 20px; 
 }
 
 /* Estilos responsive para pantallas pequeñas */
@@ -406,7 +422,7 @@
   position: relative;
   right: 0px;
   text-align: left;
-  position: relative; /* Alinear el texto al centro */
+  position: relative; 
   font-size: 20px;
 }
 
@@ -421,7 +437,7 @@
 /* Botón de agregar tarea */
 
 .add-task-section {
-  margin: 20px 0; /* Ajustamos los márgenes */
+  margin: 20px 0; 
 }
 
 .add-task-btn {
@@ -432,7 +448,7 @@
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  transition: transform 0.3s, background-color 0.3s; /* Efecto de transformacion */
+  transition: transform 0.3s, background-color 0.3s; 
 
 }
 
@@ -441,14 +457,14 @@
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938); background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 
 .edit-task-section,
 .delete-task-section, .api-task-btn {
-  margin: 20px 0; /* Ajustamos los márgenes */
-  display: flex; /* Habilitar flexbox */
-  justify-content: center; /* Centra horizontalmente los botones */
+  margin: 20px 0; 
+  display: flex; 
+  justify-content: center; 
 }
 
 .edit-task-btn,
@@ -462,7 +478,7 @@
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 10px; /* Espacio entre los botones */
+  margin: 0 10px; 
   margin-top: 20px;
 }
 
@@ -471,29 +487,29 @@
 .api-task-btn {
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938); background-color: #000000;
   color: #ffffff;
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 
 .close-btn {
   position: absolute;
-  top: 20px; /* Ajustado para estar en la parte superior */
-  right: 20px; /* Ajustado para estar a la derecha */
-  background: transparent; /* Sin fondo */
-  border: none; /* Sin borde */
-  color: #333; /* Color de la X */
-  font-size: 24px; /* Tamaño de la fuente */
-  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
-  transition: color 0.3s ease; /* Transición para el color */
+  top: 20px; 
+  right: 20px; 
+  background: transparent; 
+  border: none; 
+  color: #333; 
+  font-size: 24px; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
 }
 
 .close-btn:hover {
-  color: #ff0000; /* Cambia el color al pasar el mouse */
+  color: #ff0000; 
 }
 
 /* Sección de actividades */
 .activities-section {
   width: 50%;
-  min-height: 100px; /* Ajusta según sea necesario */
+  min-height: 100px; 
   text-align: center;
   margin-top: 30px;
   flex-grow: 1; 
@@ -537,7 +553,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro */
+  background-color: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -547,14 +563,14 @@
 /* Card del popup */
 .popup-content {
   width: 100%;
-  max-width: 450px; /* Ampliado para más espacio */
+  max-width: 450px; 
   height: 80%;
   perspective: 1000px;
-  border-radius: 10px; /* Esquinas más redondeadas */
-  border: 0px solid rgba(0, 255, 255, 0); /* Borde de neón */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Sombra más suave */
+  border-radius: 10px; 
+  border: 0px solid rgba(0, 255, 255, 0); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); 
   padding: 40px;
-  overflow: hidden; /* Asegura que el contenido no se desborde */
+  overflow: hidden; 
 }
 
 .popup-content p {
@@ -586,8 +602,8 @@
   justify-content: center;
   align-items: center;
   padding: 40px;
-  border-radius: 0px; /* Esquinas redondeadas en ambas caras */
-  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
+  border-radius: 0px; 
+  box-sizing: border-box; 
 }
 
 .popup-h4A{
@@ -599,7 +615,7 @@
 }
 .popup-cell{
   position: relative;
-  margin: 16px; /* Cambia 16px por el valor que desees */
+  margin: 16px; 
   top: -20px;
 }
 .p2-cell{
@@ -607,7 +623,7 @@
   right: 43px;
 }
 .p-cell{
-  margin: 16px; /* Cambia 16px por el valor que desees */
+  margin: 16px; 
 }
 .p-cell{
   position: relative;
@@ -648,21 +664,21 @@
 }
 .popup-back {
   transform: rotateY(180deg);
-  background-color: rgba(255, 255, 255, 0); /* Color de fondo claro para la parte trasera */
+  background-color: rgba(255, 255, 255, 0); 
 }
 .weather-icon {
-  width: 150px; /* Ajusta el tamaño según necesites */
+  width: 150px; 
   height: 150px;
-  margin-right: 10px; /* Espacio entre la imagen y el texto */
+  margin-right: 10px;
   position: relative;
   left: 160px;
   top: 130px;
 }
 
 .activity-icon{
-  width: 70px; /* Ajusta el tamaño según necesites */
+  width: 70px; 
   height: 70px;
-  margin-right: 0px; /* Espacio entre la imagen y el texto */
+  margin-right: 0px; 
   position: relative;
   left: 30px;
   top: -35px;
@@ -674,7 +690,7 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px; /* Ampliado para un mejor diseño */
+  width: 220px; 
   display: flex;
   border-radius: 8px;
   overflow: hidden;
@@ -683,14 +699,14 @@
 
 .dual-switch button {
   width: 50%;
-  padding: 12px; /* Aumentado para mayor comodidad */
+  padding: 12px;
   background-color: #393c3e;
   color: #ffffff;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bold;
-  font-size: 1em; /* Tamaño de fuente ajustado */
+  font-size: 1em; 
 }
 
 .dual-switch button:hover {
@@ -704,50 +720,50 @@
 /* Botones de acción dentro del popup */
 .edit-delete-buttons {
   display: flex;
-  justify-content: space-between; /* Espacio entre botones */
-  margin-top: 15px; /* Espacio superior */
-  width: 100%; /* Asegura que ocupen todo el ancho */
+  justify-content: space-between; 
+  margin-top: 15px; 
+  width: 100%; 
 }
 
 .edit-task-btn{
-  background-color: #000000; /* Mismo color de fondo que el switch */
+  background-color: #000000; 
   width: 35%;
   position: relative;
   color: #ffffff;
-  padding: 12px; /* Ajustado para mayor comodidad */
-  border-radius: 8px; /* Esquinas redondeadas */
-  font-size: 1em; /* Tamaño de fuente ajustado */
+  padding: 12px; 
+  border-radius: 8px;
+  font-size: 1em; 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 5px; /* Espacio entre botones */
+  margin: 0 5px; 
   bottom: -30px;
   left: -10%;
 }
 .delete-task-btn{
-  background-color: #000000; /* Mismo color de fondo que el switch */
+  background-color: #000000; 
   width: 35%;
   position: relative;
   color: #ffffff;
-  padding: 12px; /* Ajustado para mayor comodidad */
-  border-radius: 8px; /* Esquinas redondeadas */
-  font-size: 1em; /* Tamaño de fuente ajustado */
+  padding: 12px; 
+  border-radius: 8px;
+  font-size: 1em; 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 5px; /* Espacio entre botones */
+  margin: 0 5px; 
   bottom: -30px;
   left: 30%;
 }
 .delete-task-btn1{
-  background-color: #000000; /* Mismo color de fondo que el switch */
+  background-color: #000000; 
   width: 35%;
   position: relative;
   color: #ffffff;
-  padding: 12px; /* Ajustado para mayor comodidad */
-  border-radius: 8px; /* Esquinas redondeadas */
-  font-size: 1em; /* Tamaño de fuente ajustado */
+  padding: 12px; 
+  border-radius: 8px; 
+  font-size: 1em; 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 5px; /* Espacio entre botones */
+  margin: 0 5px; 
   bottom: 0;
   left: 0;
 }
@@ -755,20 +771,20 @@
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 .api-task-btn {
-  background-color: #000000; /* Mismo color de fondo que el switch */
+  background-color: #000000; 
   width:60%;
   position: relative;
   color: #ffffff;
-  padding: 12px; /* Ajustado para mayor comodidad */
+  padding: 12px; 
   border: none;
-  border-radius: 8px; /* Esquinas redondeadas */
-  font-size: 1em; /* Tamaño de fuente ajustado */
+  border-radius: 8px;
+  font-size: 1em; 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 5px; /* Espacio entre botones */
+  margin: 0 5px; 
   left: 17%;
   top: 280px;
 }
@@ -776,8 +792,8 @@
 .edit-delete-buttons .edit-task-btn:hover,
 .edit-delete-buttons .delete-task-btn:hover,
 .edit-delete-buttons .api-task-btn:hover {
-  background-color: #000000; /* Color de fondo al pasar el mouse */
-  color: #ffffff; /* Color del texto */
+  background-color: #000000; 
+  color: #ffffff; 
 }
 
 
@@ -833,7 +849,7 @@
   .api-task-btn
   {
     position: relative;
-    top: 570px;
+    top: 450px;
   }
 
   .edit-task-btn,
@@ -893,7 +909,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  color: #000; /* Asegúrate de que el texto sea legible sobre el fondo */
+  color: #000; 
 }
 
 .alert-buttons {
@@ -904,47 +920,59 @@
 
 @media (max-width: 768px) {
   .popup-content {
-    padding: 20px; /* Menos padding en pantallas más pequeñas */
+    padding: 20px; 
   }
 
   .custom-alert-content,
   .success-alert-content {
-    padding: 15px; /* Ajustar padding para alertas */
+    padding: 15px; 
   }
 
   .confirm-btn,
   .cancel-btn,
   .close-success-btn {
-    padding: 8px 16px; /* Ajustar el padding de los botones */
+    padding: 8px 16px; 
   }
 
   .popup-content h4 {
-    font-size: 1.5em; /* Ajustar tamaño de fuente */
+    font-size: 1.5em; 
   }
 
   .popup-content p {
-    font-size: 1em; /* Ajustar tamaño de fuente */
+    font-size: 1em; 
   }
 }
 
 @media (max-width: 780px) {
   .welcome-section {
-    flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos horizontalmente */
-    padding: 20px; /* Reduce el padding */
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px; 
   }
   .welcome-icon img {
     position: relative;
     left: 0%;
-    width: 150px; /* Reduce el tamaño de la imagen */
-    height: 200px; /* Reduce la altura de la imagen */
-    margin-right: 0; /* Elimina el margen derecho */
+    width: 150px; 
+    height: 200px; 
+    margin-right: 0; 
   }
 }
 
  /*Fin de estilos de Home*/  
 
-  /*ESTE CODIGO DE ABAJO ES DE mapa*/
+
+
+
+
+
+
+
+
+
+
+
+
+  /*ESTILOS PARA MAPA UBICACION*/
   .estilo2 {
     background:linear-gradient(to bottom right,#82c27cfb, #0c1e50 ); 
     font-family: 'Poppins';
@@ -1041,7 +1069,7 @@
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 
 .map-container {
@@ -1133,45 +1161,59 @@
     display: none;
     
  }
- /*Actividad css*/
+ /*FIN DE ESTILOS PARA MAPA UBICACION*/
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ /*ESTILO PARA CREAR ACTIVIDAD Y EDITAR ACTIVIDAD*/
 }
 body.estilo3 {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #000; /* Fondo negro para simular el espacio */
+  background: #000; 
   height: 100vh;
   overflow: hidden;
-  position: relative; /* Para el posicionamiento de las estrellas */
+  position: relative; 
 }
-
+/* Estilo de las estrellas */
 .star-act {
   position: absolute;
   background: white;
   border-radius: 50%;
-  animation: twinkle-act 1.5s infinite; /* Animación de parpadeo */
-  z-index: 0; /* Asegúrate de que esté detrás de todo */
+  animation: twinkle-act 1.5s infinite; 
+  z-index: 0; 
 }
 
-/* Estilo de las estrellas */
+
 @keyframes twinkle-act {
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
 }
 
 .contenido {
-  z-index: 1; /* Contenido debe estar sobre las estrellas */
+  z-index: 1; 
   color: white;
   text-align: center;
 }
 
-/* Contenedor principal que incluye la imagen y el formulario */
+
 .container-act {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   padding: 20px; 
-  position: relative; /* Para que las estrellas se posicionen correctamente */
+  position: relative; 
 }
 
 /* Contenedor de la imagen */
@@ -1182,7 +1224,7 @@ body.estilo3 {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 1; /* Asegúrate de que la imagen esté sobre las estrellas */
+  z-index: 1; 
 }
 
 /* Contenedor del formulario */
@@ -1197,7 +1239,7 @@ body.estilo3 {
   display: flex; 
   flex-direction: column; 
   align-items: stretch;
-  z-index: 2; /* Asegúrate de que el formulario esté sobre las estrellas */
+  z-index: 2; 
 }
 
 /* Formulario de actividades */
@@ -1288,7 +1330,7 @@ body.estilo3 {
 .form-button-act:hover {background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 .form-button-act2 {
   background-color: #000;
@@ -1306,7 +1348,7 @@ body.estilo3 {
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 /* Selector de corazones */
 .heart-selector-act {
@@ -1318,22 +1360,19 @@ body.estilo3 {
   top: 400px;
 }
 
-/* styles.css */
+
 
 /* Estilos generales para los corazones */
 .heart-act {
-  background: color; /* Cambia 'corazon.color' por un color válido */
+  background: color; 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-size: 50px; /* Tamaño por defecto */
+  font-size: 50px; 
   display: inline-block;
   cursor: pointer;
   margin: 0 10px;
 }
-
-
-/* Media Query para dispositivos móviles */
 
 
 
@@ -1365,63 +1404,63 @@ body.estilo3 {
   }
 
   .container-act {
-    width: 420px; /* Cambiar a columna para el diseño móvil */
-    height: 1000vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
-    padding: 0; /* Eliminar el padding para ocupar todo el espacio */
+    width: 420px; 
+    height: 1000vh; 
+    padding: 0;
   }
 
   .image-container-act {
-    position: absolute; /* Posicionar la imagen en el fondo */
-    top: -330px; /* Alinea al principio de la página */
-    left: 110px; /* Alinea a la izquierda */
-    right: 0; /* Alinea a la derecha */
-    height: 10%; /* Ocupa el 16% de la pantalla */
+    position: absolute; 
+    top: -330px;
+    left: 110px; 
+    right: 0;
+    height: 10%;
     background-image: url('https://i.ibb.co/kxHWG7w/939fa3ee-d7e3-4085-9b98-8bc8c7ffe849-removebg-preview.png'); 
     background-size: 140px;
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    z-index: 11; /* Asegura que la imagen esté detrás del formulario */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    z-index: 11; 
 }
 
 
   .form-container-act {
-    background: white; /* Color de fondo del formulario */
+    background: white; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
     border-radius: 12px;
-    width: 100%; /* Ocupar el 100% del ancho */
-    max-width: none; /* Quitar el max-width para que no limite el tamaño */
-    height: calc(10000vh - 100%); /* Hacer que el formulario ocupe el 50% restante de la pantalla */
+    width: 100%; 
+    max-width: none; 
+    height: calc(10000vh - 100%);
     margin-top: -10%;
-    margin-bottom: 0%; /* Alinea el formulario justo debajo de la imagen */
-    z-index: 10; /* Asegura que el formulario esté en la parte superior */
+    margin-bottom: 0%; 
+    z-index: 10; 
     display: flex; 
     flex-direction: column; 
     align-items: stretch; 
   }
 
   .heart-selector-act {
-    position: fixed; /* Mantener los corazones en una posición fija */
-    top: 150px; /* Ajustar la posición a la parte inferior */
-    left: 50%; /* Centra horizontalmente */
-    transform: translateX(-50%); /* Centra completamente */
-    margin: 0; /* Elimina márgenes */
+    position: fixed; 
+    top: 150px;
+    left: 50%; 
+    transform: translateX(-50%); 
+    margin: 0; 
     z-index: 11;
    
     overflow: hidden;
     
   }
   .heart-act {
-    font-size: 40px; /* Ajustar el tamaño de los corazones a un valor más pequeño */
-    margin: 2px; /* Ajustar márgenes para los corazones */
+    font-size: 40px; 
+    margin: 2px; 
     overflow: hidden;
     position: relative; 
-    width: 40px;/* Agregar una transición para el efecto hover */
+    width: 40px;
 }
  
 
   .input-container-act {
-    width: 100%; /* Asegurar que los inputs ocupen todo el ancho */
+    width: 100%; 
     margin-bottom: 15px;
   }
 
@@ -1429,28 +1468,40 @@ body.estilo3 {
     position: relative;
     top: 270px;
     left: -10px;
-    font-size: 14px; /* Ajustar el tamaño de fuente */
-    padding: 8px; /* Ajustar el padding */
+    font-size: 14px;
+    padding: 8px; 
   }
 
   .form-button-act {
     position: relative;
     top: 300px;
-    padding: 10px; /* Ajustar el padding del botón */
+    padding: 10px; 
     font-size: 16px;
-    left: -10px; /* Ajustar el tamaño del texto del botón */
+    left: -10px; 
   }
   .form-button-act2 {
     position: relative;
     left: -7px;
     top: 270px;
-    padding: 10px; /* Ajustar el padding del botón */
-    font-size: 16px; /* Ajustar el tamaño del texto del botón */
+    padding: 10px; 
+    font-size: 16px; 
   }
 }
+/*FIN DE ESTILOS PARA CREAR Y EDITAR ACTIVIDAD*/
 
 
-/* ------ CSS de Perfil -----*/
+
+
+
+
+
+
+
+
+
+
+
+/* ESTILOS PARA PROFILE*/
 /* Perfil Container */
 .profile-container { 
   background-image: url('https://i.ibb.co/ts5Xdv3/backgrounddivprofile4.png');
@@ -1469,13 +1520,13 @@ body.estilo3 {
   color: white;
 }
 
-/* Para centrar todo el contenido en la pantalla */
+
 .profile-page {
   background: linear-gradient(to bottom right, #9dbb8d, #d8f2cf);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Altura completa de la pantalla */
+  height: 100vh; 
 }
 
 /* Info del perfil */
@@ -1484,7 +1535,7 @@ body.estilo3 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 10px; /* Reduce el margen inferior */
+  margin-bottom: 10px; 
 }
 
 .profile-pic {
@@ -1508,7 +1559,7 @@ body.estilo3 {
 .email {
   font-size: 16px;
   color: #666;
-  margin-bottom: 10px; /* Reduce el margen inferior */
+  margin-bottom: 10px; 
 }
 
 /* Acciones del perfil */
@@ -1517,7 +1568,7 @@ body.estilo3 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 0; /* Elimina el margen superior */
+  margin-top: 0; 
 }
 
 .profile-btn {
@@ -1526,37 +1577,37 @@ body.estilo3 {
   border: none;
   padding: 11px 20px;
   border-radius: 5px;
-  font-size: calc(14px + 0.5vw); /* Ajusta el tamaño de la fuente de manera responsiva */
+  font-size: calc(14px + 0.5vw); 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 40%; /* Mantiene los botones a un 80% del contenedor */
-  max-width: 300px; /* Fija un ancho máximo */
-  min-width: 150px; /* Fija un ancho mínimo */
+  width: 40%; 
+  max-width: 300px; 
+  min-width: 150px; 
   height: auto;
-  margin: 5px 0; /* Espacio entre botones */
+  margin: 5px 0;
   text-align: center;
-  display: flex; /* Flex para centrar el contenido */
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  word-break: break-word; /* Evitar que el texto salga del botón */
-  text-overflow: ellipsis; /* Recorta el texto si es demasiado largo */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  word-break: break-word; 
+  text-overflow: ellipsis; 
 }
 
 .profile-btn:hover {
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 
 /* Contenedor de editar perfil */
 .edit-profile-container {
-    background-image: url('https://i.ibb.co/125BhPS/backgrounddivprofile.png'); /* Imagen de fondo */
-    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-image: url('https://i.ibb.co/125BhPS/backgrounddivprofile.png'); 
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
     padding: 30px;
-    border-radius: 10px; /* Puedes mantener el borde redondeado si lo deseas */
+    border-radius: 10px; 
     max-width: 700px;
     width: 100%;
     display: flex;
@@ -1607,13 +1658,13 @@ body.estilo3 {
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05); 
 }
 .star-profile {
   position: absolute;
-  background-color: white; /* Cambia esto al color que desees para las estrellas */
+  background-color: white; 
   border-radius: 50%;
-  animation: blink 1.5s infinite alternate; /* Efecto de parpadeo */
+  animation: blink 1.5s infinite alternate; 
 }
 
 @keyframes blink {
@@ -1630,16 +1681,16 @@ body.estilo3 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* Asegura que no se muestren copos fuera de la vista */
-  pointer-events: none; /* Para que los copos no interfieran con los clics en otros elementos */
+  overflow: hidden; 
+  pointer-events: none; 
 }
 
 .snowflake {
   position: absolute;
-  background-color: white; /* Color de los copos de nieve */
+  background-color: white;
   border-radius: 50%;
   opacity: 0.8;
-  animation: fall linear infinite; /* Animación de caída */
+  animation: fall linear infinite; 
 }
 
 /* Animación de caída de la nieve */
@@ -1648,17 +1699,14 @@ body.estilo3 {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(100vh); /* Caer desde la parte superior hasta la inferior */
+    transform: translateY(100vh); 
   }
 }
 
-/* Variar la duración de la animación de caída para diferentes copos */
 .snowflake {
   animation-duration: calc(2s + 3s * var(--random));
-  animation-delay: calc(0s + 3s * var(--random)); /* Añadir un retraso aleatorio */
+  animation-delay: calc(0s + 3s * var(--random)); 
 }
-
-/* Otras clases que ya tengas en tu CSS */
 
 /* Carrusel de perfil*/
 
@@ -1715,16 +1763,27 @@ body.estilo3 {
 
 /* Fin Carrusel de perfil*/
 
-/* fin del CSS del perfil*/
+/*FIN DE ESTILOS PARA PROFILE*/
 
-/*Error Page Css*/
 
+
+
+
+
+
+
+
+
+
+
+
+/*ESTILOS PARA ERROR*/
 
 .error-containerErrorPage {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #80aa80; /* Verde dulce */
+  background-color: #80aa80; 
   height: 93.9vh;
   padding: 20px;
 }
@@ -1732,15 +1791,15 @@ body.estilo3 {
 .error-messageErrorPage {
   flex: 1;
   padding: 20px;
-  color: white; /* Color blanco para el texto */
+  color: white; 
 }
 
 .error-messageErrorPage h1 {
   position: relative;
   top: 100%;
   bottom: 30px;
-  font-size: 125px; /* Aumentar tamaño de texto */
-  text-shadow: 4px 4px 8px rgb(0, 0, 0); /* Añadir contorno negro */
+  font-size: 125px; 
+  text-shadow: 4px 4px 8px rgb(0, 0, 0); 
   
 }
 .error-messageErrorPage h2 {
@@ -1748,8 +1807,8 @@ body.estilo3 {
   top: 100%;
   bottom: 110px;
   left: 70px;
-  font-size: 30px; /* Aumentar tamaño de texto */
-  text-shadow: 4px 4px 8px rgb(0, 0, 0); /* Añadir contorno negro */
+  font-size: 30px; 
+  text-shadow: 4px 4px 8px rgb(0, 0, 0);
 }
 
 .error-messageErrorPage button {
@@ -1772,28 +1831,28 @@ body.estilo3 {
   background-color: #000000;
   color: #ffffff;
   box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
-  transform: scale(1.05); /* Efecto Buton */
+  transform: scale(1.05);
 }
 
 
 
 .image-wrapper {
   display: flex;
-  align-items: flex-end; /* Alinear la ranita y la planta en la parte inferior */
-  margin-right: 150px; /* Espacio entre las imágenes */
+  align-items: flex-end; 
+  margin-right: 150px; 
 }
 
 .main-imageErrorPage {
   position: relative;
-  width: 300px; /* Tamaño ajustado de la ranita */
+  width: 300px; 
   height: auto;
   margin-right: 5px;
-  z-index: 3; /* Espacio entre la ranita y la planta */
+  z-index: 3;
   left: 150px;
 }
 
 .side-imageErrorPage {
-  width: 300px; /* Tamaño ajustado de las plantas */
+  width: 300px; 
   position: relative;
   height: auto;
   top: -45px;
@@ -1803,7 +1862,7 @@ body.estilo3 {
 
 .error-gif-overlay {
   position: absolute;
-  top: -30px; /* Ajusta según lo necesites */
+  top: -30px; 
   left: 150px;
   width: 75%;
   height: 100%;
@@ -1814,11 +1873,11 @@ body.estilo3 {
 @media (max-width: 768px) {
   .error-gif-overlay {
     width: 150px;
-    position: absolute; /* Cambiado a absolute */
-    top: -450px; /* Centrado verticalmente */
-    left: 220px; /* Centrado horizontalmente */
-    transform: translate(-50%, -50%); /* Ajusta el centro del GIF */
-    z-index: 2; /* Asegúrate de que esté por encima */
+    position: absolute; 
+    top: -450px;
+    left: 220px; 
+    transform: translate(-50%, -50%); 
+    z-index: 2;
   }
 
   .error-containerErrorPage {
@@ -1842,7 +1901,7 @@ body.estilo3 {
   .side-imageErrorPage {
     width: 150px;
     position: relative;
-    top: -525px; /* Ajusta el tamaño de las imágenes según necesites */
+    top: -525px; 
   }
 
   .error-messageErrorPage {
@@ -1870,28 +1929,26 @@ body.estilo3 {
     margin-top: 10px; 
     position: relative;
     top: 36%;
-    left: 3px;/* Espacio entre h2 y el botón */
+    left: 3px;
     
   }
 }
-/*Fin De Error Page*/
+/*FIN DE ESTILOS DE ERROR*/
 
-/*Estilo de Notificacion*/
-.noti-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.noti-button:hover {
-  background-color: #0056b3;
-}
 
-/*Politica de uso */
+
+
+
+
+
+
+
+
+
+
+
+/*ESTILOS PARA POLITICA DE USO */
 
 .title-politica {
   font-size: 32px;
@@ -1907,7 +1964,21 @@ body.estilo3 {
   }
 }
 
-/* Footer*/
+/*FIN DE ESTILOS PARA POLITICA DE USO*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ESTILOS PARA FOOTER*/
 .footer {
   position: fixed; 
   bottom: 10px; 
@@ -1960,5 +2031,4 @@ body.estilo3 {
 
 }
 
-/*Fin de Footer*/
-/*Fin de Footer*/
+/*FIN DE ESTILOS PARA FOOTER*/

@@ -28,13 +28,13 @@ public class NotificacionService : BackgroundService
                 foreach (var notificacion in notificaciones)
                 {
                     Console.WriteLine($"Notificación: {notificacion.Mensaje}"); // Para probar
-                    notificacion.Enviado = true; // Marca la notificación como enviada
+                    notificacion.Enviado = true; 
                 }
 
                 await context.SaveChangesAsync();
             }
 
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); // Revisa cada minuto
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }
 }

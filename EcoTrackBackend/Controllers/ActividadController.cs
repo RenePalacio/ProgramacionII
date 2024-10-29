@@ -153,21 +153,17 @@ public async Task<IActionResult> EliminarActividad(int idActividad)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
 
-        // Buscar la actividad
         var actividad = await _context.Actividades.FindAsync(idActividad);
         if (actividad == null)
         {
             return NotFound("Actividad no encontrada.");
         }
 
-        // Eliminar datos climáticos relacionados
         var datosClima = await _context.DatosClima.Where(dc => dc.IdActividad == idActividad).ToListAsync();
         _context.DatosClima.RemoveRange(datosClima);
 
-        // Eliminar la actividad
         _context.Actividades.Remove(actividad);
 
-        // Guardar cambios en la base de datos
         await _context.SaveChangesAsync();
         await transaction.CommitAsync();
 

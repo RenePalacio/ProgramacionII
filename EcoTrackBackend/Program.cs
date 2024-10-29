@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
             builder.WithOrigins("http://localhost:3000", "https://ecotrackprueba.vercel.app")
                    .AllowAnyMethod()
                    .AllowAnyHeader()
-                   .AllowCredentials(); // Permite credenciales
+                   .AllowCredentials(); 
         });
 });
 
@@ -32,7 +32,7 @@ builder.Services.AddTransient<WeatherService>();
 builder.Services.AddHostedService<NotificacionService>();
 
 
-// Agregar SignalR
+
 builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
@@ -43,8 +43,15 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Configura la URL de la aplicación
-builder.WebHost.UseUrls("http://localhost:5000");
+builder.WebHost.UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("PORT"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -52,9 +59,9 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseCors("AllowAllOrigins"); // Asegúrate de que esté antes de UseAuthorization
+app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
-app.MapControllers(); // Asegúrate de que los controladores están mapeados
+app.MapControllers(); 
 
 
 app.UseSwagger();

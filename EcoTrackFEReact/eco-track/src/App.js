@@ -43,7 +43,7 @@ function App() {
                 <Route path="/perfil" element={<PrivateRoute><Perfilusuario /></PrivateRoute>} />
                 <Route path="/error" element={<ErrorPage />} />
                 <Route path="/politicadeuso" element={<PoliticasDeUso />} />
-                 {/* Ruta para manejar todas las demás rutas no definidas */}
+                 {/* Rutas No Declaradas*/}
                  <Route path="*" element={<Navigate to="/error" />} />
             </Routes>
 

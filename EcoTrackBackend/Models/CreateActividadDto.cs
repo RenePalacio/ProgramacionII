@@ -13,7 +13,7 @@ namespace EcoTrack.Models
         public required string Ubicacion { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]  // Para asegurar que solo se envíe la fecha
+        [DataType(DataType.Date)]  
         public DateTime Fecha { get; set; }
 
         [Required]

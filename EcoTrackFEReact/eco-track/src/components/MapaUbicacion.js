@@ -112,10 +112,10 @@ const MapaUbicacion = ({ onLocationSave, userId }) => {
         setAlertMessage(message);
         setShowAlert(true);
 
-        // Desaparecer la alerta después de 3 segundos
+        
         setTimeout(() => {
             setShowAlert(false);
-        }, 3000); // 3000 milisegundos = 3 segundos
+        }, 3000); 
     };
 
     return (

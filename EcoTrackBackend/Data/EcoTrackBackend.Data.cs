@@ -22,7 +22,7 @@ namespace EcoTrack
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Actividad>()
-                .HasKey(a => a.IdActividad); // Define la clave primaria
+                .HasKey(a => a.IdActividad); 
 
             modelBuilder.Entity<Actividad>()
                 .HasOne(a => a.Usuario)

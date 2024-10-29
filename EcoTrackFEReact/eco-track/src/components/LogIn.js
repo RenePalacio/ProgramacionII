@@ -22,29 +22,29 @@ function LogIn() {
   }, []);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
-    setError(null); // Limpiar el error previo
+    e.preventDefault(); 
+    setError(null); 
 
     try {
       const response = await axios.post('http://localhost:5000/api/Usuario/login', { email, password });
-      const { idUsuario } = response.data; // Asegúrate que idUsuario existe
+      const { idUsuario } = response.data; 
 
-      if (idUsuario) { // Verificar si idUsuario está presente
+      if (idUsuario) { 
         localStorage.setItem('idUsuario', idUsuario); // Guardar idUsuario en localStorage
         
         // Obtener los datos del usuario
         const userResponse = await axios.get(`http://localhost:5000/api/Usuario/${idUsuario}`);
-        const userName = userResponse.data.nombre || 'Usuario'; // Asegúrate que nombre existe
-        localStorage.setItem('userName', userName); // Guardar nombre en localStorage
+        const userName = userResponse.data.nombre || 'Usuario';
+        localStorage.setItem('userName', userName); 
 
-        // Redirigir al home o donde necesites
+       
         navigate('/home');
       } else {
         setError('No se pudo obtener el ID de usuario.');
       }
     } catch (error) {
       console.error('Error al iniciar sesión', error);
-      setError('Los datos de acceso no son válidos.'); // Mostrar mensaje de error al usuario
+      setError('Los datos de acceso no son válidos.'); 
     }
   };
 

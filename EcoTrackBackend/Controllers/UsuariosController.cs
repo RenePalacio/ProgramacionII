@@ -85,7 +85,6 @@ namespace EcoTrack.Controllers
                     return NotFound();
                 }
 
-                // Actualizar solo los campos de nombre y email
                 usuario.Nombre = usuarioDto.Nombre;
                 usuario.Email = usuarioDto.Email;
 

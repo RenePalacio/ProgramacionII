@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './styles.css';
 
 const EditarActividad = () => {
-    const { id } = useParams(); // Obtenemos el id de la actividad a editar
+    const { id } = useParams(); // Obtencion de la id
     const [tiposActividad, setTiposActividad] = useState([]);
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
@@ -17,7 +17,7 @@ const EditarActividad = () => {
     });
 
     const navigate = useNavigate(); 
-    let notificationTimeoutId = null; // Variable para almacenar el ID del timeout
+    let notificationTimeoutId = null; 
 
     const corazones = [
         { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' },
@@ -61,16 +61,14 @@ const EditarActividad = () => {
         obtenerTiposActividad();
         obtenerActividad();
         document.body.classList.add('estilo3');
-        crearEstrellasAct(100); // Crear estrellas al montar el componente
-
-        // Establecer la fecha actual en el estado
-        const fechaActual = new Date().toISOString().split('T')[0]; // Obtiene la fecha actual en formato YYYY-MM-DD
+        crearEstrellasAct(100); 
+        const fechaActual = new Date().toISOString().split('T')[0];  
         setActividad((prev) => ({ ...prev, fecha: fechaActual }));
 
         return () => {
             document.body.classList.remove('estilo3');
             const estrellasAct = document.querySelectorAll('.star-act');
-            estrellasAct.forEach(estrella => estrella.remove()); // Limpiar estrellas al salir
+            estrellasAct.forEach(estrella => estrella.remove()); 
         };
     }, [id]);
 
@@ -80,12 +78,12 @@ const EditarActividad = () => {
         for (let i = 0; i < cantidad; i++) {
             const estrellaAct = document.createElement('div');
             estrellaAct.className = 'star-act';
-            const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+            const size = Math.random() * 3 + 1; 
             estrellaAct.style.width = `${size}px`;
             estrellaAct.style.height = `${size}px`;
             estrellaAct.style.top = `${Math.random() * 100}vh`;
             estrellaAct.style.left = `${Math.random() * 100}vw`;
-            estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
+            estrellaAct.style.animationDelay = `${Math.random() * 2}s`; 
             contenedorEstrellasAct.appendChild(estrellaAct);
         }
     };
@@ -112,7 +110,7 @@ const EditarActividad = () => {
         if (notificationTime.getTime() > currentTime) {
             const timeout = notificationTime.getTime() - currentTime;
 
-            // Limpiar el timeout anterior si existe
+           
             if (notificationTimeoutId) {
                 clearTimeout(notificationTimeoutId);
             }
@@ -137,7 +135,7 @@ const EditarActividad = () => {
                     notification.onclick = () => {
                         window.focus();
                     };
-                    console.log('Notificación programada:', mensaje); // Log para verificar la notificación
+                    console.log('Notificación programada:', mensaje); 
                 }
             });
         }
@@ -157,13 +155,13 @@ const EditarActividad = () => {
             ubicacion: actividad.ubicacion,
             fecha: actividad.fecha,
             duracion: Number(actividad.duracion),
-            hora: actividad.hora + ':00', // Aseguramos que tenga el formato HH:mm:ss
+            hora: actividad.hora + ':00', 
             notas: actividad.notas,
             color: actividad.color,
             idUsuario: 1 // ID de usuario fijo para pruebas
         };
 
-        console.log('Datos a enviar:', actividadData); // Imprimir datos a enviar para depuración
+        console.log('Datos a enviar:', actividadData); 
 
         try {
             const response = await axios.put(`http://localhost:5000/api/actividad/actividad/${id}`, actividadData);
@@ -240,7 +238,7 @@ const EditarActividad = () => {
                         <input
                             type="date"
                             value={actividad.fecha}
-                            readOnly // Evitar que el usuario cambie la fecha
+                            readOnly 
                             className="input-act"
                         />
                     </div>
