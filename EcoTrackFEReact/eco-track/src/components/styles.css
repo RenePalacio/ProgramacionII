@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap');
 
+/*Scrollbar*/
+
+/* Personalizar la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track {
+  background: #283372a6; /* Color de fondo de la pista */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #283372; /* Color de la barra */
+  border-radius: 10px; /* Bordes redondeados */
+  border: 3px solid #f1f1f14b; /* Espacio alrededor de la barra */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #283372a6; /* Color de la barra al pasar el ratón por encima */
+}
+
+
+/*Scrollbar*/
 .estilo1 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -103,7 +126,9 @@
   }
   
   .login-button:hover {
-    background-color: #3ebd53;
+    background-color: #000000;
+    color: #ffffff;
+    box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
     transform: scale(1.05); /* Efecto Buton */
   }
   
@@ -140,7 +165,7 @@
     width: 250px;
     height: 225px;
     top: 62%;
-    right: 20%;
+    right: 2%;
     background-image: url('https://i.ibb.co/VgWQVBg/nube3.png');
   }
   
@@ -227,6 +252,10 @@
       left: 183px;
       overflow:hidden;
       z-index: -2222;
+    }
+
+    .cloud8{
+      display: none;
     }
     .error-message-login{
       
@@ -327,11 +356,11 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 0px;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   display: flex;
-  margin:20px;
+  margin:-1px;
   align-items: center;
   flex-direction: row-reverse;
 
@@ -356,9 +385,26 @@
   margin-right: 20px; /* Espacio entre la imagen y el texto */
 }
 
+/* Estilos responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .welcome-icon img, 
+  .welcome-icon2 img {
+    max-width: 90%; 
+    max-height: 45%;
+    right: 0; 
+  }
+
+  .welcome-section {
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+  }
+}
+
+
 .welcome-message {
   position: relative;
-  right: -200px;
+  right: 0px;
   text-align: left;
   position: relative; /* Alinear el texto al centro */
   font-size: 20px;
@@ -387,24 +433,27 @@
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s; /* Efecto de transformacion */
+
 }
 
 .add-task-btn:hover {
-  background-color: #3ebd53;
-  color: #ffffff;
   
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938); background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
   transform: scale(1.05); /* Efecto Buton */
 }
 
 .edit-task-section,
-.delete-task-section {
+.delete-task-section, .api-task-btn {
   margin: 20px 0; /* Ajustamos los márgenes */
   display: flex; /* Habilitar flexbox */
   justify-content: center; /* Centra horizontalmente los botones */
 }
 
 .edit-task-btn,
-.delete-task-btn, .api-task-btn {
+.delete-task-btn, 
+.api-task-btn {
   background-color: #000000;
   color: #fcfcfc;
   padding: 12px 24px;
@@ -414,12 +463,15 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0 10px; /* Espacio entre los botones */
+  margin-top: 20px;
 }
 
 .edit-task-btn:hover,
-.delete-task-btn:hover {
-  background-color: #3ebd53;
+.delete-task-btn:hover,
+.api-task-btn {
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938); background-color: #000000;
   color: #ffffff;
+  transform: scale(1.05); /* Efecto Buton */
 }
 
 .close-btn {
@@ -494,21 +546,24 @@
 
 /* Card del popup */
 .popup-content {
-  width: 90%;
+  width: 100%;
   max-width: 450px; /* Ampliado para más espacio */
-  height: 50%;
+  height: 80%;
   perspective: 1000px;
-  background-color: #ffffff;
-  border-radius: 15px; /* Esquinas más redondeadas */
-  border: 2px solid rgba(0, 255, 255, 0); /* Borde de neón */
+  border-radius: 10px; /* Esquinas más redondeadas */
+  border: 0px solid rgba(0, 255, 255, 0); /* Borde de neón */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Sombra más suave */
-  padding: 20px;
+  padding: 40px;
   overflow: hidden; /* Asegura que el contenido no se desborde */
+}
+
+.popup-content p {
+ font-size: 15px;
 }
 
 /* Efecto de flip */
 .popup-inner {
-  margin-top: 50%;
+  margin-top: 200px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -525,19 +580,92 @@
   position: absolute;
   backface-visibility: hidden;
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: 90%;
+  top: -200px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  border-radius: 15px; /* Esquinas redondeadas en ambas caras */
+  padding: 40px;
+  border-radius: 0px; /* Esquinas redondeadas en ambas caras */
   box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
 }
 
+.popup-h4A{
+  text-align: center;
+}
+.popup-h4C{
+  text-align: center;
+  margin-bottom: -70px;
+}
+.popup-cell{
+  position: relative;
+  margin: 16px; /* Cambia 16px por el valor que desees */
+  top: -20px;
+}
+.p2-cell{
+  position: relative;
+  right: 43px;
+}
+.p-cell{
+  margin: 16px; /* Cambia 16px por el valor que desees */
+}
+.p-cell{
+  position: relative;
+  right: 43px;
+}
+
+.p-temp{
+  position:relative;
+  margin-top: -60px;
+  right: 43px;
+}
+.p-hum{
+  position:relative;
+  margin-top: 20px;
+  right: 43px;
+}
+.p-uv{
+  position:relative;
+  margin-top: 20px;
+  right: 43px;
+}
+
+.p-uv2{
+  position:relative;
+  margin-top: 20px;
+  right: 43px;
+}
+.p1{
+ margin-top:90px ;
+  text-align: center;
+}
+
+.p-desc{
+  position:relative;
+  margin-top: 0px;
+  top: -83.5px;
+  left: 143px;
+}
 .popup-back {
   transform: rotateY(180deg);
-  background-color: #f0f8ff; /* Color de fondo claro para la parte trasera */
+  background-color: rgba(255, 255, 255, 0); /* Color de fondo claro para la parte trasera */
+}
+.weather-icon {
+  width: 150px; /* Ajusta el tamaño según necesites */
+  height: 150px;
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+  position: relative;
+  left: 160px;
+  top: 130px;
+}
+
+.activity-icon{
+  width: 70px; /* Ajusta el tamaño según necesites */
+  height: 70px;
+  margin-right: 0px; /* Espacio entre la imagen y el texto */
+  position: relative;
+  left: 30px;
+  top: -35px;
 }
 
 /* Botón de switch dual */
@@ -566,7 +694,7 @@
 }
 
 .dual-switch button:hover {
-  background-color: #4ca300;
+  background-color: #76808f;
 }
 
 .dual-switch .active {
@@ -581,115 +709,197 @@
   width: 100%; /* Asegura que ocupen todo el ancho */
 }
 
-.edit-delete-buttons .edit-task-btn,
-.edit-delete-buttons .delete-task-btn,
-.edit-delete-buttons .api-task-btn {
-  background-color: #000000;
-  color: #fcfcfc;
-  padding: 10px 20px; /* Ajustado para mayor comodidad */
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+.edit-task-btn{
+  background-color: #000000; /* Mismo color de fondo que el switch */
+  width: 35%;
+  position: relative;
+  color: #ffffff;
+  padding: 12px; /* Ajustado para mayor comodidad */
+  border-radius: 8px; /* Esquinas redondeadas */
+  font-size: 1em; /* Tamaño de fuente ajustado */
   cursor: pointer;
   transition: background-color 0.3s ease;
-  flex: 1; /* Cada botón ocupa el mismo espacio */
   margin: 0 5px; /* Espacio entre botones */
+  bottom: -30px;
+  left: -10%;
+}
+.delete-task-btn{
+  background-color: #000000; /* Mismo color de fondo que el switch */
+  width: 35%;
+  position: relative;
+  color: #ffffff;
+  padding: 12px; /* Ajustado para mayor comodidad */
+  border-radius: 8px; /* Esquinas redondeadas */
+  font-size: 1em; /* Tamaño de fuente ajustado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Espacio entre botones */
+  bottom: -30px;
+  left: 30%;
+}
+.delete-task-btn1{
+  background-color: #000000; /* Mismo color de fondo que el switch */
+  width: 35%;
+  position: relative;
+  color: #ffffff;
+  padding: 12px; /* Ajustado para mayor comodidad */
+  border-radius: 8px; /* Esquinas redondeadas */
+  font-size: 1em; /* Tamaño de fuente ajustado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Espacio entre botones */
+  bottom: 0;
+  left: 0;
+}
+.delete-task-btn1:hover{
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
+  transform: scale(1.05); /* Efecto Buton */
+}
+.api-task-btn {
+  background-color: #000000; /* Mismo color de fondo que el switch */
+  width:60%;
+  position: relative;
+  color: #ffffff;
+  padding: 12px; /* Ajustado para mayor comodidad */
+  border: none;
+  border-radius: 8px; /* Esquinas redondeadas */
+  font-size: 1em; /* Tamaño de fuente ajustado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Espacio entre botones */
+  left: 17%;
+  top: 280px;
 }
 
 .edit-delete-buttons .edit-task-btn:hover,
 .edit-delete-buttons .delete-task-btn:hover,
 .edit-delete-buttons .api-task-btn:hover {
-  background-color: #3ebd53;
-  color: #ffffff;
+  background-color: #000000; /* Color de fondo al pasar el mouse */
+  color: #ffffff; /* Color del texto */
 }
+
+
 /* Adaptaciones responsive */
 @media (max-width: 768px) {
-  .welcome-icon2{
+  .welcome-icon1{
     position: relative;
-    top: 20px;
+    margin-top: 10;
   }
-
+  .welcome-icon2 img{
+    display: flex;
+    
+    
+  }
+  .welcome-icon{
+    position: relative;
+    margin-top: 10;
+  }
   .welcome-
   .popup-content {
     width: 85%;
+    height: 60%;
     padding: 15px;
+    z-index: 233333;
+    
   }
 
   .popup-content h4 {
-    font-size: 1.3em;
+    font-size: 1.2em;
+   
   }
 
   .popup-content p {
-    font-size: 1em;
+    font-size: 0.5em;
   }
+  .popup-front, .popup-back {
+    z-index: 2333;
+    height: 80vh;
+  }
+  .dual-switch{
+    z-index: 2333;
+    margin-top: 30px;
+  }
+  .close-btn{
+    z-index: 2333;
+  }
+  .p1{
+    position: relative;
+    bottom: -100px;
+    text-align: center;
+  }
+
+  .api-task-btn
+  {
+    position: relative;
+    top: 570px;
+  }
+
+  .edit-task-btn,
+  .delete-task-btn{
+    position: relative;
+    top: 230px;
+  }
+
+  .popup-h4A{
+    margin-top: 60px;
+  }
+
+  .popup-h4C{
+    margin-top: 60px;
+  }
+  .popup-overlay{
+    height: 1298px;
+    top: -125px;;
+  }
+
 }
+
 
 /*Fin popup*/
 
 
 /* Estilos para el CustomAlert */
-.custom-alert-overlay,
-.success-alert-overlay {
+.custom-alert-overlay-home {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semi-translúcido */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Asegúrate de que esté en la parte superior */
+  right: 20px;
+  top: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  animation: slide-in 0.5s forwards, slide-out 0.5s 2.5s forwards;
+  z-index: 100000;
 }
-
-.custom-alert-content,
-.success-alert-content {
-  background: white; /* Fondo blanco para el popup */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.custom-alert-content-home {
   text-align: center;
 }
 
-.confirm-btn,
-.cancel-btn,
-.close-success-btn {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
 }
 
-.confirm-btn {
-  background: #000000; /* Verde */
-  color: rgb(255, 255, 255);
+.custom-alert-content {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: #000; /* Asegúrate de que el texto sea legible sobre el fondo */
 }
 
-.confirm-btn:hover {
-  background: #3ebd53;
-  color: #ffffff;
-}
-
-.cancel-btn {
-  background: #000000; /* Rojo */
-  color: rgb(252, 249, 249);
-}
-
-.cancel-btn:hover {
-  background: #3ebd53;
-  color: #ffffff;
-}
-
-/* Estilos para el SuccessAlert */
-.close-success-btn {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background: #007bff; /* Azul */
-  color: white;
-  cursor: pointer;
+.alert-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
@@ -736,7 +946,7 @@
 
   /*ESTE CODIGO DE ABAJO ES DE mapa*/
   .estilo2 {
-    background:linear-gradient(to bottom right,#d3ce91, #8d687f ); 
+    background:linear-gradient(to bottom right,#82c27cfb, #0c1e50 ); 
     font-family: 'Poppins';
 }
 
@@ -784,7 +994,7 @@
 .map-title {
     font-size: 2rem;
     color: rgb(0, 0, 0);
-    margin-top: 60px;
+    margin-top: -20px;
     z-index: 2;
     
     
@@ -828,8 +1038,10 @@
 }
 
 .map-button:hover {
-    background-color: #3ebd53;
-    color: #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
+  transform: scale(1.05); /* Efecto Buton */
 }
 
 .map-container {
@@ -902,12 +1114,12 @@
       display: none;
   }
   .logo-text {
-    font-size: 0.9rem;
+    display: none;
   }
 
   .map-title {
       font-size: 1.5rem;
-      margin-top: 30px;
+      margin-top: -100px;
   }
 
   .map-subtitle {
@@ -918,8 +1130,7 @@
       width: 200px;
   }
   .mancha {
-    width: 50%;  
-    max-width: 300px;
+    display: none;
     
  }
  /*Actividad css*/
@@ -1074,9 +1285,9 @@ body.estilo3 {
   transition: background-color 0.3s;
 }
 
-.form-button-act:hover {
-  background-color: #3ebd53;
-  
+.form-button-act:hover {background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
   transform: scale(1.05); /* Efecto Buton */
 }
 .form-button-act2 {
@@ -1092,7 +1303,10 @@ body.estilo3 {
 }
 
 .form-button-act2:hover {
-  background-color: #3ebd53;
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
+  transform: scale(1.05); /* Efecto Buton */
 }
 /* Selector de corazones */
 .heart-selector-act {
@@ -1307,7 +1521,7 @@ body.estilo3 {
 }
 
 .profile-btn {
-  background-color: #32563a;
+  background-color: #000000;
   color: white;
   border: none;
   padding: 11px 20px;
@@ -1329,8 +1543,9 @@ body.estilo3 {
 }
 
 .profile-btn:hover {
-  background-color: #3ebd53;
-  
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
   transform: scale(1.05); /* Efecto Buton */
 }
 
@@ -1378,7 +1593,7 @@ body.estilo3 {
 }
 
 .edit-profile-container button {
-  background-color: #32563a;
+  background-color: #000000;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -1389,7 +1604,10 @@ body.estilo3 {
 }
 
 .edit-profile-container button:hover {
-  background-color: #3ebd53;
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
+  transform: scale(1.05); /* Efecto Buton */
 }
 .star-profile {
   position: absolute;
@@ -1478,7 +1696,7 @@ body.estilo3 {
 }
 
 .avatar-option.selected {
-  border: 2px solid #ffffff;
+  border: 2px solid #000000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.1);
 }
@@ -1488,6 +1706,12 @@ body.estilo3 {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 768px) {
+  .edit-profile-container input,
+.edit-profile-container textarea {
+  width: 60%;
+}
+}
 
 /* Fin Carrusel de perfil*/
 
@@ -1545,8 +1769,10 @@ body.estilo3 {
 
     
 .error-messageErrorPage button:hover {
-  background-color: #3ebd53;
-  transform: scale(1.05);
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 5px 10px rgba(243, 243, 243, 0.938);
+  transform: scale(1.05); /* Efecto Buton */
 }
 
 

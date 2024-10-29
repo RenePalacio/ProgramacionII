@@ -163,10 +163,10 @@ const MapaUbicacion = ({ onLocationSave, userId }) => {
                 </MapContainer>
             </div>
             <button className="map-button" onClick={handleSaveLocation}>Guardar Ubicación</button>
-            <footer className="footer1">
+            <footer className="footer">
                 <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
                 <span>
-                    <a href="/politicadeuso" style={{ color: 'black', textDecoration: 'none', marginLeft: '10px' }}>
+                    <a href="/politicadeuso" style={{ color: 'white', textDecoration: 'none', marginLeft: '10px' }}>
                         Políticas de Uso
                     </a>
                 </span>

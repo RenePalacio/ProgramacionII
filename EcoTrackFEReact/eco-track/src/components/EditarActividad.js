@@ -187,6 +187,7 @@ const EditarActividad = () => {
     };
 
     return (
+        <div style={{ color: actividad.color || '#ffffff' }}>
         <div className="container-act">
             <header className="Ubiheader">
                 <h1 className="logo-text">E C O T R A C K</h1>
@@ -300,6 +301,7 @@ const EditarActividad = () => {
                     </span>
                 </footer>
             </div>
+        </div>
         </div>
     );
 };
