@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json; // Asegúrate de tener esta referencia
+using Newtonsoft.Json;
 
 namespace EcoTrackBackend.Services
 {
@@ -12,25 +12,16 @@ namespace EcoTrackBackend.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<T> GetDataFromApi<T>(string endpoint) where T : class, new()
-{
-    try
-    {
-        var response = await _httpClient.GetAsync(endpoint);
-        response.EnsureSuccessStatusCode();
 
-        var content = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<T>(content);
+        public async Task<T?> GetDataFromApi<T>(string endpoint) // Use T? if T can be nullable
+        {
+            var response = await _httpClient.GetAsync(endpoint);
+            response.EnsureSuccessStatusCode();
 
-        return result ?? new T(); // Devuelve un nuevo objeto si el resultado es nulo
-    }
-    catch (HttpRequestException ex)
-    {
-        // Manejar el error según sea necesario
-        throw new Exception("Error al acceder a la API", ex);
-    }
-}
-
-        
+            var jsonString = await response.Content.ReadAsStringAsync(); // Read content as string
+            var data = JsonConvert.DeserializeObject<T>(jsonString); // Deserialize using JsonConvert
+            
+            return data;
+        }
     }
 }

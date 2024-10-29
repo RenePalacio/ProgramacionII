@@ -4,8 +4,6 @@ namespace EcoTrack.Models
 {
     public class CreateNotificacionDto
     {
-        [Required]
-        public int IdUsuario { get; set; }
 
         [Required]
         public int IdActividad { get; set; }
@@ -20,4 +18,11 @@ namespace EcoTrack.Models
         [Required]
         public bool Enviado { get; set; }
     }
+
+    public class UpdateNotificacionDto
+{
+    public required string Mensaje { get; set; }
+    public DateTime FechaEnvio { get; set; }
+}
+
 }

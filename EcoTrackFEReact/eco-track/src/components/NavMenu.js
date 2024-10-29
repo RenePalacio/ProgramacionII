@@ -1,12 +1,19 @@
-import React from 'react'; // Asegúrate de importar useState
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const NavMenu = () => {
-  const navigate = useNavigate(); // Usa el hook para navegar
+const NavMenu = ({ setIdUsuario }) => {
+  const navigate = useNavigate();
 
   // Manejador de navegación simplificado
   const handleNavigation = (path) => {
-    navigate(path); // Redirige a la ruta deseada
+    navigate(path);
+  };
+
+  // Manejador de Logout
+  const handleLogout = () => {
+    localStorage.removeItem('idUsuario'); // Elimina el ID de usuario
+    setIdUsuario(null); // Actualiza el estado en el componente padre
+    navigate('/'); // Redirige a la página de inicio o login
   };
 
   return (
@@ -32,14 +39,14 @@ const NavMenu = () => {
           </a>
         </li>
         <li>
-          <a href="#0" onClick={() => handleNavigation('/')}>
-            <img src="https://i.ibb.co/M5FZPMv/exit.png" alt="Cerrar Sesion" />
+          <a href="#0" onClick={handleLogout}>
+            <img src="https://i.ibb.co/M5FZPMv/exit.png" alt="Cerrar Sesión" />
           </a>
         </li>
       </ul>
 
       {/* Estilos CSS internos */}
-      <style >{`
+      <style>{`
         :root {
           --white: #ffffff;
           --violet: #1b221a;
@@ -78,9 +85,9 @@ const NavMenu = () => {
           justify-content: center;
           width: 60px;
           height: 60px;
-          border-radius: 50%; /* Hacer el botón circular */
-          overflow: hidden; /* Evitar que la imagen sobresalga */
-          background: var(--violet); /* Fondo para el botón */
+          border-radius: 50%;
+          overflow: hidden;
+          background: var(--violet);
           cursor: pointer;
           transition: background-color 0.3s;
           z-index: 1;
@@ -91,8 +98,8 @@ const NavMenu = () => {
         }
 
         .nav label img {
-          width: 24px; /* Ajusta el tamaño de la imagen */
-          height: 24px; /* Mantén el aspecto proporcional */
+          width: 24px;
+          height: 24px;
         }
 
         .menu {
@@ -101,7 +108,7 @@ const NavMenu = () => {
           left: 50%;
           transform: translateX(-50%);
           width: 100%;
-          justify-content: center; /* Centrar los elementos */
+          justify-content: center;
           align-items: center;
         }
 
@@ -113,7 +120,7 @@ const NavMenu = () => {
           list-style: none;
           opacity: 0; 
           transition: opacity 0.5s ease, transform 0.5s ease;
-          margin: 0 10px; /* Espaciado entre los botones */
+          margin: 0 10px;
         }
 
         .nav [type="checkbox"]:checked ~ .menu li {
@@ -143,7 +150,6 @@ const NavMenu = () => {
           height: 24px;
         }
 
-        /* Ajustes de las posiciones de los botones */
         .nav [type="checkbox"]:checked ~ .menu li:nth-child(1) {
           transform: translateX(-50px);
         }

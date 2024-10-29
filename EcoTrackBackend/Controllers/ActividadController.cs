@@ -147,25 +147,37 @@ namespace EcoTrack.Controllers
         }
 
         [HttpDelete("actividad/{idActividad}")]
-        public async Task<IActionResult> EliminarActividad(int idActividad)
+public async Task<IActionResult> EliminarActividad(int idActividad)
+{
+    try
+    {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+
+        // Buscar la actividad
+        var actividad = await _context.Actividades.FindAsync(idActividad);
+        if (actividad == null)
         {
-            try
-            {
-                var actividad = await _context.Actividades.FindAsync(idActividad);
-                if (actividad == null)
-                {
-                    return NotFound("Actividad no encontrada.");
-                }
-
-                _context.Actividades.Remove(actividad);
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Error interno del servidor: " + ex.Message);
-            }
+            return NotFound("Actividad no encontrada.");
         }
+
+        // Eliminar datos climáticos relacionados
+        var datosClima = await _context.DatosClima.Where(dc => dc.IdActividad == idActividad).ToListAsync();
+        _context.DatosClima.RemoveRange(datosClima);
+
+        // Eliminar la actividad
+        _context.Actividades.Remove(actividad);
+
+        // Guardar cambios en la base de datos
+        await _context.SaveChangesAsync();
+        await transaction.CommitAsync();
+
+        return NoContent();
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, "Error interno del servidor: " + ex.Message);
+    }
+}
+
     }
 }

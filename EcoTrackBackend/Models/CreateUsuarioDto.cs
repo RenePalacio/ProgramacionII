@@ -16,4 +16,26 @@ namespace EcoTrack.Models
         [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;
     }
+   
+
+    public class LoginUsuarioDto
+    {
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+    }
+
+    public class EmailCheckDto
+    {
+        public required string Email { get; set; }
+    }
+
+    public class UpdateUsuarioDto
+{
+    public required string Nombre { get; set; }
+    public required string Email { get; set; }
+    // No incluimos el campo de contraseña aquí
+}
+
+
+
 }

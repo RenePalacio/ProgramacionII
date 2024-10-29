@@ -1,12 +1,20 @@
+// src/components/NavDesktop.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
 
-const NavDesktop = () => {
-  const navigate = useNavigate(); // Usa el hook para navegar
+const NavDesktop = ({ setIdUsuario }) => {
+  const navigate = useNavigate();
 
-  // Manejador de navegación simplificado
+  // Manejador de navegación
   const handleNavigation = (path) => {
-    navigate(path); // Redirige a la ruta deseada
+    navigate(path);
+  };
+
+  // Manejador de Logout
+  const handleLogout = () => {
+    localStorage.removeItem('idUsuario'); // Elimina el ID de usuario
+    setIdUsuario(null); // Actualiza el estado en el componente padre
+    navigate('/'); // Redirige a la página de inicio o login
   };
 
   return (
@@ -28,14 +36,14 @@ const NavDesktop = () => {
           </a>
         </li>
         <li className="navbar__item">
-        <a href="#0" onClick={() => handleNavigation('/')}>
-            <img src="https://i.ibb.co/M5FZPMv/exit.png" alt="Cerrar Sesion" />
+          <a href="#0" onClick={handleLogout}>
+            <img src="https://i.ibb.co/M5FZPMv/exit.png" alt="Cerrar Sesión" />
           </a>
         </li>
       </ul>
 
       {/* CSS interno simplificado */}
-      <style >{`
+      <style>{`
         :root {
           --border-radius: 10px;
           --spacer: 1rem;
@@ -45,7 +53,6 @@ const NavDesktop = () => {
           --timing: 250ms;
           --transition: var(--timing) ease all;
         }
-
 
         .navbar {
           position: fixed;

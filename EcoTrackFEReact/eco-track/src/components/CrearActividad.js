@@ -8,16 +8,16 @@ const CrearActividadAct = () => {
     const [actividad, setActividad] = useState({
         idTipoActividad: '',
         ubicacion: '', 
-        fecha: '',
+        fecha: '', 
         duracion: '',
         hora: '',
         notas: '',
         color: '#ffffff',
     });
+    const [cargando, setCargando] = useState(false);
     
     const navigate = useNavigate(); 
-
-    const idUsuario = localStorage.getItem('idUsuario') || '1'; // Cambia esto si es necesario
+    const idUsuario = localStorage.getItem('idUsuario') || '1';
 
     const corazones = [
         { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' }, 
@@ -32,44 +32,50 @@ const CrearActividadAct = () => {
     useEffect(() => {
         const obtenerTiposActividad = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/tipoactividad');
+                const response = await axios.get('http://localhost:5000/api/Tipoactividad');
                 setTiposActividad(response.data);
             } catch (error) {
                 console.error('Error al obtener tipos de actividad', error);
             }
         };
+        const crearEstrellasAct = (cantidad) => {
+            const contenedorEstrellasAct = document.querySelector('.container-act');
+
+            for (let i = 0; i < cantidad; i++) {
+                const estrellaAct = document.createElement('div');
+                estrellaAct.className = 'star-act';
+                const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+                estrellaAct.style.width = `${size}px`;
+                estrellaAct.style.height = `${size}px`;
+                estrellaAct.style.top = `${Math.random() * 100}vh`;
+                estrellaAct.style.left = `${Math.random() * 100}vw`;
+                estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
+                contenedorEstrellasAct.appendChild(estrellaAct);
+            }
+        };
 
         obtenerTiposActividad();
         document.body.classList.add('estilo3');
-        crearEstrellasAct(100); // Llamar a la función para crear estrellas
+     
 
         const storedLocation = JSON.parse(localStorage.getItem('savedLocation'));
         if (storedLocation) {
             setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
         }
 
+        const currentDate = new Date(); // Toma la fecha del sistema
+        const formattedDate = currentDate.toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
+        setActividad((prev) => ({ ...prev, fecha: formattedDate }));
+        crearEstrellasAct(100); // Crear estrellas al montar el componente
+
         return () => {
             document.body.classList.remove('estilo3');
             const estrellasAct = document.querySelectorAll('.star-act');
             estrellasAct.forEach(estrella => estrella.remove()); // Limpiar estrellas al salir
         };
+
     }, []);
-
-    const crearEstrellasAct = (cantidad) => {
-        const contenedorEstrellasAct = document.querySelector('.container-act');
-
-        for (let i = 0; i < cantidad; i++) {
-            const estrellaAct = document.createElement('div');
-            estrellaAct.className = 'star-act';
-            const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
-            estrellaAct.style.width = `${size}px`;
-            estrellaAct.style.height = `${size}px`;
-            estrellaAct.style.top = `${Math.random() * 100}vh`;
-            estrellaAct.style.left = `${Math.random() * 100}vw`;
-            estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
-            contenedorEstrellasAct.appendChild(estrellaAct);
-        }
-    };
+    
 
     const handleColorChange = (degradado) => {
         setActividad((prev) => ({
@@ -78,33 +84,78 @@ const CrearActividadAct = () => {
         }));
     };
 
+    const scheduleNotification = (fechaHora) => {
+        const notificationTime = new Date(fechaHora);
+        notificationTime.setMinutes(notificationTime.getMinutes() - 5);
+
+        const currentTime = new Date().getTime();
+        if (notificationTime.getTime() > currentTime) {
+            const timeout = notificationTime.getTime() - currentTime;
+            setTimeout(() => {
+                showExternalNotification(`Tienes una actividad programada a las ${actividad.hora}`);
+            }, timeout);
+        }
+    };
+
+    const showExternalNotification = (mensaje) => {
+        const selectedAvatar = localStorage.getItem('selectedAvatar') || 'https://i.ibb.co/SsB90qS/nube.png'
+        if ('Notification' in window) {
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    const notification = new Notification('Tu Actividad Esta A Punto De Empezar!!', {
+                        body: mensaje,
+                        icon: selectedAvatar,
+                    });
+                    notification.onclick = () => {
+                        window.focus();
+                    };
+                }
+            });
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // Formato la fecha usando el valor directamente del input
-        const fechaFormateada = `${actividad.fecha}T00:00:00Z`; // Usar directamente el valor del input
+        // Descomponer la hora en horas y minutos
     
+        // Formatear la fecha y la hora
+        const fechaFormateada = `${actividad.fecha}T${actividad.hora}:00`;
+        const fechaFormateada2 = `${actividad.fecha}T00:00:00Z`;
         const duracionMinutos = Number(actividad.duracion);
-        const horaFormateada = `${actividad.hora}:00`; // Añadir segundos al final
+        const horaFormateada = `${actividad.hora}:00`;
     
         const actividadData = {
-            idTipoActividad: Number(actividad.idTipoActividad), // Asegurarse de que sea un número
+            idTipoActividad: Number(actividad.idTipoActividad),
             ubicacion: actividad.ubicacion,
-            fecha: fechaFormateada,
+            fecha: fechaFormateada2,
             duracion: duracionMinutos,
             hora: horaFormateada,
             notas: actividad.notas,
-            idUsuario: Number(idUsuario),  // Asegúrate de que sea un número
+            idUsuario: Number(idUsuario),
         };
+    
+        setCargando(true);
     
         try {
             const response = await axios.post('http://localhost:5000/api/actividad', actividadData);
             console.log('Actividad creada:', response.data);
     
-            // Guardar el color en localStorage usando el ID de la actividad
-            localStorage.setItem(`actividadColor_${response.data.idActividad}`, actividad.color);
+            // Programar la notificación en el backend
+            const notificacionData = {
+                IdActividad: response.data.idActividad,
+                Mensaje: `Tienes la actividad programada a las ${actividad.hora}`,
+                FechaEnvio: new Date(fechaFormateada).toISOString(),
+                Enviado: false
+            };
     
-            // Reinicia el formulario después de enviar
+            await axios.post('http://localhost:5000/api/Notificacion', notificacionData);
+            console.log('Notificación creada');
+    
+            // Programar la notificación en el frontend
+            scheduleNotification(fechaFormateada);
+    
+            localStorage.setItem(`actividadColor_${response.data.idActividad}`, actividad.color);
             setActividad({
                 idTipoActividad: '',
                 ubicacion: '',
@@ -115,15 +166,14 @@ const CrearActividadAct = () => {
                 color: '#ffffff',
             });
     
-            navigate('/home'); 
+            navigate('/home');
         } catch (error) {
-            console.error('Datos enviados:', actividadData);
-            console.error('Error al crear actividad', error.response?.data || error.message);
-            if (error.response?.data?.errors) {
-                console.error('Errores de validación:', error.response.data.errors);
-            }
+            console.error('Error al crear actividad o notificación', error.response?.data || error.message);
+        } finally {
+            setCargando(false);
         }
     };
+    
 
     return (
         <div className="container-act">
@@ -174,15 +224,13 @@ const CrearActividadAct = () => {
                             )}
                         </select>
                     </div>
-    
+
                     <div className="input-container-act">
                         <input
                             type="date"
                             value={actividad.fecha}
-                            onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
-                            required
+                            readOnly
                             className="input-act"
-                            placeholder="Fecha (DD/MM/YYYY)"
                         />
                     </div>
 
@@ -227,12 +275,23 @@ const CrearActividadAct = () => {
                         />
                     </div>
 
-                    <button type="submit" className="form-button-act">Guardar</button>
+                    <button type="submit" className="form-button-act" disabled={cargando}>
+                        {cargando ? 'Guardando...' : 'Guardar'}
+                    </button>
                 </form>
                 
                 <footer className="footer">
-                    <span>© SummerTime Coders</span>
+                    <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
+                    <span>
+                        <a href="/politicadeuso" style={{ color: 'white', textDecoration: 'none', marginLeft: '10px' }}>
+                            Políticas de Uso
+                        </a>
+                    </span>
                 </footer>
+
+
+
+
             </div>
         </div>
     );

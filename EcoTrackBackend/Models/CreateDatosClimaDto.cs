@@ -8,20 +8,11 @@ namespace EcoTrack.Models
         public int IdActividad { get; set; }
 
         [Required]
-        public float Temperatura { get; set; }
+        [Range(-90, 90, ErrorMessage = "La latitud debe estar entre -90 y 90.")]
+        public double Latitude { get; set; }
 
         [Required]
-        public float RayosUV { get; set; }
-
-        [Required]
-        public float ProbabilidadLluvia { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string CalidadAire { get; set; } = string.Empty; // O usa required
-
-        [Required]
-        [StringLength(50)]
-        public string Polvo { get; set; } = string.Empty; // O usa required
+        [Range(-180, 180, ErrorMessage = "La longitud debe estar entre -180 y 180.")]
+        public double Longitude { get; set; }
     }
 }

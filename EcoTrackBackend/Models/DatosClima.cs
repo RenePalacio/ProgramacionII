@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,24 +18,15 @@ namespace EcoTrack.Models
         public float Temperatura { get; set; }
 
         [Required]
-        public float Humedad { get; set; }  // Agregamos Humedad
+        public float Humedad { get; set; }
 
         [Required]
-        public string Descripcion { get; set; } = string.Empty;  // Agregamos Descripcion
+        public string Descripcion { get; set; } = string.Empty;
 
         [Required]
-        public DateTime Fecha { get; set; }  // Agregamos Fecha
+        public float IndiceUV { get; set; }
 
         [Required]
-        public float RayosUV { get; set; }
-
-        [Required]
-        public float ProbabilidadLluvia { get; set; }
-
-        [StringLength(50)]
-        public string CalidadAire { get; set; } = string.Empty;
-
-        [StringLength(50)]
-        public string Polvo { get; set; } = string.Empty;
+        public string RecomendacionUV { get; set; } = string.Empty;
     }
 }

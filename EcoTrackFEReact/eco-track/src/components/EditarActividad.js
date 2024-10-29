@@ -17,6 +17,7 @@ const EditarActividad = () => {
     });
 
     const navigate = useNavigate(); 
+    let notificationTimeoutId = null; // Variable para almacenar el ID del timeout
 
     const corazones = [
         { id: 1, color: 'linear-gradient(to right, #ffadad, #ff6f6f)' },
@@ -47,7 +48,7 @@ const EditarActividad = () => {
                         ubicacion: response.data.ubicacion || '', 
                         fecha: response.data.fecha.split('T')[0] || '',
                         duracion: response.data.duracion || '',
-                        hora: response.data.hora.split(':')[0] + ':' + response.data.hora.split(':')[1] || '',
+                        hora: response.data.hora.split(':').slice(0, 2).join(':') || '',
                         notas: response.data.notas || '',
                         color: response.data.color || '#ffffff',
                     });
@@ -61,6 +62,10 @@ const EditarActividad = () => {
         obtenerActividad();
         document.body.classList.add('estilo3');
         crearEstrellasAct(100); // Crear estrellas al montar el componente
+
+        // Establecer la fecha actual en el estado
+        const fechaActual = new Date().toISOString().split('T')[0]; // Obtiene la fecha actual en formato YYYY-MM-DD
+        setActividad((prev) => ({ ...prev, fecha: fechaActual }));
 
         return () => {
             document.body.classList.remove('estilo3');
@@ -99,11 +104,50 @@ const EditarActividad = () => {
         }
     };
 
+    const scheduleNotification = (fechaHora) => {
+        const notificationTime = new Date(fechaHora);
+        notificationTime.setMinutes(notificationTime.getMinutes() - 5);
+
+        const currentTime = new Date().getTime();
+        if (notificationTime.getTime() > currentTime) {
+            const timeout = notificationTime.getTime() - currentTime;
+
+            // Limpiar el timeout anterior si existe
+            if (notificationTimeoutId) {
+                clearTimeout(notificationTimeoutId);
+            }
+
+            // Programar nueva notificación
+            notificationTimeoutId = setTimeout(() => {
+                const mensaje = `Tienes una actividad programada a las ${actividad.hora}`;
+                showExternalNotification(mensaje);
+            }, timeout);
+        }
+    };
+
+    const showExternalNotification = (mensaje) => {
+        const selectedAvatar = localStorage.getItem('selectedAvatar') || 'https://i.ibb.co/SsB90qS/nube.png';
+        if ('Notification' in window) {
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    const notification = new Notification('Tu Actividad Está A Punto De Empezar!!', {
+                        body: mensaje,
+                        icon: selectedAvatar,
+                    });
+                    notification.onclick = () => {
+                        window.focus();
+                    };
+                    console.log('Notificación programada:', mensaje); // Log para verificar la notificación
+                }
+            });
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validar que todos los campos tengan valores
-        if (!actividad.idTipoActividad || !actividad.ubicacion || !actividad.fecha || !actividad.duracion || !actividad.hora) {
+        if (!actividad.idTipoActividad || !actividad.ubicacion || !actividad.duracion || !actividad.hora) {
             console.error('Por favor, complete todos los campos obligatorios.');
             return;
         }
@@ -115,18 +159,22 @@ const EditarActividad = () => {
             duracion: Number(actividad.duracion),
             hora: actividad.hora + ':00', // Aseguramos que tenga el formato HH:mm:ss
             notas: actividad.notas,
-            color: actividad.color, // Asegúrate de incluir el color en los datos a enviar
+            color: actividad.color,
             idUsuario: 1 // ID de usuario fijo para pruebas
         };
 
         console.log('Datos a enviar:', actividadData); // Imprimir datos a enviar para depuración
 
         try {
-            const response = await axios.put(`http://localhost:5000/api/Actividad/actividad/${id}`, actividadData);
+            const response = await axios.put(`http://localhost:5000/api/actividad/actividad/${id}`, actividadData);
             console.log('Actividad editada:', response.data);
-            
+
+            // Programar la notificación
+            const fechaFormateada = `${actividad.fecha}T${actividad.hora}:00`;
+            scheduleNotification(fechaFormateada); // Programar la nueva notificación
+
             // Guardar el color en localStorage usando el ID de la actividad
-            localStorage.setItem(`actividadColor_${id}`, actividad.color); // Asegúrate de que el ID esté correcto
+            localStorage.setItem(`actividadColor_${id}`, actividad.color);
 
             navigate('/home');
         } catch (error) {
@@ -189,12 +237,10 @@ const EditarActividad = () => {
 
                     <div className="input-container-act">
                         <input
-                            type="text"
+                            type="date"
                             value={actividad.fecha}
-                            onChange={(e) => setActividad({ ...actividad, fecha: e.target.value })}
-                            required
+                            readOnly // Evitar que el usuario cambie la fecha
                             className="input-act"
-                            placeholder="Fecha (YYYY-MM-DD)"
                         />
                     </div>
 
@@ -246,7 +292,12 @@ const EditarActividad = () => {
                 </form>
                 
                 <footer className="footer">
-                    <span>© SummerTime Coders</span>
+                    <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
+                    <span>
+                        <a href="/politicadeuso" style={{ color: 'white', textDecoration: 'none', marginLeft: '10px' }}>
+                            Políticas de Uso
+                        </a>
+                    </span>
                 </footer>
             </div>
         </div>
