@@ -38,18 +38,19 @@ const CrearActividadAct = () => {
                 console.error('Error al obtener tipos de actividad', error);
             }
         };
+        // Animacion de Estrellas De Fondo
         const crearEstrellasAct = (cantidad) => {
             const contenedorEstrellasAct = document.querySelector('.container-act');
 
             for (let i = 0; i < cantidad; i++) {
                 const estrellaAct = document.createElement('div');
                 estrellaAct.className = 'star-act';
-                const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+                const size = Math.random() * 3 + 1;
                 estrellaAct.style.width = `${size}px`;
                 estrellaAct.style.height = `${size}px`;
                 estrellaAct.style.top = `${Math.random() * 100}vh`;
                 estrellaAct.style.left = `${Math.random() * 100}vw`;
-                estrellaAct.style.animationDelay = `${Math.random() * 2}s`; // Diferente retardo de parpadeo
+                estrellaAct.style.animationDelay = `${Math.random() * 2}s`; 
                 contenedorEstrellasAct.appendChild(estrellaAct);
             }
         };
@@ -63,15 +64,15 @@ const CrearActividadAct = () => {
             setActividad((prev) => ({ ...prev, ubicacion: storedLocation.address }));
         }
 
-        const currentDate = new Date(); // Toma la fecha del sistema
-        const formattedDate = currentDate.toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
+        const currentDate = new Date(); 
+        const formattedDate = currentDate.toLocaleDateString('en-CA'); 
         setActividad((prev) => ({ ...prev, fecha: formattedDate }));
-        crearEstrellasAct(100); // Crear estrellas al montar el componente
+        crearEstrellasAct(100); 
 
         return () => {
             document.body.classList.remove('estilo3');
             const estrellasAct = document.querySelectorAll('.star-act');
-            estrellasAct.forEach(estrella => estrella.remove()); // Limpiar estrellas al salir
+            estrellasAct.forEach(estrella => estrella.remove()); 
         };
 
     }, []);
@@ -117,7 +118,6 @@ const CrearActividadAct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // Descomponer la hora en horas y minutos
     
         // Formatear la fecha y la hora
         const fechaFormateada = `${actividad.fecha}T${actividad.hora}:00`;

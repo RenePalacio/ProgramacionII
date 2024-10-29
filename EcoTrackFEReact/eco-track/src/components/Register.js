@@ -13,10 +13,10 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(null); // Estado para manejar errores
-    const [loading, setLoading] = useState(false); // Estado para manejar la carga
-    const [alertMessage, setAlertMessage] = useState(''); // Mensaje de alerta
-    const [showAlert, setShowAlert] = useState(false); // Estado para mostrar la alerta
+    const [error, setError] = useState(null); 
+    const [loading, setLoading] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState(''); 
+    const [showAlert, setShowAlert] = useState(false);
     
     const navigate = useNavigate();
 
@@ -47,17 +47,17 @@ const Register = () => {
 
             const response = await axios.post('http://localhost:5000/api/Usuario', newUser);
             console.log('Usuario creado:', response.data);
-            setAlertMessage('Usuario creado con éxito.'); // Mensaje de éxito
-            setShowAlert(true); // Mostrar alerta
+            setAlertMessage('Usuario creado con éxito.'); 
+            setShowAlert(true);
             setTimeout(() => {
                 setShowAlert(false);
-                navigate('/'); // Navegar después de mostrar la alerta
-            }, 3000); // Desaparecer la alerta después de 3 segundos
+                navigate('/'); 
+            }, 3000); 
         } catch (error) {
             console.error('Error al registrar el usuario', error.response?.data || error.message);
             setError('Hubo un error en el registro.');
         } finally {
-            setLoading(false); // Finalizar la carga
+            setLoading(false); 
         }
     };
 
@@ -117,11 +117,11 @@ const Register = () => {
                     type="submit"
                     className="login-button"
                     style={{ width: '95%' }}
-                    disabled={loading} // Deshabilitar el botón si está cargando
+                    disabled={loading} 
                 >
                     {loading ? 'Registrando...' : 'Registrar'}
                 </button>
-                {error && <p className="error-message-register">{error}</p>} {/* Mensaje de error */}
+                {error && <p className="error-message-register">{error}</p>} 
             </form>
 
             <p className="login-prompt">

@@ -12,6 +12,6 @@ namespace EcoTrack.Models
         required public string NombreActividad { get; set; } = string.Empty;
 
         [StringLength(int.MaxValue)]
-        public string? DescripcionActividad { get; set; } // Opcional
+        public string? DescripcionActividad { get; set; } 
     }
 }

@@ -36,21 +36,21 @@ const Perfilusuario = () => {
     for (let i = 0; i < cantidad; i++) {
       const copoNieve = document.createElement('div');
       copoNieve.className = 'snowflake';
-      const size = Math.random() * 5 + 2; // Tamaño entre 2px y 7px
+      const size = Math.random() * 5 + 2; 
       copoNieve.style.width = `${size}px`;
       copoNieve.style.height = `${size}px`;
-      copoNieve.style.left = `${Math.random() * 100}vw`; // Posición horizontal aleatoria
-      copoNieve.style.setProperty('--random', Math.random()); // Variar la duración de la animación
+      copoNieve.style.left = `${Math.random() * 100}vw`; 
+      copoNieve.style.setProperty('--random', Math.random()); 
       contenedorNieve.appendChild(copoNieve);
     }
   };
 
   useEffect(() => {
-    crearCoposDeNieve(100); // Llama a la función para crear copos de nieve
+    crearCoposDeNieve(100); 
 
     return () => {
       const coposNieve = document.querySelectorAll('.snowflake');
-      coposNieve.forEach(copo => copo.remove()); // Limpiar copos de nieve al salir
+      coposNieve.forEach(copo => copo.remove()); 
     };
   }, []);
 
@@ -117,12 +117,12 @@ const Perfilusuario = () => {
       await axios.put(`http://localhost:5000/api/Usuario/${idUsuario}`, userData);
       localStorage.setItem('nombre', usuario.nombre);
       localStorage.setItem('email', usuario.email);
-      setAlertMessage('Usuario editado con éxito.'); // Mensaje de éxito
-      setShowAlert(true); // Mostrar alerta
+      setAlertMessage('Usuario editado con éxito.'); 
+      setShowAlert(true); 
       setTimeout(() => {
         setShowAlert(false);
-        handleNavigation('profile'); // Navegar después de mostrar la alerta
-      }, 3000); // Desaparecer la alerta después de 3 segundos
+        handleNavigation('profile'); 
+      }, 3000); 
     } catch (error) {
       console.error('Error al guardar los datos del usuario', error.response?.data || error);
       alert('Error al guardar los datos. Por favor intenta nuevamente.');

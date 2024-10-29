@@ -107,10 +107,9 @@ const Home = () => {
             showAlertWithMessage("Debe seleccionar una actividad antes de obtener el clima.");
         }
     };
-        // Agrega este estado al inicio del componente
-        const [cloudCount, setCloudCount] = useState(0); // Estado para el número de nubes
+       
+        const [cloudCount, setCloudCount] = useState(0); 
 
-        // Agrega este useEffect para establecer la cantidad de nubes según las actividades
         useEffect(() => {
             setCloudCount(activities.length > 0 ? Math.min(activities.length, 10) : 0);
         }, [activities]);

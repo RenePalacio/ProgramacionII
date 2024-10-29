@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom';
 const NavMenu = ({ setIdUsuario }) => {
   const navigate = useNavigate();
 
-  // Manejador de navegación simplificado
+  // Manejador de navegación 
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   // Manejador de Logout
   const handleLogout = () => {
-    localStorage.removeItem('idUsuario'); // Elimina el ID de usuario
-    setIdUsuario(null); // Actualiza el estado en el componente padre
-    navigate('/'); // Redirige a la página de inicio o login
+    localStorage.removeItem('idUsuario'); 
+    setIdUsuario(null); 
+    navigate('/'); 
   };
 
   return (

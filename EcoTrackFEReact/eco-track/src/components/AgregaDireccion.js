@@ -9,8 +9,8 @@ const AgregarDireccion = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Dirección agregada: ' + direccion);
-    // guardar la dirección en una base de datos.
-    navigate('/Pantalla6'); // Redirigir a la pantalla 6 después de agregar
+    
+    navigate('/Pantalla6'); 
   };
 
   return (

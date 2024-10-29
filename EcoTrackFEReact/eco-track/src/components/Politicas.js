@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles.css'; // Asegúrate de que este archivo exista y esté en la ubicación correcta
+import './styles.css'; 
 
 const PoliticasDeUso = () => {
     const politicas = {
