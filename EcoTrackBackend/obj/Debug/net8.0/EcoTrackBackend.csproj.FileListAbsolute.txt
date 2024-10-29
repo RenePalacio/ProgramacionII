@@ -431,3 +431,5 @@ C:\Users\hp\ProgramacionII\EcoTrackBackend\obj\Debug\net8.0\refint\EcoTrackBacke
 C:\Users\hp\ProgramacionII\EcoTrackBackend\obj\Debug\net8.0\EcoTrackBackend.pdb
 C:\Users\hp\ProgramacionII\EcoTrackBackend\obj\Debug\net8.0\EcoTrackBackend.genruntimeconfig.cache
 C:\Users\hp\ProgramacionII\EcoTrackBackend\obj\Debug\net8.0\ref\EcoTrackBackend.dll
+C:\Users\hp\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Frontend\asset-manifest.json
+C:\Users\hp\ProgramacionII\EcoTrackBackend\bin\Debug\net8.0\Frontend\manifest.json

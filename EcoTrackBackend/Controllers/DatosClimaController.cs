@@ -42,7 +42,7 @@ namespace EcoTrack.Controllers
                                   ? weatherResponse.weather[0].description 
                                   : "Descripción no disponible",
                     
-                    IndiceUV = 6, 
+                    IndiceUV = 4, 
                     RecomendacionUV = "N/A" 
                 };
 

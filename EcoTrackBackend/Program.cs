@@ -3,6 +3,8 @@ using Microsoft.OpenApi.Models;
 using EcoTrack;
 using EcoTrack.Models;
 using EcoTrackBackend.Services;
+using Microsoft.Extensions.FileProviders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,25 +45,21 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Configura la URL de la aplicación
-builder.WebHost.UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("PORT"));
+builder.Services.AddControllers();  // Esto es para tus rutas de la API
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader());
-});
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// Sirve archivos estáticos desde la carpeta 'Frontend'
+app.UseFileServer(new FileServerOptions
 {
-    app.UseDeveloperExceptionPage();
-}
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Frontend")),
+    RequestPath = "",
+    EnableDefaultFiles = true
+});
 
-app.UseCors("AllowAllOrigins");
-app.UseAuthorization();
-app.MapControllers(); 
+app.UseRouting();
+app.MapControllers();  // Mapea tus rutas del backend
 
 
 app.UseSwagger();
