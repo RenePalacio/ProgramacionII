@@ -1,91 +1,79 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; // Esta línea es necesaria
-using EcoTrack.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using EcoTrack.Models;
+using EcoTrackBackend.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcoTrack.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class DatosClimaController : ControllerBase
     {
-        private readonly EcoTrackDbContext _context;
+        public readonly WeatherService _weatherService;
+        public readonly EcoTrackDbContext _context;
 
-        public DatosClimaController(EcoTrackDbContext context)
+        public DatosClimaController(WeatherService weatherService, EcoTrackDbContext context)
         {
+            _weatherService = weatherService;
             _context = context;
         }
 
-        // GET: api/datosclima
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatosClima>>> GetDatosClima()
-        {
-            return Ok(await _context.DatosClima.ToListAsync());
-        }
-
-        // GET: api/datosclima/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DatosClima>> GetDatosClima(int id)
-        {
-            var datosClima = await _context.DatosClima.FindAsync(id);
-            if (datosClima == null)
-            {
-                return NotFound();
-            }
-            return Ok(datosClima);
-        }
-
-        // POST: api/datosclima
         [HttpPost]
-        public async Task<ActionResult<DatosClima>> PostDatosClima(CreateDatosClimaDto datosClimaDto)
+        public async Task<ActionResult<DatosClima>> CrearDatosClima([FromBody] CreateDatosClimaDto dto)
         {
-            var datosClima = new DatosClima
+            if (!ModelState.IsValid)
             {
-                IdActividad = datosClimaDto.IdActividad,
-                Temperatura = datosClimaDto.Temperatura,
-                RayosUV = datosClimaDto.RayosUV,
-                ProbabilidadLluvia = datosClimaDto.ProbabilidadLluvia,
-                CalidadAire = datosClimaDto.CalidadAire,
-                Polvo = datosClimaDto.Polvo
-            };
-            await _context.DatosClima.AddAsync(datosClima);
-            await _context.SaveChangesAsync();
+                return BadRequest(ModelState);
+            }
 
-            return CreatedAtAction(nameof(GetDatosClima), new { id = datosClima.IdDatosClima }, datosClima);
+            try
+            {
+                // Obtener datos del clima
+                var weatherResponse = await _weatherService.GetWeatherData(dto.Latitude, dto.Longitude);
+
+                // Crear el nuevo objeto DatosClima
+                var datosClima = new DatosClima
+                {
+                    IdActividad = dto.IdActividad,
+                    Temperatura = weatherResponse.main.temp,
+                    Humedad = weatherResponse.main.humidity,
+                    Descripcion = weatherResponse.weather.Length > 0 
+                                  ? weatherResponse.weather[0].description 
+                                  : "Descripción no disponible",
+                    // Asigna valores para IndiceUV y RecomendacionUV si están disponibles,
+                    // o asigna valores predeterminados
+                    IndiceUV = 0, // Cambia esto si tienes datos para UV
+                    RecomendacionUV = "N/A" // Cambia esto si tienes lógica para recomendaciones UV
+                };
+
+                await _context.DatosClima.AddAsync(datosClima);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(CrearDatosClima), new { id = datosClima.IdDatosClima }, datosClima);
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(503, $"Error al obtener datos del clima: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
         }
 
-        // PUT: api/datosclima/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDatosClima(int id, CreateDatosClimaDto datosClimaDto)
+        [HttpGet("{idActividad}")]
+        public async Task<ActionResult<DatosClima>> GetDatosClima(int idActividad)
         {
-            var datosClima = await _context.DatosClima.FindAsync(id);
+            var datosClima = await _context.DatosClima
+                .FirstOrDefaultAsync(dc => dc.IdActividad == idActividad);
+
             if (datosClima == null)
             {
-                return NotFound();
+                return NotFound("Datos climáticos no encontrados para esta actividad.");
             }
-            datosClima.Temperatura = datosClimaDto.Temperatura;
-            datosClima.RayosUV = datosClimaDto.RayosUV;
-            datosClima.ProbabilidadLluvia = datosClimaDto.ProbabilidadLluvia;
-            datosClima.CalidadAire = datosClimaDto.CalidadAire;
-            datosClima.Polvo = datosClimaDto.Polvo;
-            await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        // DELETE: api/datosclima/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDatosClima(int id)
-        {
-            var datosClima = await _context.DatosClima.FindAsync(id);
-            if (datosClima == null)
-            {
-                return NotFound();
-            }
-            _context.DatosClima.Remove(datosClima);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(datosClima);
         }
     }
 }

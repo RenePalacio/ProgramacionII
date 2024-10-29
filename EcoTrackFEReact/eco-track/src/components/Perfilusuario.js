@@ -1,10 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './styles.css';
 
 const Perfilusuario = () => {
   const [view, setView] = useState('profile');
-  const navigate = useNavigate(); // Usa el hook para navegar
+  const navigate = useNavigate();
+  const [usuario, setUsuario] = useState({
+    nombre: localStorage.getItem('nombre') || '',
+    email: localStorage.getItem('email') || ''
+  });
+  const [selectedAvatar, setSelectedAvatar] = useState(
+    localStorage.getItem('selectedAvatar') || null
+  );
+  const [avatarIndex, setAvatarIndex] = useState(0);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+
+  const defaultAvatars = [
+    'https://i.ibb.co/m4pNnPQ/conejo1.png',
+    'https://i.ibb.co/ZKzzkS8/conejo2.png',
+    'https://i.ibb.co/yYvjtwX/conejo3.png',
+    'https://i.ibb.co/sqf0Q76/conejo4.png',
+    'https://i.ibb.co/9ndh3Bw/conejo5.png',
+    'https://i.ibb.co/5vJ20hf/conejo6.png',
+    'https://i.ibb.co/jz7rHd1/conejo7.png',
+    'https://i.ibb.co/QFC8p2J/conejo8.png',
+    'https://i.ibb.co/xfwf6SS/conejo9.png'
+  ];
 
   // Función para crear copos de nieve
   const crearCoposDeNieve = (cantidad) => {
@@ -31,25 +54,91 @@ const Perfilusuario = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const idUsuario = localStorage.getItem('idUsuario');
+    if (!idUsuario) {
+      navigate('/Error');
+      return;
+    }
+
+    const fetchUserName = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/Usuario/${idUsuario}`);
+        setUsuario({
+          nombre: response.data.nombre || 'Nombre no disponible',
+          email: response.data.email || 'Email no disponible'
+        });
+      } catch (error) {
+        console.error('Error al obtener los datos del usuario', error);
+        navigate('/Error');
+      }
+    };
+
+    fetchUserName();
+  }, [navigate]);
+
   const handleNavigation = (screen) => {
     if (screen === 'ubicacion') {
-      navigate('/ubicacion'); // Redirige a la vista de ubicación
+      navigate('/ubicacion');
     } else {
       setView(screen);
     }
   };
 
+  const handleAvatarChange = (direction) => {
+    const newIndex = avatarIndex + direction * 3;
+    if (newIndex >= 0 && newIndex < defaultAvatars.length) {
+      setAvatarIndex(newIndex);
+    }
+  };
+
+  const handleAvatarSelect = (avatar) => {
+    setSelectedAvatar(avatar);
+    localStorage.setItem('selectedAvatar', avatar);
+  };
+
+  const handleSave = async () => {
+    const idUsuario = localStorage.getItem('idUsuario');
+
+    // Validaciones para asegurarte de que los campos no estén vacíos
+    if (!usuario.nombre.trim() || !usuario.email.trim()) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
+    const userData = {
+      nombre: usuario.nombre.trim(),
+      email: usuario.email.trim(),
+    };
+
+    console.log('Datos a enviar:', userData);
+
+    try {
+      await axios.put(`http://localhost:5000/api/Usuario/${idUsuario}`, userData);
+      localStorage.setItem('nombre', usuario.nombre);
+      localStorage.setItem('email', usuario.email);
+      setAlertMessage('Usuario editado con éxito.'); // Mensaje de éxito
+      setShowAlert(true); // Mostrar alerta
+      setTimeout(() => {
+        setShowAlert(false);
+        handleNavigation('profile'); // Navegar después de mostrar la alerta
+      }, 3000); // Desaparecer la alerta después de 3 segundos
+    } catch (error) {
+      console.error('Error al guardar los datos del usuario', error.response?.data || error);
+      alert('Error al guardar los datos. Por favor intenta nuevamente.');
+    }
+  };
+
   return (
-    <div className="profile-page"> {/* Este div envuelve todo y centra */}
-      <div className="snow-container"> {/* Contenedor para los copos de nieve */} 
-      </div>
+    <div className="profile-page">
+      <div className="snow-container"></div>
       {view === 'profile' && (
         <div className="profile-container">
           <div className="profile-info">
-            <img src="https://i.pinimg.com/564x/06/21/15/062115336c044f8164556d28a615678b.jpg" alt="Profile" className="profile-pic" />
+            <img src={selectedAvatar || defaultAvatars[0]} alt="Profile" className="profile-pic" />
             <div className="profile-details">
-              <h2 className="nombre">nombre</h2>
-              <p className="email">example@gmail.com</p>
+              <h2 className="nombre">{usuario.nombre}</h2>
+              <p className="email">{usuario.email}</p>
             </div>
           </div>
           <div className="profile-actions">
@@ -62,29 +151,64 @@ const Perfilusuario = () => {
       {view === 'editProfile' && (
         <div className="edit-profile-container">
           <h2>Editar Perfil</h2>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div>
               <label>Nombre de usuario:</label>
-              <input type="text" placeholder="nombre" />
+              <input
+                type="text"
+                value={usuario.nombre}
+                onChange={(e) => setUsuario({ ...usuario, nombre: e.target.value })}
+              />
             </div>
             <div>
-              <label>Biografía:</label>
-              <textarea placeholder="Escribe tu biografía aquí"></textarea>
+              <label>Email:</label>
+              <input
+                type="text"
+                value={usuario.email}
+                onChange={(e) => setUsuario({ ...usuario, email: e.target.value })}
+              />
             </div>
             <div>
-              <label>Contraseña:</label>
-              <input type="password" placeholder="********" />
+              <label>Selecciona un avatar:</label>
+              <div className="avatar-selection">
+                <button type="button" onClick={() => handleAvatarChange(-1)} className="avatar-button">❮</button>
+                <div className="avatar-options">
+                  {defaultAvatars.slice(avatarIndex, avatarIndex + 3).map((avatar, index) => (
+                    <img
+                      key={index}
+                      src={avatar}
+                      alt={`Avatar ${index + 1}`}
+                      className={`avatar-option ${selectedAvatar === avatar ? 'selected' : ''}`}
+                      onClick={() => handleAvatarSelect(avatar)}
+                    />
+                  ))}
+                </div>
+                <button type="button" onClick={() => handleAvatarChange(1)} className="avatar-button">❯</button>
+              </div>
             </div>
             <div className="profile-actions">
-              <button type="button" className="profile-btn" onClick={() => handleNavigation('profile')}>Guardar</button>
+              <button type="button" className="profile-btn" onClick={handleSave}>Guardar</button>
               <button type="button" className="profile-btn" onClick={() => handleNavigation('profile')}>Cancelar</button>
             </div>
           </form>
         </div>
       )}
 
-      <footer className="footer1">
-        <span>© SummerTime Coders</span>
+      {showAlert && (
+        <div className="custom-alert-overlay-editprofile">
+          <div className="custom-alert-content-editprofile">
+            <p>{alertMessage}</p>
+          </div>
+        </div>
+      )}
+
+      <footer className="footerprofile">
+        <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
+        <span>
+          <a href="/politicadeuso" style={{ color: 'black', textDecoration: 'none', marginLeft: '10px' }}>
+            Políticas de Uso
+          </a>
+        </span>
       </footer>
     </div>
   );

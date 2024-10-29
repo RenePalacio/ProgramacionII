@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';  // Importa axios para hacer la solicitud POST
-import { useNavigate } from 'react-router-dom';  // Importa useNavigate para redirecciones
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
-// Agregar los estilos de fuente
 const link = document.createElement('link');
-link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap';
+link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap'; 
 link.rel = 'stylesheet';
 document.head.appendChild(link);
 
@@ -14,71 +13,51 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState(null); // Estado para manejar errores
+    const [loading, setLoading] = useState(false); // Estado para manejar la carga
+    const [alertMessage, setAlertMessage] = useState(''); // Mensaje de alerta
+    const [showAlert, setShowAlert] = useState(false); // Estado para mostrar la alerta
+    
+    const navigate = useNavigate();
 
-    // Definir estado para la actividad
-    const [actividad, setActividad] = useState({
-        idTipoActividad: '',
-        ubicacion: '', 
-        fecha: '',
-        duracion: '',
-        hora: '',
-        notas: '',
-        color: '#ffffff',
-    });
-
-    const navigate = useNavigate();  // Definir navigate para redirección
-    const idUsuario = localStorage.getItem('idUsuario') || '1';  // Definir idUsuario desde localStorage
+    useEffect(() => {
+        document.body.classList.add('estilo1');
+        return () => {
+            document.body.classList.remove('estilo1');
+        };
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validar que todos los campos requeridos estén presentes
-        if (!actividad.idTipoActividad || !actividad.ubicacion || !actividad.fecha || !actividad.hora || !actividad.duracion) {
-            console.error('Todos los campos requeridos deben ser llenados.');
+        if (password !== confirmPassword) {
+            setError('Las contraseñas no coinciden.');
             return;
         }
 
-        // Formatear la fecha y hora para enviarlas al backend
-        const fechaFormateada = actividad.fecha;  // El input de tipo 'date' ya proporciona la fecha en el formato adecuado
-        const horaFormateada = `${actividad.hora}:00`;  // Añadir ':00' para los segundos
-
-        const actividadData = {
-            idTipoActividad: Number(actividad.idTipoActividad),  // Asegúrate de que sea un número
-            ubicacion: actividad.ubicacion,  // Ubicación ya en formato string
-            fecha: fechaFormateada,  // Enviar la fecha en formato 'YYYY-MM-DD'
-            duracion: Number(actividad.duracion),  // Convertir duración a número
-            hora: horaFormateada,  // Enviar la hora en formato 'HH:mm:ss'
-            notas: actividad.notas,
-            idUsuario: Number(idUsuario),  // Convertir a número
-        };
+        const newUser = { nombre, email, password };
 
         try {
-            // Enviar la solicitud POST al backend
-            const response = await axios.post('http://localhost:5000/api/actividad', actividadData);
-            console.log('Actividad creada:', response.data);
-
-            // Guardar el color en localStorage usando el ID de la actividad
-            localStorage.setItem(`actividadColor_${response.data.idActividad}`, actividad.color);
-
-            // Reiniciar el formulario después de enviar
-            setActividad({
-                idTipoActividad: '',
-                ubicacion: '',
-                fecha: '',
-                duracion: '',
-                hora: '',
-                notas: '',
-                color: '#ffffff',
-            });
-
-            // Navegar a la página de inicio
-            navigate('/home');
-        } catch (error) {
-            console.error('Datos enviados:', actividadData);
-            console.error('Error al crear actividad', error.response?.data || error.message);
-            if (error.response?.data?.errors) {
-                console.error('Errores de validación:', error.response.data.errors);
+            setLoading(true); // Iniciar la carga
+            const checkResponse = await axios.post('http://localhost:5000/api/Usuario/check-email', { email });
+            if (checkResponse.data.exists) {
+                setError('El correo electrónico ya está vinculado a una cuenta.');
+                return;
             }
+
+            const response = await axios.post('http://localhost:5000/api/Usuario', newUser);
+            console.log('Usuario creado:', response.data);
+            setAlertMessage('Usuario creado con éxito.'); // Mensaje de éxito
+            setShowAlert(true); // Mostrar alerta
+            setTimeout(() => {
+                setShowAlert(false);
+                navigate('/'); // Navegar después de mostrar la alerta
+            }, 3000); // Desaparecer la alerta después de 3 segundos
+        } catch (error) {
+            console.error('Error al registrar el usuario', error.response?.data || error.message);
+            setError('Hubo un error en el registro.');
+        } finally {
+            setLoading(false); // Finalizar la carga
         }
     };
 
@@ -98,7 +77,7 @@ const Register = () => {
                     <input
                         type="text"
                         placeholder="Nombre Completo"
-                        className="input-field2"
+                        className="input-field"
                         required
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
@@ -108,7 +87,7 @@ const Register = () => {
                     <input
                         type="email"
                         placeholder="Correo Electrónico"
-                        className="input-field2"
+                        className="input-field"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -118,7 +97,7 @@ const Register = () => {
                     <input
                         type="password"
                         placeholder="Contraseña"
-                        className="input-field2"
+                        className="input-field"
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -128,7 +107,7 @@ const Register = () => {
                     <input
                         type="password"
                         placeholder="Confirmar Contraseña"
-                        className="input-field2"
+                        className="input-field"
                         required
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -138,15 +117,32 @@ const Register = () => {
                     type="submit"
                     className="login-button"
                     style={{ width: '95%' }}
+                    disabled={loading} // Deshabilitar el botón si está cargando
                 >
-                    Registrar
+                    {loading ? 'Registrando...' : 'Registrar'}
                 </button>
+                {error && <p className="error-message-register">{error}</p>} {/* Mensaje de error */}
             </form>
+
+            <p className="login-prompt">
+                ¿Ya tienes una cuenta? <a href="/">Inicia Sesión</a>
+            </p>
 
             <div className="cloud cloud1"></div>
             <div className="cloud cloud2"></div>
             <div className="cloud cloud3"></div>
             <div className="cloud cloud4"></div>
+            <footer className="footer1">
+                <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
+            </footer>
+
+            {showAlert && (
+                <div className="custom-alert-overlay-register">
+                    <div className="custom-alert-content-register">
+                        <p>{alertMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

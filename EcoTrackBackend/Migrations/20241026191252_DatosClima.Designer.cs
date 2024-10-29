@@ -4,6 +4,7 @@ using EcoTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoTrackBackend.Migrations
 {
     [DbContext(typeof(EcoTrackDbContext))]
-    partial class EcoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026191252_DatosClima")]
+    partial class DatosClima
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,28 +74,23 @@ namespace EcoTrackBackend.Migrations
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("FechaHora")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Humedad")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Humedad")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdActividad")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("IndiceUV")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("IndiceUV")
+                        .HasColumnType("float");
 
                     b.Property<string>("RecomendacionUV")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
-                    b.Property<decimal>("Temperatura")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Temperatura")
+                        .HasColumnType("float");
 
                     b.HasKey("IdDatosClima");
 

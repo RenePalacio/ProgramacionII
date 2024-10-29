@@ -19,7 +19,8 @@ namespace EcoTrack.Models
     // Propiedades de navegación
     public virtual Usuario? Usuario { get; set; }
     public virtual TipoActividad? TipoActividad { get; set; }
-    public virtual ICollection<DatosClima>? DatosClima { get; set; } // Asegúrate de que esta línea esté presente
+    public virtual ICollection<DatosClima>? DatosClima { get; set; }
+ // Asegúrate de que esta línea esté presente
 }
 
 }

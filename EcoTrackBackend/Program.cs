@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using EcoTrack;
-using EcoTrackBackend.Services; // Asegúrate de importar el espacio de nombres para OpenUvService
+using EcoTrack.Models;
+using EcoTrackBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +12,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000", "https://ecotrackprueba.vercel.app") // Permitir solo este origen
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
+            builder.WithOrigins("http://localhost:3000", "https://ecotrackprueba.vercel.app")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials(); // Permite credenciales
         });
 });
 
@@ -21,22 +23,28 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<EcoTrackDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("EcoTrackDbContext"),
-        new MySqlServerVersion(new Version(8, 0, 25)) // Asegúrate de usar la versión correcta de MySQL
+        new MySqlServerVersion(new Version(8, 0, 25))
     ));
 
-builder.Services.AddControllers(); // Asegúrate de que esta línea está presente
+// Registro de servicios
+builder.Services.AddHttpClient<ApiService>();
+builder.Services.AddTransient<WeatherService>();
+builder.Services.AddHostedService<NotificacionService>();
 
-// Registro del servicio de las api
-builder.Services.AddHttpClient<ApiService>(); // Registra ApiService
-builder.Services.AddScoped<WeatherService>(); // Registra WeatherService
-builder.Services.AddHttpClient<OpenUvService>(); // Añade esta línea para registrar OpenUvService
+
+// Agregar SignalR
+builder.Services.AddSignalR();
+
+builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcoTrack API", Version = "v1" });
 });
 
+// Configura la URL de la aplicación
 builder.WebHost.UseUrls("http://localhost:5000");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -44,10 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowAllOrigins"); // Asegúrate de que esté antes de UseAuthorization
 app.UseAuthorization();
+app.MapControllers(); // Asegúrate de que los controladores están mapeados
 
-app.MapControllers();
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcoTrack API v1"));

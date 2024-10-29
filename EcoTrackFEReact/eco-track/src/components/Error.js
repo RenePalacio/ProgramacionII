@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css'; // Importa el archivo CSS
 
-const ErrorPage = () => {
+const ErrorPage = ({ userId }) => { // Asegúrate de que userId se pase como prop
   const [showGif, setShowGif] = useState(false); // Estado para controlar la visibilidad del GIF
 
   const handleBackToHome = () => {
@@ -41,7 +41,7 @@ const ErrorPage = () => {
                 alt="GIF de rana saltando" 
                 className="error-gif-overlay"
             />
-            )}
+          )}
           <img 
             src="https://i.ibb.co/Gv15Z18/af3f8cdc9e6261c2dddf89631b266cb5-junco-plano-de-planta-aqua-tica.webp" 
             alt="Planta 1" 
@@ -51,9 +51,11 @@ const ErrorPage = () => {
         </div>
       </div>
       
-      <footer className="footer">
-        <span>© SummerTime Coders</span>
-      </footer>
+      <footer className="footer1">
+                    <span>© 2024 SummerTime Coders. Todos los derechos reservados.</span>
+                    
+                </footer>
+
     </div>
   );
 };

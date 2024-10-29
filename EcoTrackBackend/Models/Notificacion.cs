@@ -6,10 +6,8 @@ namespace EcoTrack.Models
     public class Notificacion
     {
         [Key]
+        
         public int IdNotificacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
 
         [Required]
         public int IdActividad { get; set; }
