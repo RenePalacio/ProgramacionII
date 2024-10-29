@@ -8,14 +8,15 @@ const Home = () => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [activities, setActivities] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [greeting, setGreeting] = useState('');
     const [advice, setAdvice] = useState('');
     const [weatherData, setWeatherData] = useState(null);
     const [userName, setUserName] = useState('Usuario');
-    const [isFlipped, setIsFlipped] = useState(false); // Estado para controlar la rotación de la tarjeta
-
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [userAvatar, setUserAvatar] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [alertColor, setAlertColor] = useState('#ffffff');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -66,6 +67,13 @@ const Home = () => {
         }
     }, [userName]);
 
+    useEffect(() => {
+        const avatar = localStorage.getItem('selectedAvatar');
+        if (avatar) {
+            setUserAvatar(avatar);
+        }
+    }, []);
+
     const fetchWeatherForSelectedTask = async () => {
         if (selectedTask?.idActividad) {
             const savedLocation = JSON.parse(localStorage.getItem('savedLocation'));
@@ -74,7 +82,7 @@ const Home = () => {
                 try {
                     const response = await axios.get(`http://localhost:5000/api/DatosClima/${selectedTask.idActividad}`);
                     setWeatherData(response.data);
-                    alert('Datos climáticos recuperados de la base de datos.');
+                    showAlertWithMessage('Datos climáticos recuperados de la base de datos.');
                 } catch (error) {
                     console.error('Error al obtener datos climáticos de la base de datos:', error);
                     const { lat, lon } = savedLocation;
@@ -86,19 +94,26 @@ const Home = () => {
                             Longitude: lon,
                         });
                         setWeatherData(response.data);
-                        alert('Datos climáticos obtenidos con éxito.');
+                        showAlertWithMessage('Datos climáticos obtenidos con éxito.');
                     } catch (error) {
                         console.error('Error al obtener datos climáticos:', error);
-                        alert('Error al obtener datos climáticos.');
+                        showAlertWithMessage('Error al obtener datos climáticos.');
                     }
                 }
             } else {
-                alert("Debes guardar una ubicación antes de obtener datos climáticos.");
+                showAlertWithMessage("Debes guardar una ubicación antes de obtener datos climáticos.");
             }
         } else {
-            alert("Debe seleccionar una actividad antes de obtener el clima.");
+            showAlertWithMessage("Debe seleccionar una actividad antes de obtener el clima.");
         }
     };
+        // Agrega este estado al inicio del componente
+        const [cloudCount, setCloudCount] = useState(0); // Estado para el número de nubes
+
+        // Agrega este useEffect para establecer la cantidad de nubes según las actividades
+        useEffect(() => {
+            setCloudCount(activities.length > 0 ? Math.min(activities.length, 10) : 0);
+        }, [activities]);
 
     const openPopup = (task) => {
         setSelectedTask({
@@ -121,7 +136,7 @@ const Home = () => {
         setShowPopup(false);
         setSelectedTask(null);
         setWeatherData(null);
-        setIsFlipped(false); // Resetear el flip al cerrar el popup
+        setIsFlipped(false);
     };
 
     const handleEdit = () => {
@@ -130,8 +145,10 @@ const Home = () => {
     };
 
     const handleDeleteConfirmation = () => {
-        setAlertMessage('¿Estás seguro de que deseas eliminar esta actividad?');
-        setShowAlert(true);
+        const color = selectedTask ? selectedTask.color : '#ffffff';
+        setAlertColor(color);
+        showAlertWithMessage('¿Estás seguro de que deseas eliminar esta actividad?');
+        setShowConfirmation(true);
     };
 
     const handleDelete = async () => {
@@ -142,16 +159,28 @@ const Home = () => {
             setActivities(prevActivities => 
                 prevActivities.filter(task => task.idActividad !== selectedTask.idActividad)
             );
-            setShowAlert(false);
-            setShowSuccess(true);
+            handleAlertClose();
             closePopup();
+            showAlertWithMessage('Actividad eliminada con éxito.');
         } catch (error) {
-            alert('Error al eliminar la actividad.');
+            console.error('Error al eliminar la actividad:', error);
+            showAlertWithMessage('Error al eliminar la actividad.');
         }
     };
 
-    const toggleFlip = () => {
-        setIsFlipped(!isFlipped);
+    const handleAlertClose = () => {
+        setShowAlert(false);
+        setShowConfirmation(false);
+    };
+
+    
+
+    const showAlertWithMessage = (message) => {
+        setAlertMessage(message);
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 3000);
     };
 
     const getUvRecommendation = (uvIndex) => {
@@ -168,30 +197,39 @@ const Home = () => {
         }
     };
 
-    const showActivity = () => {
-        setIsFlipped(false);
+    const weatherImages = {
+        "cielo despejado": "https://i.ibb.co/pKp3H4H/sun.png",
+        "pocas nubes": "https://i.ibb.co/mSBrFr0/weather.png",
+        "nubes dispersas": "https://i.ibb.co/0ZwxD8b/sun-1.png",
+        "nubes rotas": "https://i.ibb.co/L6h5Rhr/cloud.png",
+        "lluvia": "https://i.ibb.co/tpQHBTZ/rainy-day.png",
+        "tormenta eléctrica": "https://i.ibb.co/2Z6k0Y9/rainy.png",
+        "nieve": "https://i.ibb.co/wz32MSP/snow.png",
+        "niebla": "https://i.ibb.co/VtmXm4f/mist.png",
+        "lluvia ligera": "https://i.ibb.co/8DVyWw8/weather-1.png",
+        "nublado": "https://i.ibb.co/CszDjV9/414825.png",
+        "neblina": "https://i.ibb.co/5KmWDwn/haze.png",
+    };
+    const activityImages = {
+        "Aer�bicos": "https://i.ibb.co/Yd7R1bb/squats.png",
+        "Escalada": "https://i.ibb.co/42kQ5kp/rock.png",
+        "Baile": "https://i.ibb.co/wWhVPwQ/traditional-dance.png",
+        "Senderismo": "https://i.ibb.co/Lhy7gYJ/hiking.png",
+        "Pilates": "https://i.ibb.co/smg9KBV/pilates.png",
+        "Entrenamiento de fuerza": "https://i.ibb.co/dWqHNfN/fitness.png",
+        "Yoga": "https://i.ibb.co/HVqF5Md/meditation.png",
+        "Ciclismo": "https://i.ibb.co/WcRNWQ9/bike.png",
+        "Nadar": "https://i.ibb.co/sKtH5s2/swimming.png",
+        "Correr": "https://i.ibb.co/30Gd00M/running.png",
     };
     
-    const showClimate = () => {
-        setIsFlipped(true);
-    };
 
-    const [userAvatar, setUserAvatar] = useState(null); // Almacenará la URL del avatar
-
-    useEffect(() => {
-        const avatar = localStorage.getItem('selectedAvatar');
-        if (avatar) {
-            setUserAvatar(avatar);
-        }
-    }, []);
-
-    // Determinar la clase CSS y la imagen a usar
     const avatarClass = userAvatar ? 'welcome-icon2' : 'welcome-icon';
     const defaultImage = "https://i.ibb.co/8PRP6Qd/dfca5d490a29f43b59c25d1b1acc94ee-removebg-preview.png";
 
     return (
         <div className="home-page">
-            <div className={`welcome-section`}>
+            <div className="welcome-section">
                 <div className={avatarClass}>
                     {userAvatar ? (
                         <img src={userAvatar} alt="Avatar del usuario" />
@@ -248,62 +286,71 @@ const Home = () => {
                                 <button 
                                     id="activityButton" 
                                     className={!isFlipped ? 'active' : ''} 
-                                    onClick={showActivity}
+                                    onClick={() => setIsFlipped(false)}
                                 >
                                     Actividad
                                 </button>
                                 <button 
                                     id="climateButton" 
                                     className={isFlipped ? 'active' : ''} 
-                                    onClick={showClimate}
+                                    onClick={() => setIsFlipped(true)}
                                 >
                                     Clima
                                 </button>
                             </div>
-                            <div className={`popup-inner ${isFlipped ? 'flipped' : ''}`} id="popupInner">
+                            <div className={`popup-inner ${isFlipped ? 'flipped' : ''}`}>
                                 <div className="popup-front">
-                                    <h4>{selectedTask.nombreActividad || 'Nombre no disponible'}</h4>
+                                <h4 className='popup-h4A'>{selectedTask.nombreActividad || 'Nombre no disponible'}</h4>
+                                    <img 
+                                        src={activityImages[selectedTask?.nombreActividad]} 
+                                        alt={selectedTask?.nombreActividad} 
+                                        className="activity-icon" 
+                                    />
                                     <div className="popup-table">
                                         <div className="popup-row">
-                                            <div className="popup-cell">Hora:</div>
-                                            <div className="popup-cell">{selectedTask.hora || 'No disponible'}</div>
+                                            <div className="popup-cell"><strong>Hora</strong>: {selectedTask.hora || 'No disponible'}</div>
                                         </div>
                                         <div className="popup-row">
-                                            <div className="popup-cell">Ubicación:</div>
-                                            <div className="popup-cell">{selectedTask.ubicacion || 'No disponible'}</div>
+                                            <div className="popup-cell"><strong>Ubicación:</strong> {selectedTask.ubicacion || 'No disponible'}</div>
                                         </div>
                                         <div className="popup-row">
-                                            <div className="popup-cell">Fecha:</div>
-                                            <div className="popup-cell">{selectedTask.fecha || 'No disponible'}</div>
+                                            <div className="popup-cell"><strong>Fecha:</strong> {selectedTask.fecha || 'No disponible'}</div>
                                         </div>
                                         <div className="popup-row">
-                                            <div className="popup-cell">Duración:</div>
-                                            <div className="popup-cell">{selectedTask.duracion || 'No disponible'}</div>
+                                            <div className="popup-cell"><strong>Duración:</strong> {selectedTask.duracion || 'No disponible'}</div>
                                         </div>
                                         <div className="popup-row">
-                                            <div className="popup-cell">Notas:</div>
-                                            <div className="popup-cell">{selectedTask.notas || 'No disponible'}</div>
+                                            <div className="popup-cell"><strong>Notas:</strong> {selectedTask.notas || 'No disponible'}</div>
                                         </div>
                                     </div>
                                     <div className="popup-buttons">
-                                        <button className="popup-edit-btn" onClick={handleEdit}>Editar</button>
-                                        <button className="popup-delete-btn" onClick={handleDeleteConfirmation}>Eliminar</button>
+                                        <button className="edit-task-btn" onClick={handleEdit}>Editar</button>
+                                        <button className="delete-task-btn" onClick={handleDeleteConfirmation}>Eliminar</button>
                                     </div>
                                 </div>
                                 <div className="popup-back">
-                                    <h4>Datos Climáticos</h4>
+                                    <h4 className='popup-h4C'>Datos Climáticos</h4>
                                     {weatherData ? (
                                         <div className="weather-data">
-                                            <p>Temperatura: {weatherData.temperature}°C</p>
-                                            <p>Humedad: {weatherData.humidity}%</p>
-                                            <p>Viento: {weatherData.wind} km/h</p>
-                                            <p>Índice UV: {weatherData.uvIndex}</p>
-                                            <p>{getUvRecommendation(weatherData.uvIndex)}</p>
+                                            <img 
+                                                src={weatherImages[weatherData?.descripcion]} 
+                                                alt={weatherData.descripcion} 
+                                                className="weather-icon" 
+                                            />
+                                            <p className='p-temp'><strong>Temperatura:</strong></p>
+                                            <p className='p2-cell' style={{ fontSize: '42px' }}>
+                                                {weatherData?.temperatura !== undefined ? `${weatherData.temperatura} °C` : 'No disponible'}
+                                            </p>
+                                            <p className='p-desc'><strong>Descripción:</strong> {weatherData?.descripcion || 'No disponible'}</p>
+                                            <p className='p-hum'><strong>Humedad:</strong></p>
+                                            <p className='p2-cell' style={{ fontSize: '42px' }}>{weatherData?.humedad !== undefined ? `${weatherData.humedad}%` : 'No disponible'}</p>
+                                            <p className='p-uv'><strong>Índice UV:</strong> {weatherData?.indiceUV !== undefined ? weatherData.indiceUV : 'No disponible'}</p>
+                                            <p className='p-uv2'><strong>Recomendación UV:</strong> {weatherData?.indiceUV !== undefined ? getUvRecommendation(weatherData.indiceUV) : 'No disponible'}</p>
                                         </div>
                                     ) : (
-                                        <p>No se encontraron datos climáticos.</p>
+                                        <p className='p1'>No se encontraron datos climáticos.</p>
                                     )}
-                                    <button className="fetch-weather-btn" onClick={fetchWeatherForSelectedTask}>Obtener datos climáticos</button>
+                                    <button className="api-task-btn" onClick={fetchWeatherForSelectedTask}>Obtener datos climáticos</button>
                                 </div>
                             </div>
                         </div>
@@ -311,24 +358,28 @@ const Home = () => {
                 </div>
             )}
 
-            {showAlert && (
-                <div className="alert-overlay">
-                    <div className="alert">
+            {showConfirmation && (
+                <div className="custom-alert-overlay" onClick={handleAlertClose}>
+                    <div className="custom-alert-content" style={{ background: alertColor }} onClick={(e) => e.stopPropagation()}>
                         <p>{alertMessage}</p>
-                        <button onClick={() => setShowAlert(false)}>Cancelar</button>
-                        <button onClick={handleDelete}>Aceptar</button>
+                        <div className="alert-buttons">
+                            <button className="delete-task-btn1"  onClick={handleAlertClose}>Cancelar</button>
+                            <button className="delete-task-btn1"  onClick={handleDelete}>Aceptar</button>
+                        </div>
                     </div>
                 </div>
             )}
 
-            {showSuccess && (
-                <div className="success-overlay">
-                    <div className="success">
-                        <p>Actividad eliminada con éxito.</p>
-                        <button onClick={() => setShowSuccess(false)}>Cerrar</button>
+            {showAlert && (
+                <div className="custom-alert-overlay-home " onClick={handleAlertClose}>
+                    <div className="custom-alert-content-home">
+                        <p>{alertMessage}</p>
                     </div>
                 </div>
             )}
+        {[...Array(cloudCount)].map((_, index) => (
+            <div key={index} className={`cloud cloud${index + 1}`}></div>
+        ))}
         </div>
     );
 };
