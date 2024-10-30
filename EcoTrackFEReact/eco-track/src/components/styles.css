@@ -420,7 +420,7 @@
 
 .welcome-message {
   position: relative;
-  right: 0px;
+  right: -200px;
   text-align: left;
   position: relative; 
   font-size: 20px;
@@ -428,6 +428,8 @@
 
 .welcome-text h2 {
   margin: 10px 0 5px 0;
+  left: 150px;
+  position: relative;
 }
 
 .welcome-text p {
